@@ -15,8 +15,8 @@ export async function launch(shotsDir) {
   let step = 0
   const contexts = []
 
-  /** A fresh "device". `fake` seeds the fake Firebase, `local` seeds other localStorage keys. */
-  async function open({ fake = null, local = {}, width = 390 } = {}) {
+  /** A fresh "device". `fake` seeds the fake Firebase, `local` other localStorage keys; the welcome page is skipped unless `welcomed: false`. */
+  async function open({ fake = null, local = {}, width = 390, welcomed = true } = {}) {
     const context = await browser.newContext({ viewport: { width, height: 844 }, locale: 'uk-UA', acceptDownloads: true })
     await context.grantPermissions(['clipboard-read', 'clipboard-write'], { origin: 'https://qp.test' })
     await context.route('**/*', async (route) => {
@@ -30,7 +30,7 @@ export async function launch(shotsDir) {
         await route.fulfill({ status: 404, body: '' })
       }
     })
-    const seed = { ...local, ...(fake ? { 'fake-fb': JSON.stringify(fake) } : {}) }
+    const seed = { ...(welcomed ? { 'ts-welcomed': 'true' } : {}), ...local, ...(fake ? { 'fake-fb': JSON.stringify(fake) } : {}) }
     if (Object.keys(seed).length) {
       await context.addInitScript((items) => {
         if (sessionStorage.getItem('seeded')) return

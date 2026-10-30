@@ -1,6 +1,8 @@
+import { useEffect } from 'preact/hooks'
 import { useI18n } from '../../core/i18n/I18nProvider.tsx'
 import { LANGS, type Lang } from '../../core/i18n/format.ts'
 import { SCALE_IDS, type ScaleId, type Scales } from '../../core/journal/records.ts'
+import { ATMOSPHERES, FONT_FAMILY, WRITING_FONTS, loadWritingFont, type Atmosphere, type Look } from '../../core/theme/look.ts'
 import { SKINS, resolvedMode, type Theme, type ThemeMode } from '../../core/theme/theme.ts'
 import { Button } from '../../ui/Button.tsx'
 import { Segmented } from '../../ui/Choice.tsx'
@@ -23,10 +25,12 @@ export interface AccountSettings {
 interface SettingsSheetProps {
   open: boolean
   theme: Theme
+  look: Look
   scale: ScaleId
   /** null while entries live only in this browser */
   account: AccountSettings | null
   onTheme: (theme: Theme) => void
+  onLook: (look: Look) => void
   onScale: (scale: ScaleId) => void
   onLang: (lang: Lang) => void
   onSignIn: () => void
@@ -36,7 +40,12 @@ interface SettingsSheetProps {
 /** Look, mood words, language and — when signed in — the entries password. */
 export function SettingsSheet(props: SettingsSheetProps) {
   const { t, lang, messages } = useI18n()
-  const { theme, account } = props
+  const { theme, look, account } = props
+  const atmoHints = messages.atmoHint as Record<Atmosphere, string>
+
+  useEffect(() => {
+    if (props.open) WRITING_FONTS.forEach((font) => void loadWritingFont(font))
+  }, [props.open])
   const mode = resolvedMode(theme.mode)
   const scales = messages.scales as unknown as Scales
 
@@ -72,6 +81,17 @@ export function SettingsSheet(props: SettingsSheetProps) {
       </div>
 
       <div class="settings__group">
+        <p class="label">{t('atmo')}</p>
+        <Segmented<Atmosphere>
+          label={t('atmo')}
+          value={look.atmosphere}
+          onChange={(next) => props.onLook({ ...look, atmosphere: next })}
+          options={ATMOSPHERES.map((id) => ({ value: id, label: t(id) }))}
+        />
+        <p class="settings__hint">{atmoHints[look.atmosphere]}</p>
+      </div>
+
+      <div class="settings__group">
         <p class="label">{t('scaleLbl')}</p>
         <div class="settings__scales">
           {SCALE_IDS.map((id) => {
@@ -84,6 +104,22 @@ export function SettingsSheet(props: SettingsSheetProps) {
             )
           })}
         </div>
+      </div>
+
+      <div class="settings__group">
+        <p class="label">{t('fontLbl')}</p>
+        <div class="settings__fonts">
+          {WRITING_FONTS.map((font, i) => (
+            <button type="button" key={font} class="settings__font" aria-pressed={look.font === font} onClick={() => props.onLook({ ...look, font })}>
+              <b style={{ fontFamily: FONT_FAMILY[font] }}>Аа</b>
+              {messages.fonts[i]}
+            </button>
+          ))}
+        </div>
+        <label class="settings__toggle">
+          <input type="checkbox" checked={look.focus} onChange={(e) => props.onLook({ ...look, focus: e.currentTarget.checked })} />
+          <span>{t('focus')}</span>
+        </label>
       </div>
 
       <div class="settings__group">

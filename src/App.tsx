@@ -1,8 +1,8 @@
 import { useState } from 'preact/hooks'
 import { I18nProvider, useI18n } from './core/i18n/I18nProvider.tsx'
-import type { Lang } from './core/i18n/format.ts'
-import type { ScaleId } from './core/journal/records.ts'
-import type { Theme } from './core/theme/theme.ts'
+import { writeSetting } from './core/settings/storage.ts'
+import { MemoryEntryStore } from './core/store/memoryStore.ts'
+import { readFlag, resolvedMode } from './core/theme/theme.ts'
 import { AuthScreen } from './features/account/AuthScreen.tsx'
 import { KeyScreen } from './features/account/KeyScreen.tsx'
 import { RecoveryCodeScreen } from './features/account/RecoveryCodeScreen.tsx'
@@ -16,6 +16,8 @@ import { TabNav, type Tab } from './features/shell/TabNav.tsx'
 import { useJournal } from './features/shell/useJournal.ts'
 import { usePreferences } from './features/shell/usePreferences.ts'
 import { SupportSheet } from './features/support/SupportSheet.tsx'
+import { WelcomeScreen } from './features/welcome/WelcomeScreen.tsx'
+import { sampleRecords } from './features/welcome/demo.ts'
 import { WriteScreen, type SaveResult } from './features/write/WriteScreen.tsx'
 import { composeRecord, newRecordId, type WriteForm } from './features/write/composeRecord.ts'
 import { Toast } from './ui/Toast.tsx'
@@ -28,28 +30,27 @@ export function App() {
   if (!prefs.messages) return null
   return (
     <I18nProvider lang={prefs.lang} messages={prefs.messages}>
-      <Shell theme={prefs.theme} scale={prefs.scale} onTheme={prefs.setTheme} onScale={prefs.setScale} onLang={prefs.setLang} />
+      <div class="atmo-light" aria-hidden="true" />
+      <Shell prefs={prefs} />
     </I18nProvider>
   )
 }
 
-interface ShellProps {
-  theme: Theme
-  scale: ScaleId
-  onTheme: (theme: Theme) => void
-  onScale: (scale: ScaleId) => void
-  onLang: (lang: Lang) => void
-}
+type Preferences = ReturnType<typeof usePreferences>
 
 function pickGreeting(greetings: readonly string[], date: Date): string {
   return greetings[date.getDate() % greetings.length] ?? ''
 }
 
-function Shell({ theme, scale, onTheme, onScale, onLang }: ShellProps) {
+function Shell({ prefs }: { prefs: Preferences }) {
+  const { theme, look, scale, setTheme: onTheme, setLook: onLook, setScale: onScale, setLang: onLang } = prefs
   const i18n = useI18n()
   const { lang, messages, t } = i18n
   const account = useAccount(lang)
-  const { phase, store } = account
+  const { phase } = account
+  const [welcome, setWelcome] = useState(() => !readFlag('ts-welcomed'))
+  const [demo, setDemo] = useState<MemoryEntryStore | null>(null)
+  const store = demo ?? account.store
   const journal = useJournal(store, i18n, scale)
   const [tab, setTab] = useState<Tab>('write')
   const [questionIndex, setQuestionIndex] = useState(() => new Date().getDate() % messages.prompts.length)
@@ -79,6 +80,37 @@ function Shell({ theme, scale, onTheme, onScale, onLang }: ShellProps) {
     } catch {
       return 'failed'
     }
+  }
+
+  function closeWelcome() {
+    writeSetting('ts-welcomed', true)
+    setWelcome(false)
+    window.scrollTo(0, 0)
+  }
+
+  if (welcome) {
+    return (
+      <div class="app">
+        <WelcomeScreen
+          returning={readFlag('ts-welcomed')}
+          darkNow={resolvedMode(theme.mode) === 'dark'}
+          onToggleDark={() => onTheme({ ...theme, mode: resolvedMode(theme.mode) === 'dark' ? 'light' : 'dark' })}
+          onLang={onLang}
+          onStart={() => {
+            setDemo(null)
+            setTab('write')
+            closeWelcome()
+          }}
+          onDemo={() => {
+            setDemo(new MemoryEntryStore(sampleRecords(messages, lang, Date.now())))
+            setWelcome(false)
+            selectTab('write')
+          }}
+          onSupport={() => setSupportOpen(true)}
+        />
+        <SupportSheet open={supportOpen} onClose={() => setSupportOpen(false)} />
+      </div>
+    )
   }
 
   if (phase.kind === 'signIn') {
@@ -121,8 +153,25 @@ function Shell({ theme, scale, onTheme, onScale, onLang }: ShellProps) {
   const inCloud = phase.kind === 'cloud'
   return (
     <div class="app">
-      <AppHeader appName={t('appName')} settingsLabel={t('settingsBtn')} onOpenSettings={() => setSettingsOpen(true)} />
-      <TabNav current={tab} navLabel={t('navLabel')} labels={{ write: t('tWrite'), path: t('tPath'), share: t('tShare') }} onSelect={selectTab} />
+      {demo && (
+        <p class="demo-bar" role="status">
+          <span>{t('demoBar')}</span>
+          <button
+            type="button"
+            class="link-btn"
+            onClick={() => {
+              setDemo(null)
+              if (!readFlag('ts-welcomed')) setWelcome(true)
+            }}
+          >
+            {t('demoExit')}
+          </button>
+        </p>
+      )}
+      <div class="app__chrome recede">
+        <AppHeader appName={t('appName')} settingsLabel={t('settingsBtn')} onBrand={() => setWelcome(true)} onOpenSettings={() => setSettingsOpen(true)} />
+        <TabNav current={tab} navLabel={t('navLabel')} labels={{ write: t('tWrite'), path: t('tPath'), share: t('tShare') }} onSelect={selectTab} />
+      </div>
       <main>
         {tab === 'write' && (
           <WriteScreen
@@ -130,7 +179,8 @@ function Shell({ theme, scale, onTheme, onScale, onLang }: ShellProps) {
             greeting={pickGreeting(messages.greets, today)}
             question={question}
             scale={scale}
-            localOnly={!inCloud}
+            localOnly={!inCloud && !demo}
+            focusMode={look.focus}
             onNextQuestion={() => setQuestionIndex((i) => i + 1)}
             onToggleQuestion={() => setShowQuestion((v) => !v)}
             onOpenSupport={() => setSupportOpen(true)}
@@ -167,13 +217,19 @@ function Shell({ theme, scale, onTheme, onScale, onLang }: ShellProps) {
           {t('supportLink')}
         </button>
       )}
+      <footer class="app-foot recede">
+        <p>Quiet Page · {t('beta')}</p>
+        <p>{t('freeNote')} {t('feedbackShort')}</p>
+        <button type="button" class="link-btn" onClick={() => setWelcome(true)}>{t('about')}</button>
+      </footer>
       <SupportSheet open={supportOpen} onClose={() => setSupportOpen(false)} />
       <SettingsSheet
         open={settingsOpen}
         theme={theme}
+        look={look}
         scale={scale}
         account={
-          inCloud
+          inCloud && !demo
             ? {
                 email: account.email,
                 askEveryTime: account.security.askEveryTime,
@@ -194,6 +250,7 @@ function Shell({ theme, scale, onTheme, onScale, onLang }: ShellProps) {
             : null
         }
         onTheme={onTheme}
+        onLook={onLook}
         onScale={onScale}
         onLang={onLang}
         onSignIn={() => {

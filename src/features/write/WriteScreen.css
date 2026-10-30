@@ -72,3 +72,6 @@
   font-size: 0.9rem;
   color: var(--muted);
 }
+
+.write__intro, .write__state { display: flex; flex-direction: column; gap: 18px; }
+.write__fields { display: flex; flex-direction: column; gap: 18px; }

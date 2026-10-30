@@ -55,3 +55,23 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
 }
 .link-btn:hover { color: var(--fg); }
 .link-btn--danger { color: color-mix(in srgb, var(--danger) 75%, var(--muted)); }
+
+/* Atmospheres: Тиша = nothing; Дихання = one slow light, 10 s cycle; Фактура = still paper grain */
+.atmo-light {
+  position: absolute; top: 0; left: 0; right: 0; z-index: -1; height: 720px; pointer-events: none; opacity: 0;
+  background: radial-gradient(90% 420px at 50% 140px, color-mix(in srgb, var(--hi) 14%, transparent) 0%, transparent 70%);
+  transition: opacity 1.5s;
+}
+:root[data-atmo="breath"] .atmo-light { opacity: 1; animation: breathe 10s ease-in-out infinite; }
+@keyframes breathe { 0%, 100% { opacity: 0.12; } 50% { opacity: 1; } }
+:root[data-atmo="texture"] body {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 .16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    radial-gradient(130% 520px at 50% -60px, var(--glow-a) 0%, transparent 72%) no-repeat,
+    var(--bg);
+}
+
+/* Focus while writing: the rest of the page quietly recedes */
+.recede { transition: opacity 1.2s ease; }
+body.writing .recede { opacity: 0.06; }
+body.writing .recede-soft { opacity: 0.38; transition: opacity 1.2s ease; }

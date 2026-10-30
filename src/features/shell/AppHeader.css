@@ -16,3 +16,7 @@
 }
 .app-header__mark { display: inline-grid; width: 28px; height: 28px; }
 .app-header__actions { display: flex; align-items: center; gap: 8px; }
+.app-header__brand-btn {
+  display: inline-flex; align-items: center; gap: 10px; padding: 0; border: none; background: none;
+  font: inherit; letter-spacing: inherit; color: inherit;
+}

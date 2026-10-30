@@ -26,3 +26,12 @@
 .settings__toggle { display: flex; align-items: center; gap: 10px; min-height: var(--tap); cursor: pointer; font-size: 0.92rem; }
 .settings__toggle input { width: 18px; height: 18px; margin: 0; accent-color: var(--primary); }
 .settings__local { margin: 0; font-size: 0.9rem; line-height: 1.6; color: var(--muted); }
+.settings__hint { margin: 8px 0 0; font-size: 0.84rem; line-height: 1.5; color: var(--faint); }
+.settings__fonts { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
+@media (max-width: 440px) { .settings__fonts { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.settings__font {
+  display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 0; padding: 10px 4px;
+  border: 2px solid transparent; border-radius: 14px; background: var(--surface); font-size: 0.74rem; font-weight: 600; color: var(--muted);
+}
+.settings__font b { font-size: 1.35rem; font-weight: 400; line-height: 1.2; color: var(--fg); }
+.settings__font[aria-pressed='true'] { border-color: var(--gold-soft); color: var(--fg); }

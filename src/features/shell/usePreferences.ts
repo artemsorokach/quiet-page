@@ -3,6 +3,7 @@ import { detectLang, isLang, type Lang } from '../../core/i18n/format.ts'
 import type { Messages } from '../../core/i18n/I18nProvider.tsx'
 import { SCALE_IDS, type ScaleId } from '../../core/journal/records.ts'
 import { oneOf, readSetting, writeSetting } from '../../core/settings/storage.ts'
+import { applyLook, readLook, saveLook, type Look } from '../../core/theme/look.ts'
 import { applyTheme, readTheme, saveTheme, type Theme } from '../../core/theme/theme.ts'
 import uk from '../../i18n/locales/uk.json'
 
@@ -20,6 +21,7 @@ export function usePreferences() {
   const [lang, setLangState] = useState<Lang>(initialLang)
   const [messages, setMessages] = useState<Messages | null>(lang === 'uk' ? (uk as Messages) : null)
   const [theme, setThemeState] = useState<Theme>(readTheme)
+  const [look, setLookState] = useState<Look>(readLook)
   const [scale, setScaleState] = useState<ScaleId>(() => readSetting<ScaleId>('ts-scale', 'vaha', oneOf(SCALE_IDS)))
 
   useEffect(() => {
@@ -42,7 +44,14 @@ export function usePreferences() {
     return () => query.removeEventListener('change', follow)
   }, [theme])
 
+  useEffect(() => applyLook(look), [look])
+
   return {
+    look,
+    setLook: (next: Look) => {
+      saveLook(next)
+      setLookState(next)
+    },
     lang,
     messages,
     theme,
