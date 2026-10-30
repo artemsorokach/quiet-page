@@ -2,11 +2,14 @@ import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { COUNTRIES, HELPLINES, guessCountry, telHref } from './helplines.ts'
 
-test('every country has at least one helpline and an emergency number', () => {
+test('every country has an emergency number', () => {
+  for (const country of COUNTRIES) assert.match(HELPLINES[country].emergency, /^\d{2,4}$/, `${country} emergency number`)
+})
+
+test('only free numbers are listed (no ordinary city numbers)', () => {
+  const paid = ['02 2327 2327', '213 544 545', '030 440 308 454']
   for (const country of COUNTRIES) {
-    const entry = HELPLINES[country]
-    assert.ok(entry.lines.length > 0, `${country} has no helpline`)
-    assert.match(entry.emergency, /^\d{2,4}$/, `${country} emergency number`)
+    for (const line of HELPLINES[country].lines) assert.ok(!paid.includes(line.number), `${country} ${line.number}`)
   }
 })
 

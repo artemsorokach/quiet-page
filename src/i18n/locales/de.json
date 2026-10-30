@@ -422,7 +422,6 @@
   "hlYouth": "Für Kinder und Jugendliche",
   "hlCrisis": "Hilfe in Krisen",
   "hlPsych": "Psychologische Unterstützung",
-  "hlRussian": "Sorgentelefon auf Russisch",
   "hlWelsh": "Sorgentelefon auf Walisisch",
   "supportReach": "Diese Nummern funktionieren nur innerhalb des Landes: {country}.",
   "supportAlsoFrom": "auch aus: {list}",
@@ -430,5 +429,6 @@
   "supportLangs": "Sprachen: {list}",
   "supportByRegion": "Antwort in der Sprache der Region, aus der du anrufst",
   "supportUsLangs": "Spanisch: nach dem Anruf die 2 drücken. Andere Sprache: sie nennen, dann wird eine Dolmetschung zugeschaltet (über 240 Sprachen).",
-  "supportBerlin": "Berliner Nummer, aus ganz Deutschland erreichbar"
+  "supportInterpreters": "Dolmetschende für andere Sprachen sind verfügbar.",
+  "supportNoFree": "Für dieses Land haben wir kein kostenloses Sorgentelefon gefunden. Bei Gefahr steht die Notrufnummer unten."
 }

@@ -7,9 +7,9 @@
 export type Country = 'CH' | 'UA' | 'DE' | 'AT' | 'FR' | 'IT' | 'ES' | 'PT' | 'GB' | 'US'
 
 /** What the line is for; the description is shown in the app's language. */
-export type LineKind = 'talk' | 'english' | 'youth' | 'crisis' | 'psych' | 'russian' | 'welsh'
+export type LineKind = 'talk' | 'english' | 'youth' | 'crisis' | 'psych' | 'welsh'
 /** Extra notes shown under a line, in the app's language. */
-export type LineNote = 'byRegion' | 'usLangs' | 'berlin'
+export type LineNote = 'byRegion' | 'usLangs' | 'interpreters'
 
 export interface Helpline {
   kind: LineKind
@@ -25,6 +25,7 @@ export interface Helpline {
   alsoFrom?: readonly string[]
 }
 
+/** Only free numbers are listed (decision 30.10.2026); a country may have none besides emergency. */
 export interface CountryHelplines {
   lines: readonly Helpline[]
   emergency: string
@@ -53,26 +54,26 @@ export const HELPLINES: Record<Country, CountryHelplines> = {
     emergency: '112',
   },
   // https://www.bundesregierung.de/breg-de/service/fragen-und-anworten/hilfs-und-krisentelefone-2009712
-  // https://www.berlin.de/lb/psychiatrie/hilfe-in-krisen/artikel.927035.php (Doweria: Russian-speaking, 24 h)
-  // Not listed: Helpline Ukraine (Nummer gegen Kummer) ended on 1 July 2026.
+  // Not listed: Helpline Ukraine (Nummer gegen Kummer) ended on 1 July 2026; Doweria (Russian) is a paid Berlin number.
   DE: {
     lines: [
       { kind: 'talk', official: 'TelefonSeelsorge', number: '0800 111 0 111', hours: null, langs: ['de'] },
       { kind: 'talk', official: 'TelefonSeelsorge', number: '0800 111 0 222', hours: null, langs: ['de'] },
-      { kind: 'russian', official: 'Telefon Doweria', number: '030 440 308 454', hours: null, langs: ['ru'], notes: ['berlin'] },
     ],
     emergency: '112',
   },
-  // https://www.telefonseelsorge.at/
+  // https://www.telefonseelsorge.at/ («Kostenlos und vertraulich», rund um die Uhr)
   AT: { lines: [{ kind: 'talk', official: 'TelefonSeelsorge', number: '142', hours: null, langs: ['de'] }], emergency: '144' },
   // https://www.sante.fr/le-numero-national-de-prevention-du-suicide-0
   FR: { lines: [{ kind: 'crisis', official: '3114 · Numéro national de prévention du suicide', number: '3114', hours: null, langs: ['fr'] }], emergency: '15' },
-  // https://www.telefonoamico.it/centro-milano/ (every day 9–24)
-  IT: { lines: [{ kind: 'talk', official: 'Telefono Amico Italia', number: '02 2327 2327', hours: '09:00–24:00', langs: ['it'] }], emergency: '112' },
+  // No free national listening line found; Telefono Amico (02 2327 2327) is a paid Milan number.
+  IT: { lines: [], emergency: '112' },
   // https://www.sanidad.gob.es/linea024/home.htm
   ES: { lines: [{ kind: 'crisis', official: 'Línea 024 · Atención a la conducta suicida', number: '024', hours: null, langs: ['es'] }], emergency: '112' },
-  // https://www.sosvozamiga.org/en/contactos (daily 15:30–00:30)
-  PT: { lines: [{ kind: 'talk', official: 'SOS Voz Amiga', number: '213 544 545', hours: '15:30–00:30', langs: ['pt'] }], emergency: '112' },
+  // https://www.deco.proteste.pt/saude/saude-mental/noticias/linha-prevencao-suicidio-funciona-24-horas-por-dia
+  // https://portugal.gov.pt/pt/gc25/comunicacao/noticias/linha-de-prevencao-de-suicido-do-sns-comeca-a-funcionar-a-10-de-setembro
+  // (SNS line 1411: free, 24/7, psychologists and mental-health nurses, translators for foreign languages)
+  PT: { lines: [{ kind: 'crisis', official: 'SNS · Linha de Prevenção do Suicídio', number: '1411', hours: null, langs: ['pt'], notes: ['interpreters'] }], emergency: '112' },
   // https://www.samaritans.org/how-we-can-help/contact-samaritan/
   // https://www.samaritans.org/how-we-can-help/contact-samaritan/contact-a-samaritan-wales/ (Welsh line, every day 19–23)
   GB: {

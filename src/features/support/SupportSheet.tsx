@@ -15,9 +15,9 @@ function initialCountry(): Country {
 }
 
 const KIND_KEY = {
-  talk: 'hlTalk', english: 'hlEnglish', youth: 'hlYouth', crisis: 'hlCrisis', psych: 'hlPsych', russian: 'hlRussian', welsh: 'hlWelsh',
+  talk: 'hlTalk', english: 'hlEnglish', youth: 'hlYouth', crisis: 'hlCrisis', psych: 'hlPsych', welsh: 'hlWelsh',
 } as const satisfies Record<LineKind, string>
-const NOTE_KEY = { byRegion: 'supportByRegion', usLangs: 'supportUsLangs', berlin: 'supportBerlin' } as const satisfies Record<LineNote, string>
+const NOTE_KEY = { byRegion: 'supportByRegion', usLangs: 'supportUsLangs', interpreters: 'supportInterpreters' } as const satisfies Record<LineNote, string>
 
 function Line({ line, languages, regions }: { line: Helpline; languages: Intl.DisplayNames; regions: Intl.DisplayNames }) {
   const { t } = useI18n()
@@ -67,7 +67,11 @@ export function SupportSheet({ open, onClose }: SupportSheetProps) {
         </select>
       </label>
 
-      <p class="support__reach">{t('supportReach', { country: regionNames.of(country) ?? country })}</p>
+      {lines.length > 0 ? (
+        <p class="support__reach">{t('supportReach', { country: regionNames.of(country) ?? country })}</p>
+      ) : (
+        <p class="support__reach">{t('supportNoFree')}</p>
+      )}
 
       <ul class="support__lines">
         {lines.map((line) => (

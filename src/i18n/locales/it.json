@@ -422,7 +422,6 @@
   "hlYouth": "Per bambini e giovani",
   "hlCrisis": "Supporto nelle crisi",
   "hlPsych": "Supporto psicologico",
-  "hlRussian": "Linea di ascolto in russo",
   "hlWelsh": "Linea di ascolto in gallese",
   "supportReach": "Questi numeri funzionano solo all’interno del paese: {country}.",
   "supportAlsoFrom": "anche da: {list}",
@@ -430,5 +429,6 @@
   "supportLangs": "Lingue: {list}",
   "supportByRegion": "rispondono nella lingua della regione da cui chiami",
   "supportUsLangs": "In spagnolo: premi 2 dopo la chiamata. Altra lingua: dilla ad alta voce e si collega un interprete (oltre 240 lingue).",
-  "supportBerlin": "numero di Berlino, raggiungibile da tutta la Germania"
+  "supportInterpreters": "Sono disponibili interpreti per altre lingue.",
+  "supportNoFree": "Non abbiamo trovato una linea di ascolto gratuita per questo paese. Se sei in pericolo, il numero di emergenza è qui sotto."
 }
