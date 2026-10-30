@@ -410,5 +410,11 @@
   "settingsBtn": "Impostazioni",
   "supportLink": "Se adesso è molto difficile",
   "privateNote": "Le tue note le vedi solo tu.",
-  "navLabel": "Sezioni"
+  "navLabel": "Sezioni",
+  "supportLead": "Non devi affrontarlo senza nessuno. Qui qualcuno ti ascolterà.",
+  "supportCountry": "Paese",
+  "supportAllDay": "24 ore su 24",
+  "supportEmergency": "Se una vita è in pericolo immediato, chiama il {n}.",
+  "supportVerified": "Numeri verificati: {date}",
+  "close": "Chiudi"
 }

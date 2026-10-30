@@ -410,5 +410,11 @@
   "settingsBtn": "Definições",
   "supportLink": "Se agora está muito difícil",
   "privateNote": "As tuas notas só tu as vês.",
-  "navLabel": "Secções"
+  "navLabel": "Secções",
+  "supportLead": "Não tens de passar por isto sem ninguém. Aqui alguém te vai ouvir.",
+  "supportCountry": "País",
+  "supportAllDay": "24 horas",
+  "supportEmergency": "Se uma vida estiver em perigo imediato, liga {n}.",
+  "supportVerified": "Números verificados: {date}",
+  "close": "Fechar"
 }

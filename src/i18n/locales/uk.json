@@ -410,5 +410,11 @@
   "settingsBtn": "Налаштування",
   "supportLink": "Якщо зараз дуже важко",
   "privateNote": "Записи бачиш лише ти.",
-  "navLabel": "Розділи"
+  "navLabel": "Розділи",
+  "supportLead": "Ти не мусиш проходити через це на самоті. Тут тебе вислухають.",
+  "supportCountry": "Країна",
+  "supportAllDay": "цілодобово",
+  "supportEmergency": "Якщо життю є безпосередня небезпека, телефонуй {n}.",
+  "supportVerified": "Номери перевірено: {date}",
+  "close": "Закрити"
 }

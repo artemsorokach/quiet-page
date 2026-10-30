@@ -410,5 +410,11 @@
   "settingsBtn": "Einstellungen",
   "supportLink": "Wenn es gerade sehr schwer ist",
   "privateNote": "Deine Einträge siehst nur du.",
-  "navLabel": "Bereiche"
+  "navLabel": "Bereiche",
+  "supportLead": "Du musst da nicht allein durch. Hier hört dir jemand zu.",
+  "supportCountry": "Land",
+  "supportAllDay": "rund um die Uhr",
+  "supportEmergency": "Wenn ein Leben in unmittelbarer Gefahr ist, ruf {n} an.",
+  "supportVerified": "Nummern geprüft: {date}",
+  "close": "Schließen"
 }

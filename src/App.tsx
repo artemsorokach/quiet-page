@@ -4,6 +4,7 @@ import uk from './i18n/locales/uk.json'
 import { AppHeader } from './features/shell/AppHeader.tsx'
 import { TabNav, type Tab } from './features/shell/TabNav.tsx'
 import { WriteScreen } from './features/write/WriteScreen.tsx'
+import { SupportSheet } from './features/support/SupportSheet.tsx'
 import './styles/global.css'
 import './App.css'
 
@@ -20,6 +21,7 @@ function Shell() {
   const [tab, setTab] = useState<Tab>('write')
   const [questionIndex, setQuestionIndex] = useState(2)
   const [showQuestion, setShowQuestion] = useState(true)
+  const [supportOpen, setSupportOpen] = useState(false)
   const question = showQuestion ? (messages.prompts[questionIndex % messages.prompts.length] ?? null) : null
 
   return (
@@ -42,9 +44,10 @@ function Shell() {
           question={question}
           onNextQuestion={() => setQuestionIndex((i) => i + 1)}
           onToggleQuestion={() => setShowQuestion((v) => !v)}
-          onOpenSupport={() => undefined}
+          onOpenSupport={() => setSupportOpen(true)}
         />
       </main>
+      <SupportSheet open={supportOpen} onClose={() => setSupportOpen(false)} />
     </div>
   )
 }

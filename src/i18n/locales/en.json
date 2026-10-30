@@ -410,5 +410,11 @@
   "settingsBtn": "Settings",
   "supportLink": "If things are very hard right now",
   "privateNote": "Only you can see your entries.",
-  "navLabel": "Sections"
+  "navLabel": "Sections",
+  "supportLead": "You don't have to go through this alone. These people will listen.",
+  "supportCountry": "Country",
+  "supportAllDay": "24/7",
+  "supportEmergency": "If a life is in immediate danger, call {n}.",
+  "supportVerified": "Numbers checked: {date}",
+  "close": "Close"
 }
