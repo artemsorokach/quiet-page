@@ -1,0 +1,18 @@
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 18px;
+}
+.app-header__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: 0.005em;
+}
+.app-header__mark { display: inline-grid; width: 28px; height: 28px; }
+.app-header__actions { display: flex; align-items: center; gap: 8px; }

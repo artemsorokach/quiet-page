@@ -406,5 +406,9 @@
   "gMorning": "Bonjour. La page est vierge, si tu veux.",
   "gEvening": "Le soir. Tu peux revenir doucement sur la journée.",
   "gDays": "Quelques jours ont passé. La page est toujours là, sans hâte.",
-  "gToday": "Il y a déjà une note aujourd'hui. Si tu veux en ajouter, il y a de la place."
+  "gToday": "Il y a déjà une note aujourd'hui. Si tu veux en ajouter, il y a de la place.",
+  "settingsBtn": "Réglages",
+  "supportLink": "Si c'est très difficile en ce moment",
+  "privateNote": "Tes notes ne sont visibles que par toi.",
+  "navLabel": "Sections"
 }

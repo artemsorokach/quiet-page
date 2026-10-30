@@ -406,5 +406,9 @@
   "gMorning": "Good morning. The page is clear, if you like.",
   "gEvening": "Evening. You can quietly look back on the day.",
   "gDays": "A few days have passed. The page is still here, no rush.",
-  "gToday": "There's already an entry today. If you'd like to add more, there's room."
+  "gToday": "There's already an entry today. If you'd like to add more, there's room.",
+  "settingsBtn": "Settings",
+  "supportLink": "If things are very hard right now",
+  "privateNote": "Only you can see your entries.",
+  "navLabel": "Sections"
 }

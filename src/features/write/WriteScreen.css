@@ -1,0 +1,66 @@
+.write { display: flex; flex-direction: column; gap: 18px; }
+.write__date {
+  margin: 4px 0 -10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+.write__greeting { margin: 0; font-size: 1.32rem; font-weight: 500; line-height: 1.4; text-wrap: balance; }
+
+.write__chip {
+  min-height: 36px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+  background: color-mix(in srgb, var(--surface) 80%, transparent);
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+.write__chip:hover { color: var(--fg); }
+
+.write__block { display: flex; flex-direction: column; gap: 12px; }
+.write__question-text { margin: 6px 0 0; font-size: 1.2rem; font-style: italic; font-weight: 500; line-height: 1.45; text-wrap: balance; }
+.write__question-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.write__free-label { margin-top: 6px; font-size: 1.2rem; font-style: italic; font-weight: 500; }
+.write__field {
+  width: 100%;
+  min-height: 190px;
+  padding: 16px 20px;
+  border-radius: var(--radius-l);
+  border: 1px solid color-mix(in srgb, var(--line) 45%, var(--surface));
+  background: var(--surface);
+  resize: vertical;
+  font-family: var(--font-write);
+  font-size: var(--write-size);
+  line-height: var(--write-leading);
+  color: var(--fg);
+}
+.write__field--answer { min-height: 120px; }
+.write__field::placeholder { color: var(--faint); }
+.write__field:focus { outline: none; border-color: color-mix(in srgb, var(--gold) 45%, var(--line)); }
+
+.write__actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.write__private { font-size: 0.84rem; color: var(--faint); }
+
+.write__support {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: var(--tap);
+  margin-top: 8px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--line) 80%, var(--bg));
+  text-underline-offset: 4px;
+}
+.write__support svg { width: 18px; height: 18px; color: var(--danger); }
+.write__support:hover { color: var(--fg); }

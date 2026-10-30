@@ -17,6 +17,7 @@
     "test:coverage": "tsx --test --experimental-test-coverage --test-coverage-include=\"src/**/*.ts\" --test-coverage-exclude=\"src/**/*.test.ts\" \"src/**/*.test.ts\""
   },
   "dependencies": {
+    "@fontsource-variable/nunito": "^5.3.0",
     "firebase": "^13.1.0",
     "preact": "^11.1.0"
   },

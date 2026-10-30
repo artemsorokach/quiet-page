@@ -406,5 +406,9 @@
   "gDays": "Han pasado unos días. La página sigue aquí, sin prisas.",
   "gToday": "Hoy ya hay una nota. Si quieres añadir más, hay espacio.",
   "checkDone": "Anotado a las {t}",
-  "wasBefore": "Editado el {d}"
+  "wasBefore": "Editado el {d}",
+  "settingsBtn": "Ajustes",
+  "supportLink": "Si ahora es muy difícil",
+  "privateNote": "Tus notas solo las ves tú.",
+  "navLabel": "Secciones"
 }

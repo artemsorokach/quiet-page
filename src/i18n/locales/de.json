@@ -406,5 +406,9 @@
   "gMorning": "Guten Morgen. Die Seite ist leer, wenn du magst.",
   "gEvening": "Abend. Du kannst still auf den Tag zurückblicken.",
   "gDays": "Ein paar Tage sind vergangen. Die Seite ist noch da, ohne Eile.",
-  "gToday": "Heute gibt es schon einen Eintrag. Wenn du mehr möchtest, ist Platz."
+  "gToday": "Heute gibt es schon einen Eintrag. Wenn du mehr möchtest, ist Platz.",
+  "settingsBtn": "Einstellungen",
+  "supportLink": "Wenn es gerade sehr schwer ist",
+  "privateNote": "Deine Einträge siehst nur du.",
+  "navLabel": "Bereiche"
 }
