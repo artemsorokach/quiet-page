@@ -1,6 +1,5 @@
 .settings__group { display: flex; flex-direction: column; }
-.settings__skins { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
-@media (max-width: 440px) { .settings__skins { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.settings__skins { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
 .settings__skin, .settings__scale {
   display: flex; flex-direction: column; min-width: 0; border: 2px solid transparent; border-radius: 16px;
   background: var(--surface); font-size: 0.82rem; font-weight: 600; color: var(--muted);

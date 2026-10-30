@@ -1,5 +1,6 @@
-/* Design tokens: 4 palettes (Глибина, Хвиля, Ліс, Нічне море) × dark/light.
-   Ported from the legacy site (2026-10-30); Глибина, Хвиля and dark Ліс lightened on 30.10 (Artem's choice).
+/* Design tokens: 6 palettes (Глибина, Хвиля, Ліс, Нічне море, Лаванда, Світанок) × dark/light.
+   Ported from the legacy site (2026-10-30); on 30.10 (Artem's choice) Глибина, Хвиля, dark Ліс and dark
+   Нічне море were lightened and Лаванда and Світанок added.
    Without data-skin the theme follows the system. */
 :root {
   --font-ui: "Nunito Variable", "Segoe UI", system-ui, sans-serif;
@@ -62,24 +63,7 @@
 }
 
 :root[data-skin="nich-dark"]{
-  --bg:#0f1526;
-  --glow-a:rgba(74,94,176,.17);
-  --glow-b:rgba(40,124,140,.13);
-  --surface:#18213a;
-  --surface-2:#1e2946;
-  --line:#2e3d62;
-  --fg:#e4e9f5;
-  --muted:#9eabc8;
-  --faint:#68759c;
-  --primary:#90b6ee;
-  --lo:#62669e;
-  --hi:#92e2d8;
-  --warm:#ebbf86;
-  --warm-ink:#1b1408;
-  --danger:#e59c95;
-  --gold:#cdb06e;
-  --gold-soft:rgba(205,176,110,.55);
-  --hl:rgba(250,212,90,.34); color-scheme:dark;
+  --bg:#1c2335;  --glow-a:rgba(120,140,220,.16);  --glow-b:rgba(100,120,200,.10);  --surface:#242c41;  --surface-2:#2b344c;  --line:#3d4863;  --fg:#e7ebf5;  --muted:#adb6cf;  --faint:#7c86a3;  --primary:#9bbcef;  --lo:#6f74a8;  --hi:#a9d4f0;  --warm:#ecc38c;  --gold:#d3bb88;  --danger:#e8a596;  --gold-soft:rgba(210,183,122,.55);  --hl:rgba(250,212,90,.30);  --warm-ink:#241a0c;  color-scheme:dark;
 }
 
 :root[data-skin="nich-light"]{
@@ -103,6 +87,22 @@
   --hl:rgba(245,196,64,.38); color-scheme:light;
 }
 
+
+:root[data-skin="lavanda-dark"]{
+  --bg:#23232f;  --glow-a:rgba(150,140,220,.14);  --glow-b:rgba(120,110,190,.10);  --surface:#2c2c3b;  --surface-2:#343446;  --line:#4a4b62;  --fg:#eceaf4;  --muted:#b7b4cc;  --faint:#85839c;  --primary:#b4a8e6;  --lo:#7d7aa8;  --hi:#c9b8f0;  --warm:#ebc28c;  --gold:#d3bb88;  --danger:#e8a596;  --gold-soft:rgba(210,183,122,.55);  --hl:rgba(250,212,90,.30);  --warm-ink:#241a0c;  color-scheme:dark;
+}
+
+:root[data-skin="lavanda-light"]{
+  --bg:#e2e0ea;  --glow-a:rgba(150,140,210,.16);  --glow-b:rgba(170,160,210,.12);  --surface:#ebe9f2;  --surface-2:#f1f0f6;  --line:#c9c6d8;  --fg:#2c2a3c;  --muted:#5c5975;  --faint:#83809b;  --primary:#6a5aa8;  --lo:#9d9ab8;  --hi:#7a62b8;  --warm:#a46d33;  --gold:#93763e;  --danger:#a8544a;  --gold-soft:rgba(148,118,58,.5);  --hl:rgba(245,196,64,.36);  --warm-ink:#fffaf2;  color-scheme:light;
+}
+
+:root[data-skin="svitanok-dark"]{
+  --bg:#2a2128;  --glow-a:rgba(220,150,150,.14);  --glow-b:rgba(200,140,120,.10);  --surface:#352b33;  --surface-2:#3e323b;  --line:#574550;  --fg:#f3e9ec;  --muted:#c9b2ba;  --faint:#95808a;  --primary:#e7a9a0;  --lo:#8b7593;  --hi:#f0c4a2;  --warm:#f0c08a;  --gold:#dcb68a;  --danger:#e8a596;  --gold-soft:rgba(210,183,122,.55);  --hl:rgba(250,212,90,.30);  --warm-ink:#241a0c;  color-scheme:dark;
+}
+
+:root[data-skin="svitanok-light"]{
+  --bg:#ebe0dd;  --glow-a:rgba(220,160,150,.18);  --glow-b:rgba(230,180,160,.12);  --surface:#f2e9e6;  --surface-2:#f6efed;  --line:#d7c5c1;  --fg:#3a2a2e;  --muted:#6e5860;  --faint:#957f86;  --primary:#a85d5a;  --lo:#a596ad;  --hi:#c4805a;  --warm:#a8672f;  --gold:#9a7448;  --danger:#a8544a;  --gold-soft:rgba(148,118,58,.5);  --hl:rgba(245,196,64,.36);  --warm-ink:#fffaf2;  color-scheme:light;
+}
 
 /* Writing fonts (Settings → «Шрифт для письма»); sizes from the legacy site */
 :root[data-wfont="rubik"] { --font-write: "Rubik", "Nunito Variable", system-ui, sans-serif; --write-size: 1.04rem; --write-leading: 1.8; }
