@@ -9,6 +9,8 @@
   border-radius: var(--radius-l) var(--radius-l) 0 0;
   background: var(--surface-2);
   color: var(--fg);
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 .sheet::backdrop { background: color-mix(in srgb, var(--bg) 70%, transparent); backdrop-filter: blur(2px); }
 .sheet[open] { animation: sheet-in 0.28s var(--ease); }

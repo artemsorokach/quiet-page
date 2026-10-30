@@ -1,0 +1,28 @@
+.settings__group { display: flex; flex-direction: column; }
+.settings__skins { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+@media (max-width: 440px) { .settings__skins { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.settings__skin, .settings__scale {
+  display: flex; flex-direction: column; min-width: 0; border: 2px solid transparent; border-radius: 16px;
+  background: var(--surface); font-size: 0.82rem; font-weight: 600; color: var(--muted);
+}
+.settings__skin { align-items: center; gap: 8px; padding: 12px 6px; }
+.settings__skin[aria-pressed='true'], .settings__scale[aria-pressed='true'] { border-color: var(--gold-soft); color: var(--fg); }
+.settings__swatch { position: relative; width: 52px; height: 52px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(127, 127, 127, 0.25); }
+.settings__swatch::after { content: ''; position: absolute; right: 2px; bottom: 2px; width: 14px; height: 14px; border-radius: 50%; background: var(--warm-dot); box-shadow: 0 0 0 2px var(--surface); }
+.settings__scales { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+.settings__scale { align-items: flex-start; gap: 2px; padding: 10px 12px; text-align: left; }
+.settings__scale b { font-size: 0.9rem; color: var(--fg); }
+.settings__scale span { max-width: 100%; font-size: 0.74rem; font-weight: 500; overflow-wrap: anywhere; }
+.settings__langs { display: flex; flex-wrap: wrap; gap: 6px; }
+.settings__lang {
+  min-height: 36px; padding: 5px 14px; border: 1px solid color-mix(in srgb, var(--line) 60%, var(--surface)); border-radius: 999px;
+  background: var(--surface); font-size: 0.86rem; font-weight: 600; color: var(--muted);
+}
+.settings__lang[aria-pressed='true'] { border-color: var(--gold-soft); color: var(--fg); }
+.settings__account { gap: 8px; padding-top: 14px; border-top: 1px solid color-mix(in srgb, var(--line) 50%, var(--surface-2)); }
+.settings__account .label { margin-bottom: 2px; }
+.settings__email { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; margin: 0; font-weight: 600; overflow-wrap: anywhere; }
+.settings__links { display: flex; flex-wrap: wrap; gap: 4px 18px; }
+.settings__toggle { display: flex; align-items: center; gap: 10px; min-height: var(--tap); cursor: pointer; font-size: 0.92rem; }
+.settings__toggle input { width: 18px; height: 18px; margin: 0; accent-color: var(--primary); }
+.settings__local { margin: 0; font-size: 0.9rem; line-height: 1.6; color: var(--muted); }

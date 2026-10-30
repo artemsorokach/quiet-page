@@ -6,54 +6,14 @@
  * The build is served from https://qp.test/quiet-page/ through Playwright routing
  * (a secure context, so WebCrypto works). Nothing reaches the real Firebase.
  */
-import { createRequire } from 'node:module'
 import { readFile } from 'node:fs/promises'
-import { extname, join } from 'node:path'
 import assert from 'node:assert/strict'
+import { fakeState, heading, launch } from './harness.mjs'
 
-// require() honours NODE_PATH, so a globally installed Playwright works too.
-const { chromium } = createRequire(import.meta.url)('playwright')
-const ROOT = new URL('../dist-e2e/', import.meta.url).pathname
-const BASE = 'https://qp.test/quiet-page/'
-const SHOTS = process.argv[2]
 const fixtures = JSON.parse(await readFile(new URL('../src/core/crypto/__fixtures__/legacy-fixtures.json', import.meta.url)))
-const TYPES = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.svg': 'image/svg+xml', '.json': 'application/json' }
-
-const browser = await chromium.launch()
-let step = 0
-
-async function open(state, { width = 390 } = {}) {
-  const context = await browser.newContext({ viewport: { width, height: 844 }, locale: 'uk-UA' })
-  await context.route('**/*', async (route) => {
-    const url = new URL(route.request().url())
-    if (url.host !== 'qp.test') return route.abort()
-    let path = url.pathname.replace('/quiet-page/', '') || 'index.html'
-    if (path.endsWith('/')) path += 'index.html'
-    try {
-      const body = await readFile(join(ROOT, path))
-      await route.fulfill({ body, contentType: TYPES[extname(path)] ?? 'application/octet-stream' })
-    } catch {
-      await route.fulfill({ status: 404, body: '' })
-    }
-  })
-  if (state) await context.addInitScript((s) => {
-    if (!sessionStorage.getItem('seeded')) {
-      localStorage.setItem('fake-fb', s)
-      sessionStorage.setItem('seeded', '1')
-    }
-  }, JSON.stringify(state))
-  const page = await context.newPage()
-  const errors = []
-  page.on('pageerror', (error) => errors.push(error.message))
-  await page.goto(BASE)
-  return { context, page, errors }
-}
-
-const fakeState = (page) => page.evaluate(() => JSON.parse(localStorage.getItem('fake-fb') ?? '{}'))
-const heading = (page, text) => page.getByRole('heading', { name: text }).waitFor({ timeout: 15000 })
-async function shot(page, name) {
-  if (SHOTS) await page.screenshot({ path: join(SHOTS, `${String(++step).padStart(2, '0')}-${name}.png`), fullPage: true })
-}
+const run = await launch(process.argv[2])
+const open = (fake) => run.open({ fake })
+const shot = run.shot
 const entriesOf = (state, uid) => Object.keys(state.docs ?? {}).filter((k) => k.startsWith(`users/${uid}/entries/`))
 
 async function writeAndSave(page, text) {
@@ -65,7 +25,7 @@ async function writeAndSave(page, text) {
 // 1. First entry without an account stays in this browser.
 const a = await open(null)
 await writeAndSave(a.page, 'Перший запис без акаунта')
-await a.page.getByText('Зараз записи зберігаються лише в цьому браузері.', { exact: false }).waitFor()
+await a.page.locator('.write__local').waitFor()
 await shot(a.page, 'local-saved')
 assert.equal(JSON.parse(await a.page.evaluate(() => localStorage.getItem('ts-entries'))).length, 1)
 
@@ -205,10 +165,8 @@ assert.equal(migrated.docs[`users/${legacyUid}/entries/e-old`].v, 2)
 // 10. Support sheet opens from the write screen.
 await f.page.getByRole('button', { name: 'Якщо зараз дуже важко' }).click()
 await f.page.locator('dialog[open]').waitFor()
-await f.page.waitForTimeout(500) // let the sheet finish sliding in
 await shot(f.page, 'support')
 await f.context.close()
 
-for (const ctx of [a, b, c, d, e, f]) assert.deepEqual(ctx.errors, [], 'no page errors')
-await browser.close()
+assert.deepEqual(await run.close(), [], 'no page errors')
 console.log('account e2e: all flows passed')

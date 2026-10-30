@@ -1,0 +1,16 @@
+.options { display: flex; flex-direction: column; gap: 8px; }
+.option {
+  display: flex; align-items: center; gap: 12px; min-height: var(--tap);
+  padding: 12px 16px; border: 1px solid var(--line); border-radius: 16px;
+  background: var(--surface); font-weight: 500; cursor: pointer;
+}
+.option:has(input:checked) { border-color: var(--primary); }
+.option input { flex: none; width: 18px; height: 18px; margin: 0; accent-color: var(--primary); }
+.option small { margin-left: auto; font-weight: 600; font-variant-numeric: tabular-nums; text-align: right; color: var(--faint); }
+.segmented {
+  display: grid; grid-template-columns: repeat(var(--count, 3), minmax(0, 1fr)); gap: 4px;
+  padding: 4px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface-2);
+}
+.segmented button { min-width: 0; min-height: 36px; padding: 6px 4px; border: none; border-radius: 999px; background: none; font-size: 0.86rem; font-weight: 600; color: var(--muted); }
+.segmented button[aria-pressed='true'] { background: var(--primary); color: var(--bg); }
+.label { margin: 0 0 10px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--faint); }

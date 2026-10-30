@@ -5,6 +5,7 @@ import { LOCAL_KEY, LocalEntryStore } from '../../core/store/localStore.ts'
 import type { EntryStore } from '../../core/store/types.ts'
 import type { AuthActions } from './AuthScreen.tsx'
 import type { KeyActions, KeyMode } from './KeyScreen.tsx'
+import type { SecurityMode } from './SecurityScreen.tsx'
 
 type Runtime = typeof import('./accountRuntime.ts')
 type CloudStore = InstanceType<Runtime['CloudEntryStore']>
@@ -16,6 +17,7 @@ export type Phase =
   | { kind: 'key'; mode: KeyMode }
   | { kind: 'code'; code: string }
   | { kind: 'cloud' }
+  | { kind: 'security'; mode: SecurityMode }
 
 export interface Account {
   phase: Phase
@@ -29,6 +31,14 @@ export interface Account {
   showSignIn: () => void
   backToLocal: () => void
   finishCode: () => void
+  security: {
+    askEveryTime: boolean
+    setAskEveryTime: (on: boolean) => Promise<void>
+    open: (mode: SecurityMode) => void
+    close: () => void
+    changePassword: (current: string, next: string) => Promise<void>
+    newCode: (current: string) => Promise<void>
+  }
 }
 
 const askEveryTimeKey = (uid: string) => `ts-askpw-${uid}`
@@ -74,6 +84,9 @@ export function useAccount(lang: string): Account {
   const uid = useRef<string | null>(null)
   const pending = useRef<{ unlocked: Unlocked; password?: string } | null>(null)
   const cloud = useRef<CloudStore | null>(null)
+  /** the unlocked key while in the cloud phase */
+  const active = useRef<Unlocked | null>(null)
+  const [askEveryTime, setAskState] = useState(false)
 
   const rt = () => {
     if (!runtime.current) throw new Error('runtime-not-loaded')
@@ -90,7 +103,9 @@ export function useAccount(lang: string): Account {
     cloud.current?.close()
     const cloudStore = new (rt().CloudEntryStore)(rt().firebaseClient().db, currentUid, unlocked.key)
     cloud.current = cloudStore
+    active.current = unlocked
     pending.current = null
+    setAskState(readFlag(askEveryTimeKey(currentUid)))
     await migrateLocal(local, cloudStore, currentUid)
     setStore(cloudStore)
     setPhase({ kind: 'cloud' })
@@ -111,6 +126,7 @@ export function useAccount(lang: string): Account {
       stop = loaded.watchUser(auth, (user) => {
         cloud.current?.close()
         cloud.current = null
+        active.current = null
         if (!user) {
           session.current = null
           uid.current = null
@@ -191,7 +207,31 @@ export function useAccount(lang: string): Account {
     },
   }
 
+  const unlockedNow = () => {
+    if (!active.current) throw new Error('locked')
+    return active.current
+  }
+
+  const security: Account['security'] = {
+    askEveryTime,
+    setAskEveryTime: async (on) => {
+      const currentUid = uid.current
+      if (!currentUid) return
+      localStorage.setItem(askEveryTimeKey(currentUid), JSON.stringify(on))
+      setAskState(on)
+      await need().rememberIfAllowed(unlockedNow())
+    },
+    open: (mode) => setPhase({ kind: 'security', mode }),
+    close: () => setPhase({ kind: 'cloud' }),
+    changePassword: (current, next) => need().changePassword(unlockedNow(), current, next),
+    newCode: async (current) => {
+      const code = await need().renewRecoveryCode(unlockedNow(), current)
+      setPhase({ kind: 'code', code })
+    },
+  }
+
   return {
+    security,
     phase,
     store,
     email,

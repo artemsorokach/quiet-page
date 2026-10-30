@@ -22,3 +22,36 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
+
+/* Shared small pieces used across screens */
+.card {
+  background: var(--surface);
+  border: 1px solid color-mix(in srgb, var(--line) 45%, var(--surface));
+  border-radius: var(--radius-l);
+  padding: 20px;
+}
+.chip {
+  min-height: 36px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+  background: color-mix(in srgb, var(--surface) 80%, transparent);
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+.chip:hover { color: var(--fg); }
+.link-btn {
+  min-height: 32px;
+  padding: 0;
+  border: none;
+  background: none;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--line) 80%, var(--bg));
+  text-underline-offset: 3px;
+}
+.link-btn:hover { color: var(--fg); }
+.link-btn--danger { color: color-mix(in srgb, var(--danger) 75%, var(--muted)); }
