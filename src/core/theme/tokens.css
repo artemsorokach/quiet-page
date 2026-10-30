@@ -1,5 +1,6 @@
 /* Design tokens: 4 palettes (Глибина, Хвиля, Ліс, Нічне море) × dark/light.
-   Ported from the legacy site (2026-10-30). Without data-skin the theme follows the system. */
+   Ported from the legacy site (2026-10-30); Глибина, Хвиля and dark Ліс lightened on 30.10 (Artem's choice).
+   Without data-skin the theme follows the system. */
 :root {
   --font-ui: "Nunito Variable", "Segoe UI", system-ui, sans-serif;
   --font-write: var(--font-ui);
@@ -12,116 +13,31 @@
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 :root{
-  --bg:#0c1a24;  --glow-a:rgba(38,118,140,.20);  --glow-b:rgba(36,96,76,.14);  --surface:#132a36;  --surface-2:#183441;  --line:#26495b;  --fg:#e2eef0;  --muted:#97b3bb;  --faint:#62828d;  --primary:#74c7c4;  --lo:#4a6890;  --hi:#a3e6cf;  --warm:#e6bb7e;  --warm-ink:#1d1408;  --danger:#e29a8a;  --gold:#cdb06e;  --gold-soft:rgba(205,176,110,.55);  --hl:rgba(250,212,90,.34);  color-scheme:dark;
+  --bg:#1a2b35;  --glow-a:rgba(90,160,180,.18);  --glow-b:rgba(70,130,110,.12);  --surface:#223743;  --surface-2:#284150;  --line:#3a5868;  --fg:#e6f0f2;  --muted:#a6bec5;  --faint:#7792a0;  --primary:#82cfcb;  --lo:#6a86a8;  --hi:#a8e6d3;  --warm:#e8c08a;  --gold:#d2b77a;  --danger:#e8a596;  --gold-soft:rgba(210,183,122,.55);  --hl:rgba(250,212,90,.30);  --warm-ink:#241a0c;  color-scheme:dark;
 }
 
 @media (prefers-color-scheme: light){:root:not([data-skin]){
-  --bg:#e2ebec;
-  --glow-a:rgba(104,168,180,.20);
-  --glow-b:rgba(146,192,170,.17);
-  --surface:#f0f5f5;
-  --surface-2:#f8fbfb;
-  --line:#c2d4d7;
-  --fg:#1b3138;
-  --muted:#4c6870;
-  --faint:#849ea4;
-  --primary:#2c7c86;
-  --lo:#8a9cb8;
-  --hi:#2e9a80;
-  --warm:#ad772f;
-  --warm-ink:#fffaf2;
-  --danger:#a8544a;
-  --gold:#9a7a34;
-  --gold-soft:rgba(154,122,52,.5);
-  --hl:rgba(245,196,64,.38); color-scheme:light;
+  --bg:#d6e1e3;  --glow-a:rgba(104,168,180,.18);  --glow-b:rgba(146,192,170,.15);  --surface:#e5edee;  --surface-2:#edf3f3;  --line:#b4c8cb;  --fg:#1d343b;  --muted:#48646c;  --faint:#6f8a91;  --primary:#2a7680;  --lo:#7f93b0;  --hi:#2b8f78;  --warm:#a5702b;  --gold:#94763a;  --danger:#a8544a;  --gold-soft:rgba(148,118,58,.5);  --hl:rgba(245,196,64,.36);  --warm-ink:#fffaf2;  color-scheme:light;
 }
 }
 :root[data-skin="hlybyna-dark"]{
-  --bg:#0c1a24;  --glow-a:rgba(38,118,140,.20);  --glow-b:rgba(36,96,76,.14);  --surface:#132a36;  --surface-2:#183441;  --line:#26495b;  --fg:#e2eef0;  --muted:#97b3bb;  --faint:#62828d;  --primary:#74c7c4;  --lo:#4a6890;  --hi:#a3e6cf;  --warm:#e6bb7e;  --warm-ink:#1d1408;  --danger:#e29a8a;  --gold:#cdb06e;  --gold-soft:rgba(205,176,110,.55);  --hl:rgba(250,212,90,.34);  color-scheme:dark;
+  --bg:#1a2b35;  --glow-a:rgba(90,160,180,.18);  --glow-b:rgba(70,130,110,.12);  --surface:#223743;  --surface-2:#284150;  --line:#3a5868;  --fg:#e6f0f2;  --muted:#a6bec5;  --faint:#7792a0;  --primary:#82cfcb;  --lo:#6a86a8;  --hi:#a8e6d3;  --warm:#e8c08a;  --gold:#d2b77a;  --danger:#e8a596;  --gold-soft:rgba(210,183,122,.55);  --hl:rgba(250,212,90,.30);  --warm-ink:#241a0c;  color-scheme:dark;
 }
 
 :root[data-skin="hlybyna-light"]{
-  --bg:#e2ebec;
-  --glow-a:rgba(104,168,180,.20);
-  --glow-b:rgba(146,192,170,.17);
-  --surface:#f0f5f5;
-  --surface-2:#f8fbfb;
-  --line:#c2d4d7;
-  --fg:#1b3138;
-  --muted:#4c6870;
-  --faint:#849ea4;
-  --primary:#2c7c86;
-  --lo:#8a9cb8;
-  --hi:#2e9a80;
-  --warm:#ad772f;
-  --warm-ink:#fffaf2;
-  --danger:#a8544a;
-  --gold:#9a7a34;
-  --gold-soft:rgba(154,122,52,.5);
-  --hl:rgba(245,196,64,.38); color-scheme:light;
+  --bg:#d6e1e3;  --glow-a:rgba(104,168,180,.18);  --glow-b:rgba(146,192,170,.15);  --surface:#e5edee;  --surface-2:#edf3f3;  --line:#b4c8cb;  --fg:#1d343b;  --muted:#48646c;  --faint:#6f8a91;  --primary:#2a7680;  --lo:#7f93b0;  --hi:#2b8f78;  --warm:#a5702b;  --gold:#94763a;  --danger:#a8544a;  --gold-soft:rgba(148,118,58,.5);  --hl:rgba(245,196,64,.36);  --warm-ink:#fffaf2;  color-scheme:light;
 }
 
 :root[data-skin="khvylia-dark"]{
-  --bg:#0d1f1f;
-  --glow-a:rgba(42,146,132,.18);
-  --glow-b:rgba(70,118,74,.14);
-  --surface:#143131;
-  --surface-2:#193b3a;
-  --line:#295552;
-  --fg:#e0efec;
-  --muted:#95bab3;
-  --faint:#5e8983;
-  --primary:#7fd3bd;
-  --lo:#45707e;
-  --hi:#c6eba8;
-  --warm:#e9b98a;
-  --warm-ink:#1c1309;
-  --danger:#e39a8c;
-  --gold:#cdb06e;
-  --gold-soft:rgba(205,176,110,.55);
-  --hl:rgba(250,212,90,.34); color-scheme:dark;
+  --bg:#182c2b;  --glow-a:rgba(90,170,150,.16);  --glow-b:rgba(70,140,130,.12);  --surface:#203836;  --surface-2:#27423f;  --line:#385a56;  --fg:#e5f1ee;  --muted:#a3c2bb;  --faint:#74948d;  --primary:#86d6c1;  --lo:#5f8794;  --hi:#a6e8cf;  --warm:#eabf93;  --gold:#d4b880;  --danger:#e8a596;  --gold-soft:rgba(210,183,122,.55);  --hl:rgba(250,212,90,.30);  --warm-ink:#241a0c;  color-scheme:dark;
 }
 
 :root[data-skin="khvylia-light"]{
-  --bg:#dfebe8;
-  --glow-a:rgba(88,170,150,.19);
-  --glow-b:rgba(150,192,140,.16);
-  --surface:#eef6f3;
-  --surface-2:#f8fbfa;
-  --line:#bdd5cf;
-  --fg:#17322e;
-  --muted:#496b65;
-  --faint:#7f9d97;
-  --primary:#258370;
-  --lo:#8aa2ae;
-  --hi:#3a9c6a;
-  --warm:#a9733a;
-  --warm-ink:#fffaf2;
-  --danger:#a5524a;
-  --gold:#9a7a34;
-  --gold-soft:rgba(154,122,52,.5);
-  --hl:rgba(245,196,64,.38); color-scheme:light;
+  --bg:#d4e2de;  --glow-a:rgba(110,175,160,.18);  --glow-b:rgba(150,190,170,.15);  --surface:#e3ece9;  --surface-2:#ebf2ef;  --line:#b0c7c1;  --fg:#1b3531;  --muted:#46655f;  --faint:#6c8a84;  --primary:#237d6b;  --lo:#8299a6;  --hi:#2a8a6d;  --warm:#a26d37;  --gold:#93763c;  --danger:#a8544a;  --gold-soft:rgba(148,118,58,.5);  --hl:rgba(245,196,64,.36);  --warm-ink:#fffaf2;  color-scheme:light;
 }
 
 :root[data-skin="lis-dark"]{
-  --bg:#111c16;
-  --glow-a:rgba(64,126,84,.17);
-  --glow-b:rgba(34,86,92,.13);
-  --surface:#1a2d22;
-  --surface-2:#20372a;
-  --line:#30503d;
-  --fg:#e2ece3;
-  --muted:#a0b6a5;
-  --faint:#67836f;
-  --primary:#9ccaa6;
-  --lo:#5a7466;
-  --hi:#cbe8a6;
-  --warm:#ddb36e;
-  --warm-ink:#1a1408;
-  --danger:#dc9a88;
-  --gold:#cdb06e;
-  --gold-soft:rgba(205,176,110,.55);
-  --hl:rgba(250,212,90,.34); color-scheme:dark;
+  --bg:#1d2721;  --glow-a:rgba(120,160,120,.14);  --glow-b:rgba(100,140,100,.10);  --surface:#26322b;  --surface-2:#2d3b33;  --line:#405347;  --fg:#e8efe9;  --muted:#aec0b2;  --faint:#7d9283;  --primary:#a3cfac;  --lo:#73897b;  --hi:#b7dcae;  --warm:#e0b977;  --gold:#cdb47a;  --danger:#e8a596;  --gold-soft:rgba(210,183,122,.55);  --hl:rgba(250,212,90,.30);  --warm-ink:#241a0c;  color-scheme:dark;
 }
 
 :root[data-skin="lis-light"]{
