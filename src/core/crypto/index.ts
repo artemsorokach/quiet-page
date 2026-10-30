@@ -1,0 +1,6 @@
+export * from './types.ts'
+export { WrongSecretError } from './errors.ts'
+export { createKeyring, renewRecoveryCode, rewrapPassword, unlockWithPassword, unlockWithRecoveryCode, verifyPassword } from './keyring.ts'
+export { decryptJson, encryptJson, generateRawDataKey, importDataKey } from './dataKey.ts'
+export { formatRecoveryCode, generateRecoveryCode, isCompleteRecoveryCode, normalizeRecoveryCode } from './recoveryCode.ts'
+export { legacyKeyFromPassword, verifyLegacyPassword } from './legacy.ts'
