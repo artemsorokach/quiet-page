@@ -1,0 +1,21 @@
+.feelings { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+.feelings__toggle,
+.feelings__chip {
+  min-height: 36px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+  background: color-mix(in srgb, var(--surface) 80%, transparent);
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 600;
+  text-align: left;
+}
+.feelings__toggle:hover,
+.feelings__chip:hover { color: var(--fg); }
+.feelings__list { display: flex; flex-wrap: wrap; gap: 6px; }
+.feelings__chip[aria-pressed='true'] {
+  color: var(--fg);
+  border-color: color-mix(in srgb, var(--gold) 60%, var(--line));
+  background: color-mix(in srgb, var(--gold) 14%, var(--surface));
+}

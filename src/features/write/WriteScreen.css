@@ -64,3 +64,11 @@
 }
 .write__support svg { width: 18px; height: 18px; color: var(--danger); }
 .write__support:hover { color: var(--fg); }
+.write__local {
+  margin: 0;
+  padding: 12px 16px;
+  border-radius: var(--radius-m);
+  background: color-mix(in srgb, var(--surface) 70%, transparent);
+  font-size: 0.9rem;
+  color: var(--muted);
+}
