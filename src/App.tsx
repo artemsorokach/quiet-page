@@ -1,8 +1,10 @@
-import { useMemo, useState } from 'preact/hooks'
+import { useState } from 'preact/hooks'
 import { I18nProvider, useI18n, type Messages } from './core/i18n/I18nProvider.tsx'
 import uk from './i18n/locales/uk.json'
-import { LocalEntryStore } from './core/store/localStore.ts'
-import type { EntryStore } from './core/store/types.ts'
+import { AuthScreen } from './features/account/AuthScreen.tsx'
+import { KeyScreen } from './features/account/KeyScreen.tsx'
+import { RecoveryCodeScreen } from './features/account/RecoveryCodeScreen.tsx'
+import { useAccount } from './features/account/useAccount.ts'
 import { AppHeader } from './features/shell/AppHeader.tsx'
 import { TabNav, type Tab } from './features/shell/TabNav.tsx'
 import { WriteScreen, type SaveResult } from './features/write/WriteScreen.tsx'
@@ -24,8 +26,9 @@ function pickGreeting(greetings: readonly string[], date: Date): string {
 }
 
 function Shell() {
-  const { messages, t } = useI18n()
-  const store: EntryStore = useMemo(() => new LocalEntryStore(localStorage), [])
+  const { lang, messages, t } = useI18n()
+  const account = useAccount(lang)
+  const { phase, store } = account
   const [tab, setTab] = useState<Tab>('write')
   const [questionIndex, setQuestionIndex] = useState(() => new Date().getDate() % messages.prompts.length)
   const [showQuestion, setShowQuestion] = useState(true)
@@ -48,6 +51,34 @@ function Shell() {
     }
   }
 
+  if (phase.kind === 'signIn') {
+    return (
+      <div class="app">
+        <AuthScreen actions={account.authActions} errorMessage={(error) => t(account.authErrorKey(error))} onBack={account.backToLocal} />
+      </div>
+    )
+  }
+  if (phase.kind === 'key') {
+    return (
+      <div class="app">
+        <KeyScreen
+          mode={phase.mode}
+          email={account.email}
+          canRecover={account.canRecover}
+          actions={account.keyActions}
+          onModeChange={account.setKeyMode}
+        />
+      </div>
+    )
+  }
+  if (phase.kind === 'code') {
+    return (
+      <div class="app">
+        <RecoveryCodeScreen code={phase.code} email={account.email} onDone={account.finishCode} />
+      </div>
+    )
+  }
+
   return (
     <div class="app">
       <AppHeader appName={t('appName')} settingsLabel={t('settingsBtn')} onOpenSettings={() => undefined} />
@@ -63,11 +94,11 @@ function Shell() {
           greeting={pickGreeting(messages.greets, today)}
           question={question}
           scale="vaha"
-          localOnly
+          localOnly={phase.kind !== 'cloud'}
           onNextQuestion={() => setQuestionIndex((i) => i + 1)}
           onToggleQuestion={() => setShowQuestion((v) => !v)}
           onOpenSupport={() => setSupportOpen(true)}
-          onSignIn={() => undefined}
+          onSignIn={account.showSignIn}
           onSave={save}
         />
       </main>

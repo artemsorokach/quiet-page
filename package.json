@@ -14,7 +14,8 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "test": "tsx --test \"src/**/*.test.ts\"",
-    "test:coverage": "tsx --test --experimental-test-coverage --test-coverage-include=\"src/**/*.ts\" --test-coverage-exclude=\"src/**/*.test.ts\" \"src/**/*.test.ts\""
+    "test:coverage": "tsx --test --experimental-test-coverage --test-coverage-include=\"src/**/*.ts\" --test-coverage-exclude=\"src/**/*.test.ts\" \"src/**/*.test.ts\"",
+    "e2e": "vite build --mode e2e && node e2e/account.e2e.mjs"
   },
   "dependencies": {
     "@fontsource-variable/nunito": "^5.3.0",
