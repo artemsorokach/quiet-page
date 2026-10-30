@@ -46,4 +46,5 @@
   border-top: 1px solid color-mix(in srgb, var(--line) 35%, var(--bg)); font-size: 0.78rem; line-height: 1.6; text-align: center; color: var(--faint);
 }
 .app-foot p { margin: 0; }
+.app-foot__ideas { margin-top: 2px !important; }
 .app-foot .link-btn { font-size: 0.78rem; color: var(--faint); }

@@ -219,7 +219,8 @@ function Shell({ prefs }: { prefs: Preferences }) {
       )}
       <footer class="app-foot recede">
         <p>Quiet Page · {t('beta')}</p>
-        <p>{t('freeNote')} {t('feedbackShort')}</p>
+        <p>{t('freeNote')}</p>
+        <p class="app-foot__ideas">{t('feedbackShort')}</p>
         <button type="button" class="link-btn" onClick={() => setWelcome(true)}>{t('about')}</button>
       </footer>
       <SupportSheet open={supportOpen} onClose={() => setSupportOpen(false)} />

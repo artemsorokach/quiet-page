@@ -1,19 +1,28 @@
 /**
  * Helplines shown on the "If things are very hard right now" sheet.
  * Verified on 2026-10-30 from the sources listed next to each country.
- * Re-check at least every six months: lines change or pause (Lifeline Ukraine 7333 was paused
- * for lack of funding when this list was made, so it is not listed).
+ * Re-check at least every six months: lines change, pause or close.
  */
 
 export type Country = 'CH' | 'UA' | 'DE' | 'AT' | 'FR' | 'IT' | 'ES' | 'PT' | 'GB' | 'US'
 
+/** What the line is for; the description is shown in the app's language. */
+export type LineKind = 'talk' | 'english' | 'youth' | 'crisis' | 'psych' | 'russian' | 'welsh'
+/** Extra notes shown under a line, in the app's language. */
+export type LineNote = 'byRegion' | 'usLangs' | 'berlin'
+
 export interface Helpline {
-  name: string
+  kind: LineKind
+  /** official name, as the line introduces itself when answering */
+  official: string
   number: string
-  /** null = around the clock; otherwise local opening hours */
+  /** null = around the clock; otherwise daily opening hours, local time */
   hours: string | null
-  /** Short note in the line's own language, shown as is (e.g. "für Jugendliche") */
-  note?: string
+  /** languages the line answers in (ISO 639-1): the country's language, plus any its own sources name */
+  langs: readonly string[]
+  notes?: readonly LineNote[]
+  /** other countries the number also works from */
+  alsoFrom?: readonly string[]
 }
 
 export interface CountryHelplines {
@@ -26,44 +35,55 @@ export const VERIFIED_ON = '2026-10-30'
 export const COUNTRIES: readonly Country[] = ['CH', 'UA', 'DE', 'AT', 'FR', 'IT', 'ES', 'PT', 'GB', 'US']
 
 export const HELPLINES: Record<Country, CountryHelplines> = {
-  // https://www.143.ch/en/a-conversation-often-helps/ · https://www.147.ch/de/beratung/147/
-  // https://www.zh.ch/de/migration-integration/willkommen/english/emergencies.html
+  // https://www.143.ch/en/a-conversation-often-helps/ (143: de/fr/it, 24/7; English line 0800 143 000
+  // daily 18–23, "only valid in Switzerland and the Principality of Liechtenstein")
+  // https://www.147.ch/de/beratung/147/ (24/7, de/fr/it pages)
   CH: {
     lines: [
-      { name: 'Die Dargebotene Hand · La Main Tendue · Telefono Amico', number: '143', hours: null },
-      { name: 'Heart2Heart (English)', number: '0800 143 000', hours: '18:00–23:00' },
-      { name: 'Pro Juventute', number: '147', hours: null, note: 'Jugendliche · jeunes · giovani' },
+      { kind: 'talk', official: 'Die Dargebotene Hand · La Main Tendue · Telefono Amico', number: '143', hours: null, langs: ['de', 'fr', 'it'], notes: ['byRegion'] },
+      { kind: 'english', official: 'Heart2Heart', number: '0800 143 000', hours: '18:00–23:00', langs: ['en'], alsoFrom: ['LI'] },
+      { kind: 'youth', official: 'Pro Juventute 147', number: '147', hours: null, langs: ['de', 'fr', 'it'] },
     ],
     emergency: '144',
   },
-  // https://www.prostir.ua/?focus=de-shukaty-psyholohichnu-dopomohu-haryachi-liniji-ta-servisy-v-ukrajini (04.2025)
   // https://www.kmu.gov.ua/news/vseukrainska-prohrama-mentalnoho-zdorovia-ty-iak-kudy-zvertatysia-za-dopomohoiu
+  // Lifeline Ukraine 7333 was paused for lack of funding when this list was made, so it is not listed.
   UA: {
-    lines: [{ name: 'Людина в біді (People in Need)', number: '0 800 210 160', hours: null }],
+    lines: [{ kind: 'psych', official: 'Людина в біді', number: '0 800 210 160', hours: null, langs: ['uk'] }],
     emergency: '112',
   },
-  // https://familienportal.de/familienportal/lebenslagen/krise-und-konflikt/krisetelefone-anlaufstellen
+  // https://www.bundesregierung.de/breg-de/service/fragen-und-anworten/hilfs-und-krisentelefone-2009712
+  // https://www.berlin.de/lb/psychiatrie/hilfe-in-krisen/artikel.927035.php (Doweria: Russian-speaking, 24 h)
+  // Not listed: Helpline Ukraine (Nummer gegen Kummer) ended on 1 July 2026.
   DE: {
     lines: [
-      { name: 'TelefonSeelsorge', number: '0800 111 0 111', hours: null },
-      { name: 'TelefonSeelsorge', number: '0800 111 0 222', hours: null },
+      { kind: 'talk', official: 'TelefonSeelsorge', number: '0800 111 0 111', hours: null, langs: ['de'] },
+      { kind: 'talk', official: 'TelefonSeelsorge', number: '0800 111 0 222', hours: null, langs: ['de'] },
+      { kind: 'russian', official: 'Telefon Doweria', number: '030 440 308 454', hours: null, langs: ['ru'], notes: ['berlin'] },
     ],
     emergency: '112',
   },
   // https://www.telefonseelsorge.at/
-  AT: { lines: [{ name: 'Telefonseelsorge', number: '142', hours: null }], emergency: '144' },
+  AT: { lines: [{ kind: 'talk', official: 'TelefonSeelsorge', number: '142', hours: null, langs: ['de'] }], emergency: '144' },
   // https://www.sante.fr/le-numero-national-de-prevention-du-suicide-0
-  FR: { lines: [{ name: '3114 · Prévention du suicide', number: '3114', hours: null }], emergency: '15' },
-  // https://www.telefonoamico.it/centro-milano/
-  IT: { lines: [{ name: 'Telefono Amico Italia', number: '02 2327 2327', hours: '09:00–24:00' }], emergency: '112' },
+  FR: { lines: [{ kind: 'crisis', official: '3114 · Numéro national de prévention du suicide', number: '3114', hours: null, langs: ['fr'] }], emergency: '15' },
+  // https://www.telefonoamico.it/centro-milano/ (every day 9–24)
+  IT: { lines: [{ kind: 'talk', official: 'Telefono Amico Italia', number: '02 2327 2327', hours: '09:00–24:00', langs: ['it'] }], emergency: '112' },
   // https://www.sanidad.gob.es/linea024/home.htm
-  ES: { lines: [{ name: '024 · Atención a la conducta suicida', number: '024', hours: null }], emergency: '112' },
-  // https://www.sosvozamiga.org/en/contactos
-  PT: { lines: [{ name: 'SOS Voz Amiga', number: '213 544 545', hours: '15:30–00:30' }], emergency: '112' },
+  ES: { lines: [{ kind: 'crisis', official: 'Línea 024 · Atención a la conducta suicida', number: '024', hours: null, langs: ['es'] }], emergency: '112' },
+  // https://www.sosvozamiga.org/en/contactos (daily 15:30–00:30)
+  PT: { lines: [{ kind: 'talk', official: 'SOS Voz Amiga', number: '213 544 545', hours: '15:30–00:30', langs: ['pt'] }], emergency: '112' },
   // https://www.samaritans.org/how-we-can-help/contact-samaritan/
-  GB: { lines: [{ name: 'Samaritans', number: '116 123', hours: null }], emergency: '999' },
-  // https://988lifeline.org/get-help/
-  US: { lines: [{ name: '988 Suicide & Crisis Lifeline', number: '988', hours: null, note: 'call or text' }], emergency: '911' },
+  // https://www.samaritans.org/how-we-can-help/contact-samaritan/contact-a-samaritan-wales/ (Welsh line, every day 19–23)
+  GB: {
+    lines: [
+      { kind: 'talk', official: 'Samaritans', number: '116 123', hours: null, langs: ['en'] },
+      { kind: 'welsh', official: 'Samaritans · Llinell Gymraeg', number: '0808 164 0123', hours: '19:00–23:00', langs: ['cy'] },
+    ],
+    emergency: '999',
+  },
+  // https://988lifeline.org/faq/calling-the-988-lifeline/faq-is-the-988-lifeline-available-in-other-languages-for-non-english-speakers/
+  US: { lines: [{ kind: 'crisis', official: '988 Suicide & Crisis Lifeline', number: '988', hours: null, langs: ['en', 'es'], notes: ['usLangs'] }], emergency: '911' },
 }
 
 export function telHref(number: string): string {

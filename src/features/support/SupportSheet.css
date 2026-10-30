@@ -12,16 +12,20 @@
 .support__lines { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
 .support__line {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 12px 14px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 14px 16px;
   border-radius: var(--radius-m);
   background: var(--surface);
 }
 .support__line-text { display: flex; flex-direction: column; min-width: 0; }
-.support__name { font-weight: 600; line-height: 1.35; }
-.support__meta { font-size: 0.84rem; color: var(--muted); }
+.support__line-text { gap: 2px; }
+.support__name { font-weight: 700; line-height: 1.35; }
+.support__official { font-size: 0.82rem; line-height: 1.4; color: var(--faint); overflow-wrap: anywhere; }
+.support__note { font-size: 0.82rem; line-height: 1.45; color: var(--muted); }
+.support__reach { margin: -4px 0 0; font-size: 0.86rem; line-height: 1.5; color: var(--muted); }
+.support__meta { margin-top: 2px; font-size: 0.84rem; line-height: 1.45; color: var(--muted); }
 .support__call {
   flex: none;
   display: inline-flex;

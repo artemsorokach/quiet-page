@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'preact/hooks'
 import { useI18n } from '../../core/i18n/I18nProvider.tsx'
 import { Sheet } from '../../ui/Sheet.tsx'
-import { COUNTRIES, HELPLINES, VERIFIED_ON, guessCountry, telHref, type Country } from './helplines.ts'
+import { COUNTRIES, HELPLINES, VERIFIED_ON, guessCountry, telHref, type Country, type Helpline, type LineKind, type LineNote } from './helplines.ts'
 import './SupportSheet.css'
 
 interface SupportSheetProps {
@@ -14,11 +14,40 @@ function initialCountry(): Country {
   return guessCountry(zone, navigator.languages ?? [navigator.language])
 }
 
+const KIND_KEY = {
+  talk: 'hlTalk', english: 'hlEnglish', youth: 'hlYouth', crisis: 'hlCrisis', psych: 'hlPsych', russian: 'hlRussian', welsh: 'hlWelsh',
+} as const satisfies Record<LineKind, string>
+const NOTE_KEY = { byRegion: 'supportByRegion', usLangs: 'supportUsLangs', berlin: 'supportBerlin' } as const satisfies Record<LineNote, string>
+
+function Line({ line, languages, regions }: { line: Helpline; languages: Intl.DisplayNames; regions: Intl.DisplayNames }) {
+  const { t } = useI18n()
+  const title = t(KIND_KEY[line.kind])
+  const when = line.hours ? t('supportDaily', { h: line.hours }) : t('supportAllDay')
+  const langs = t('supportLangs', { list: line.langs.map((code) => languages.of(code) ?? code).join(', ') })
+  return (
+    <li class="support__line">
+      <div class="support__line-text">
+        <span class="support__name">{title}</span>
+        <span class="support__official">{line.official}</span>
+        <span class="support__meta">{when} · {langs}</span>
+        {line.notes?.map((note) => <span key={note} class="support__note">{t(NOTE_KEY[note])}</span>)}
+        {line.alsoFrom && (
+          <span class="support__note">{t('supportAlsoFrom', { list: line.alsoFrom.map((code) => regions.of(code) ?? code).join(', ') })}</span>
+        )}
+      </div>
+      <a class="support__call" href={telHref(line.number)} aria-label={`${title}, ${line.official}: ${line.number}`}>
+        {line.number}
+      </a>
+    </li>
+  )
+}
+
 export function SupportSheet({ open, onClose }: SupportSheetProps) {
   const { lang, messages, t } = useI18n()
   const [emergencyBefore = '', emergencyAfter = ''] = messages.supportEmergency.split('{n}')
   const [country, setCountry] = useState<Country>(initialCountry)
   const regionNames = useMemo(() => new Intl.DisplayNames([lang], { type: 'region' }), [lang])
+  const languageNames = useMemo(() => new Intl.DisplayNames([lang], { type: 'language' }), [lang])
   const verified = useMemo(
     () => new Intl.DateTimeFormat(lang, { month: 'long', year: 'numeric' }).format(new Date(VERIFIED_ON)),
     [lang],
@@ -38,20 +67,11 @@ export function SupportSheet({ open, onClose }: SupportSheetProps) {
         </select>
       </label>
 
+      <p class="support__reach">{t('supportReach', { country: regionNames.of(country) ?? country })}</p>
+
       <ul class="support__lines">
         {lines.map((line) => (
-          <li key={line.number} class="support__line">
-            <div class="support__line-text">
-              <span class="support__name">{line.name}</span>
-              <span class="support__meta">
-                {line.hours ?? t('supportAllDay')}
-                {line.note ? ` · ${line.note}` : ''}
-              </span>
-            </div>
-            <a class="support__call" href={telHref(line.number)} aria-label={`${line.name}, ${line.number}`}>
-              {line.number}
-            </a>
-          </li>
+          <Line key={line.number} line={line} languages={languageNames} regions={regionNames} />
         ))}
       </ul>
 
