@@ -4,10 +4,10 @@ import preact from '@preact/preset-vite'
 
 const fake = (name: string) => fileURLToPath(new URL(`./src/testing/fake-firebase/${name}.ts`, import.meta.url))
 
-// GitHub Pages serves the site from /quiet-page/.
+// GitHub Pages serves the site from /quiet-page/ (QP_BASE overrides it, e.g. /quiet-page/v2/ for the preview).
 // `--mode e2e` swaps the Firebase SDK for an in-browser fake (see src/testing/fake-firebase).
 export default defineConfig(({ mode }) => ({
-  base: '/quiet-page/',
+  base: process.env.QP_BASE ?? '/quiet-page/',
   plugins: [preact()],
   resolve:
     mode === 'e2e'
