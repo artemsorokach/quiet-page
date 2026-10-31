@@ -4,7 +4,8 @@
   padding-bottom: 48px;
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  gap: 34px;
 }
 .app__support { margin-top: 4px; }
-.app__chrome { display: flex; flex-direction: column; gap: 22px; }
+/* The title and the tabs read as one group; the page itself starts after a clear gap. */
+.app__chrome { display: flex; flex-direction: column; gap: 18px; }
