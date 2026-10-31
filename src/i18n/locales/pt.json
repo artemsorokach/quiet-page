@@ -432,5 +432,7 @@
   "supportByRegion": "atendem na língua da região de onde ligas",
   "supportUsLangs": "Em espanhol: carrega no 2 depois de ligar. Outra língua: diz o nome dela e entra um intérprete (mais de 240 línguas).",
   "supportInterpreters": "Há tradutores para outras línguas.",
-  "supportNoFree": "Não encontrámos uma linha de escuta gratuita para este país. Se estás em perigo, o número de emergência está abaixo."
+  "supportNoFree": "Não encontrámos uma linha de escuta gratuita para este país. Se estás em perigo, o número de emergência está abaixo.",
+  "pathLook": "Mostrar as entradas com o aspeto em que foram escritas",
+  "pathLookHint": "Cores, modo claro ou escuro e letra, como quando foram guardadas. Aplica-se às novas entradas."
 }

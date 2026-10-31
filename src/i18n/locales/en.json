@@ -432,5 +432,7 @@
   "supportByRegion": "answered in the language of the region you call from",
   "supportUsLangs": "Spanish: press 2 after calling. Another language: say its name and an interpreter joins (over 240 languages).",
   "supportInterpreters": "Interpreters for other languages are available.",
-  "supportNoFree": "We haven’t found a free listening line for this country. If you are in danger now, the emergency number is below."
+  "supportNoFree": "We haven’t found a free listening line for this country. If you are in danger now, the emergency number is below.",
+  "pathLook": "Show entries in the look they were written in",
+  "pathLookHint": "Colours, light or dark mode and font, as when the entry was saved. Applies to new entries."
 }

@@ -3,6 +3,7 @@ import { useI18n } from '../../core/i18n/I18nProvider.tsx'
 import { dateFormat } from '../../core/journal/dates.ts'
 import { additionsOf, applyAddition, historyOf, isCheck, qaOf } from '../../core/journal/records.ts'
 import type { JournalRecord } from '../../core/store/types.ts'
+import { lookAttributes, recordLook } from '../../core/theme/recordLook.ts'
 import { ConfirmButton } from '../../ui/ConfirmButton.tsx'
 import { AdditionEditor, EntryEditor } from './EntryEditor.tsx'
 import { History } from './History.tsx'
@@ -19,15 +20,16 @@ export interface RecordActions {
 interface CardProps {
   record: JournalRecord
   scale: string
+  showLook?: boolean
   actions: RecordActions
 }
 
 /** A mood note without text. */
-export function CheckCard({ record, scale, actions }: CardProps) {
+export function CheckCard({ record, scale, showLook, actions }: CardProps) {
   const { t, lang } = useI18n()
   const f = dateFormat(lang)
   return (
-    <div class="card entry entry--check">
+    <div class="card entry entry--check" {...lookAttributes(showLook ? recordLook(record) : null)}>
       <div class="entry__check-head">
         <span>{t('checkLbl')} · {f.day(record.ts)}, {f.time(record.ts)}</span>
         <ConfirmButton label={t('remove')} confirmLabel={t('removeConfirm')} class="link-btn entry__remove" onConfirm={() => actions.remove(record)} />
@@ -40,7 +42,7 @@ export function CheckCard({ record, scale, actions }: CardProps) {
 type Mode = 'view' | 'edit' | 'add'
 
 /** One entry in the Path: text clamped to a few lines, with a quiet menu of actions. */
-export function EntryCard({ record, scale, actions }: CardProps) {
+export function EntryCard({ record, scale, showLook, actions }: CardProps) {
   const { t, lang } = useI18n()
   const f = dateFormat(lang)
   const [mode, setModeState] = useState<Mode>('view')
@@ -61,10 +63,10 @@ export function EntryCard({ record, scale, actions }: CardProps) {
     setModeState(next)
   }
 
-  if (isCheck(record)) return <CheckCard record={record} scale={scale} actions={actions} />
+  if (isCheck(record)) return <CheckCard record={record} scale={scale} showLook={showLook} actions={actions} />
 
   return (
-    <article class="card entry">
+    <article class="card entry" {...lookAttributes(showLook ? recordLook(record) : null)}>
       <div class="entry__head">
         <span>{f.date(record.ts)}, {f.time(record.ts)}</span>
         {hasHistory && (

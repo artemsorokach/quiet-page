@@ -1,5 +1,7 @@
 import { Fragment } from 'preact'
-import { useState } from 'preact/hooks'
+import { useEffect, useState } from 'preact/hooks'
+import { loadWritingFont } from '../../core/theme/look.ts'
+import { recordLook } from '../../core/theme/recordLook.ts'
 import { useI18n } from '../../core/i18n/I18nProvider.tsx'
 import { dateFormat, dayKey, parseDayKey } from '../../core/journal/dates.ts'
 import type { JournalRecord } from '../../core/store/types.ts'
@@ -10,6 +12,8 @@ import './Path.css'
 interface PathScreenProps {
   records: readonly JournalRecord[]
   scale: string
+  /** show each entry in the look it was written in */
+  showLook: boolean
   scaleWords: readonly string[]
   actions: RecordActions
   onSendDay: (day: string) => void
@@ -21,12 +25,17 @@ const thisMonth = () => {
 }
 
 /** Records over time: a calendar of moods and the feed of entries, newest first. */
-export function PathScreen({ records, scale, scaleWords, actions, onSendDay }: PathScreenProps) {
+export function PathScreen({ records, scale, showLook, scaleWords, actions, onSendDay }: PathScreenProps) {
   const { t, lang } = useI18n()
   const f = dateFormat(lang)
   const [month, setMonth] = useState(thisMonth)
   const [day, setDay] = useState<string | null>(null)
   const list = day ? records.filter((r) => dayKey(r.ts) === day) : records
+
+  useEffect(() => {
+    if (!showLook) return
+    new Set(records.map((r) => recordLook(r)?.font).filter((f) => f !== undefined)).forEach((font) => void loadWritingFont(font))
+  }, [showLook, records])
 
   function selectDay(next: string | null) {
     setDay(next)
@@ -61,7 +70,7 @@ export function PathScreen({ records, scale, scaleWords, actions, onSendDay }: P
           return (
             <Fragment key={record.id}>
               {header && <h2 class="path__month">{header}</h2>}
-              <EntryCard record={record} scale={scale} actions={actions} />
+              <EntryCard record={record} scale={scale} showLook={showLook} actions={actions} />
             </Fragment>
           )
         })}

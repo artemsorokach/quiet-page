@@ -1,7 +1,7 @@
 import type { JournalRecord } from '../store/types.ts'
 
 /** Settings that travel with a backup (same keys as the legacy site). */
-export const BACKUP_SETTING_KEYS = ['ts-pal', 'ts-mode', 'ts-atmo', 'ts-wfont', 'ts-scale', 'ts-lang', 'ts-myfeels', 'ts-merge', 'ts-focus'] as const
+export const BACKUP_SETTING_KEYS = ['ts-pal', 'ts-mode', 'ts-atmo', 'ts-wfont', 'ts-scale', 'ts-lang', 'ts-myfeels', 'ts-merge', 'ts-focus', 'ts-pathlook'] as const
 
 export interface Backup {
   app: 'quiet-page'

@@ -432,5 +432,7 @@
   "supportByRegion": "Antwort in der Sprache der Region, aus der du anrufst",
   "supportUsLangs": "Spanisch: nach dem Anruf die 2 drücken. Andere Sprache: sie nennen, dann wird eine Dolmetschung zugeschaltet (über 240 Sprachen).",
   "supportInterpreters": "Dolmetschende für andere Sprachen sind verfügbar.",
-  "supportNoFree": "Für dieses Land haben wir kein kostenloses Sorgentelefon gefunden. Bei Gefahr steht die Notrufnummer unten."
+  "supportNoFree": "Für dieses Land haben wir kein kostenloses Sorgentelefon gefunden. Bei Gefahr steht die Notrufnummer unten.",
+  "pathLook": "Einträge im Aussehen zeigen, in dem sie geschrieben wurden",
+  "pathLookHint": "Farben, heller oder dunkler Modus und Schrift wie beim Speichern. Gilt für neue Einträge."
 }

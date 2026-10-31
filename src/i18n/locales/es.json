@@ -432,5 +432,7 @@
   "supportByRegion": "atienden en el idioma de la región desde la que llamas",
   "supportUsLangs": "En español: pulsa 2 al llamar. Otro idioma: di su nombre y se conecta un intérprete (más de 240 idiomas).",
   "supportInterpreters": "Hay intérpretes para otros idiomas.",
-  "supportNoFree": "No hemos encontrado una línea de escucha gratuita para este país. Si estás en peligro, el número de emergencias está abajo."
+  "supportNoFree": "No hemos encontrado una línea de escucha gratuita para este país. Si estás en peligro, el número de emergencias está abajo.",
+  "pathLook": "Mostrar las entradas con el aspecto en que se escribieron",
+  "pathLookHint": "Colores, modo claro u oscuro y letra, como al guardarlas. Se aplica a las entradas nuevas."
 }

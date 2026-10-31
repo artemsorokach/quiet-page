@@ -57,3 +57,9 @@ test('ids look like the legacy ones and differ', () => {
   assert.match(a, /^e[0-9a-z]+$/)
   assert.notEqual(a, b)
 })
+
+test('the look of the moment is kept with entries and mood notes', () => {
+  const look = { skin: 'lavanda', mode: 'dark' as const, font: 'lora' }
+  assert.deepEqual(composeRecord({ ...base, free: 'Вечір', look }, 'e1', 100)?.look, look)
+  assert.deepEqual(composeRecord({ ...base, mood: 3, look }, 'e2', 100)?.look, look)
+})

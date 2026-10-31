@@ -432,5 +432,7 @@
   "supportByRegion": "rispondono nella lingua della regione da cui chiami",
   "supportUsLangs": "In spagnolo: premi 2 dopo la chiamata. Altra lingua: dilla ad alta voce e si collega un interprete (oltre 240 lingue).",
   "supportInterpreters": "Sono disponibili interpreti per altre lingue.",
-  "supportNoFree": "Non abbiamo trovato una linea di ascolto gratuita per questo paese. Se sei in pericolo, il numero di emergenza è qui sotto."
+  "supportNoFree": "Non abbiamo trovato una linea di ascolto gratuita per questo paese. Se sei in pericolo, il numero di emergenza è qui sotto.",
+  "pathLook": "Mostra le note con l’aspetto in cui sono state scritte",
+  "pathLookHint": "Colori, modalità chiara o scura e carattere, come al momento del salvataggio. Vale per le nuove note."
 }

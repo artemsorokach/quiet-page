@@ -71,7 +71,8 @@ function Shell({ prefs }: { prefs: Preferences }) {
 
   async function save(form: WriteForm): Promise<SaveResult> {
     const now = Date.now()
-    const record = composeRecord(form, newRecordId(now), now)
+    const writtenIn = { skin: theme.skin, mode: resolvedMode(theme.mode), font: look.font }
+    const record = composeRecord({ ...form, look: writtenIn }, newRecordId(now), now)
     if (!record) return 'failed'
     try {
       await store.put(record)
@@ -191,6 +192,7 @@ function Shell({ prefs }: { prefs: Preferences }) {
         {tab === 'path' && (
           <PathScreen
             records={journal.records}
+            showLook={look.pathLook}
             scale={scale}
             scaleWords={scaleWords}
             actions={journal.recordActions}

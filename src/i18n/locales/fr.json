@@ -432,5 +432,7 @@
   "supportByRegion": "réponse dans la langue de la région d’où tu appelles",
   "supportUsLangs": "En espagnol : appuie sur 2 après l’appel. Autre langue : dis son nom et un interprète se joint (plus de 240 langues).",
   "supportInterpreters": "Des interprètes pour d’autres langues sont disponibles.",
-  "supportNoFree": "Nous n’avons pas trouvé de ligne d’écoute gratuite pour ce pays. En cas de danger, le numéro d’urgence est ci-dessous."
+  "supportNoFree": "Nous n’avons pas trouvé de ligne d’écoute gratuite pour ce pays. En cas de danger, le numéro d’urgence est ci-dessous.",
+  "pathLook": "Afficher les notes dans l’apparence où elles ont été écrites",
+  "pathLookHint": "Couleurs, mode clair ou sombre et police, comme au moment de l’enregistrement. Concerne les nouvelles notes."
 }

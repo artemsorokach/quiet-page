@@ -15,6 +15,8 @@ interface RecordBase {
   mood?: number | null
   scale?: string
   feelings?: readonly string[]
+  /** palette, light/dark mode and writing font at the moment of saving (optional; see recordLook) */
+  look?: unknown
 }
 
 export interface EntryRecord extends RecordBase {

@@ -21,27 +21,27 @@
   --bg:#d6e1e3;  --glow-a:rgba(104,168,180,.18);  --glow-b:rgba(146,192,170,.15);  --surface:#e5edee;  --surface-2:#edf3f3;  --line:#b4c8cb;  --fg:#1d343b;  --muted:#48646c;  --faint:#6f8a91;  --primary:#2a7680;  --lo:#7f93b0;  --hi:#2b8f78;  --warm:#a5702b;  --gold:#94763a;  --danger:#a8544a;  --gold-soft:rgba(148,118,58,.5);  --hl:rgba(245,196,64,.36);  --warm-ink:#fffaf2;  color-scheme:light;
 }
 }
-:root[data-skin="hlybyna-dark"]{
+:root[data-skin="hlybyna-dark"], [data-look="hlybyna-dark"]{
   --bg:#1a2b35;  --glow-a:rgba(90,160,180,.18);  --glow-b:rgba(70,130,110,.12);  --surface:#223743;  --surface-2:#284150;  --line:#3a5868;  --fg:#e6f0f2;  --muted:#a6bec5;  --faint:#7792a0;  --primary:#82cfcb;  --lo:#6a86a8;  --hi:#a8e6d3;  --warm:#e8c08a;  --gold:#d2b77a;  --danger:#e8a596;  --gold-soft:rgba(210,183,122,.55);  --hl:rgba(250,212,90,.30);  --warm-ink:#241a0c;  color-scheme:dark;
 }
 
-:root[data-skin="hlybyna-light"]{
+:root[data-skin="hlybyna-light"], [data-look="hlybyna-light"]{
   --bg:#d6e1e3;  --glow-a:rgba(104,168,180,.18);  --glow-b:rgba(146,192,170,.15);  --surface:#e5edee;  --surface-2:#edf3f3;  --line:#b4c8cb;  --fg:#1d343b;  --muted:#48646c;  --faint:#6f8a91;  --primary:#2a7680;  --lo:#7f93b0;  --hi:#2b8f78;  --warm:#a5702b;  --gold:#94763a;  --danger:#a8544a;  --gold-soft:rgba(148,118,58,.5);  --hl:rgba(245,196,64,.36);  --warm-ink:#fffaf2;  color-scheme:light;
 }
 
-:root[data-skin="khvylia-dark"]{
+:root[data-skin="khvylia-dark"], [data-look="khvylia-dark"]{
   --bg:#182c2b;  --glow-a:rgba(90,170,150,.16);  --glow-b:rgba(70,140,130,.12);  --surface:#203836;  --surface-2:#27423f;  --line:#385a56;  --fg:#e5f1ee;  --muted:#a3c2bb;  --faint:#74948d;  --primary:#86d6c1;  --lo:#5f8794;  --hi:#a6e8cf;  --warm:#eabf93;  --gold:#d4b880;  --danger:#e8a596;  --gold-soft:rgba(210,183,122,.55);  --hl:rgba(250,212,90,.30);  --warm-ink:#241a0c;  color-scheme:dark;
 }
 
-:root[data-skin="khvylia-light"]{
+:root[data-skin="khvylia-light"], [data-look="khvylia-light"]{
   --bg:#d4e2de;  --glow-a:rgba(110,175,160,.18);  --glow-b:rgba(150,190,170,.15);  --surface:#e3ece9;  --surface-2:#ebf2ef;  --line:#b0c7c1;  --fg:#1b3531;  --muted:#46655f;  --faint:#6c8a84;  --primary:#237d6b;  --lo:#8299a6;  --hi:#2a8a6d;  --warm:#a26d37;  --gold:#93763c;  --danger:#a8544a;  --gold-soft:rgba(148,118,58,.5);  --hl:rgba(245,196,64,.36);  --warm-ink:#fffaf2;  color-scheme:light;
 }
 
-:root[data-skin="lis-dark"]{
+:root[data-skin="lis-dark"], [data-look="lis-dark"]{
   --bg:#1d2721;  --glow-a:rgba(120,160,120,.14);  --glow-b:rgba(100,140,100,.10);  --surface:#26322b;  --surface-2:#2d3b33;  --line:#405347;  --fg:#e8efe9;  --muted:#aec0b2;  --faint:#7d9283;  --primary:#a3cfac;  --lo:#73897b;  --hi:#b7dcae;  --warm:#e0b977;  --gold:#cdb47a;  --danger:#e8a596;  --gold-soft:rgba(210,183,122,.55);  --hl:rgba(250,212,90,.30);  --warm-ink:#241a0c;  color-scheme:dark;
 }
 
-:root[data-skin="lis-light"]{
+:root[data-skin="lis-light"], [data-look="lis-light"]{
   --bg:#e4eae0;
   --glow-a:rgba(150,186,140,.20);
   --glow-b:rgba(118,168,176,.14);
@@ -62,11 +62,11 @@
   --hl:rgba(245,196,64,.38); color-scheme:light;
 }
 
-:root[data-skin="nich-dark"]{
+:root[data-skin="nich-dark"], [data-look="nich-dark"]{
   --bg:#1c2335;  --glow-a:rgba(120,140,220,.16);  --glow-b:rgba(100,120,200,.10);  --surface:#242c41;  --surface-2:#2b344c;  --line:#3d4863;  --fg:#e7ebf5;  --muted:#adb6cf;  --faint:#7c86a3;  --primary:#9bbcef;  --lo:#6f74a8;  --hi:#a9d4f0;  --warm:#ecc38c;  --gold:#d3bb88;  --danger:#e8a596;  --gold-soft:rgba(210,183,122,.55);  --hl:rgba(250,212,90,.30);  --warm-ink:#241a0c;  color-scheme:dark;
 }
 
-:root[data-skin="nich-light"]{
+:root[data-skin="nich-light"], [data-look="nich-light"]{
   --bg:#e3e7f1;
   --glow-a:rgba(120,140,212,.17);
   --glow-b:rgba(108,180,190,.14);
@@ -88,24 +88,26 @@
 }
 
 
-:root[data-skin="lavanda-dark"]{
+:root[data-skin="lavanda-dark"], [data-look="lavanda-dark"]{
   --bg:#23232f;  --glow-a:rgba(150,140,220,.14);  --glow-b:rgba(120,110,190,.10);  --surface:#2c2c3b;  --surface-2:#343446;  --line:#4a4b62;  --fg:#eceaf4;  --muted:#b7b4cc;  --faint:#85839c;  --primary:#b4a8e6;  --lo:#7d7aa8;  --hi:#c9b8f0;  --warm:#ebc28c;  --gold:#d3bb88;  --danger:#e8a596;  --gold-soft:rgba(210,183,122,.55);  --hl:rgba(250,212,90,.30);  --warm-ink:#241a0c;  color-scheme:dark;
 }
 
-:root[data-skin="lavanda-light"]{
+:root[data-skin="lavanda-light"], [data-look="lavanda-light"]{
   --bg:#e2e0ea;  --glow-a:rgba(150,140,210,.16);  --glow-b:rgba(170,160,210,.12);  --surface:#ebe9f2;  --surface-2:#f1f0f6;  --line:#c9c6d8;  --fg:#2c2a3c;  --muted:#5c5975;  --faint:#83809b;  --primary:#6a5aa8;  --lo:#9d9ab8;  --hi:#7a62b8;  --warm:#a46d33;  --gold:#93763e;  --danger:#a8544a;  --gold-soft:rgba(148,118,58,.5);  --hl:rgba(245,196,64,.36);  --warm-ink:#fffaf2;  color-scheme:light;
 }
 
-:root[data-skin="svitanok-dark"]{
+:root[data-skin="svitanok-dark"], [data-look="svitanok-dark"]{
   --bg:#2a2128;  --glow-a:rgba(220,150,150,.14);  --glow-b:rgba(200,140,120,.10);  --surface:#352b33;  --surface-2:#3e323b;  --line:#574550;  --fg:#f3e9ec;  --muted:#c9b2ba;  --faint:#95808a;  --primary:#e7a9a0;  --lo:#8b7593;  --hi:#f0c4a2;  --warm:#f0c08a;  --gold:#dcb68a;  --danger:#e8a596;  --gold-soft:rgba(210,183,122,.55);  --hl:rgba(250,212,90,.30);  --warm-ink:#241a0c;  color-scheme:dark;
 }
 
-:root[data-skin="svitanok-light"]{
+:root[data-skin="svitanok-light"], [data-look="svitanok-light"]{
   --bg:#ebe0dd;  --glow-a:rgba(220,160,150,.18);  --glow-b:rgba(230,180,160,.12);  --surface:#f2e9e6;  --surface-2:#f6efed;  --line:#d7c5c1;  --fg:#3a2a2e;  --muted:#6e5860;  --faint:#957f86;  --primary:#a85d5a;  --lo:#a596ad;  --hi:#c4805a;  --warm:#a8672f;  --gold:#9a7448;  --danger:#a8544a;  --gold-soft:rgba(148,118,58,.5);  --hl:rgba(245,196,64,.36);  --warm-ink:#fffaf2;  color-scheme:light;
 }
 
-/* Writing fonts (Settings → «Шрифт для письма»); sizes from the legacy site */
-:root[data-wfont="rubik"] { --font-write: "Rubik", "Nunito Variable", system-ui, sans-serif; --write-size: 1.04rem; --write-leading: 1.8; }
-:root[data-wfont="comfortaa"] { --font-write: "Comfortaa", "Nunito Variable", system-ui, sans-serif; --write-size: 1rem; --write-leading: 1.95; }
-:root[data-wfont="lora"] { --font-write: "Lora", Georgia, serif; --write-size: 1.08rem; --write-leading: 1.85; }
-:root[data-wfont="caveat"] { --font-write: "Caveat", "Comfortaa", cursive; --write-size: 1.45rem; --write-leading: 1.6; }
+/* Writing fonts (Settings → «Шрифт для письма»); sizes from the legacy site.
+   [data-look]/[data-look-font] apply a palette or font to one card in the Path (the look it was written in). */
+[data-look-font="nunito"] { --font-write: var(--font-ui); --write-size: 1.06rem; --write-leading: 1.85; }
+:root[data-wfont="rubik"], [data-look-font="rubik"] { --font-write: "Rubik", "Nunito Variable", system-ui, sans-serif; --write-size: 1.04rem; --write-leading: 1.8; }
+:root[data-wfont="comfortaa"], [data-look-font="comfortaa"] { --font-write: "Comfortaa", "Nunito Variable", system-ui, sans-serif; --write-size: 1rem; --write-leading: 1.95; }
+:root[data-wfont="lora"], [data-look-font="lora"] { --font-write: "Lora", Georgia, serif; --write-size: 1.08rem; --write-leading: 1.85; }
+:root[data-wfont="caveat"], [data-look-font="caveat"] { --font-write: "Caveat", "Comfortaa", cursive; --write-size: 1.45rem; --write-leading: 1.6; }

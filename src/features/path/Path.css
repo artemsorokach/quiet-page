@@ -56,6 +56,8 @@ button.calendar__day { color: var(--fg); }
 
 /* Entry */
 .entry { display: flex; flex-direction: column; gap: 8px; }
+/* A card shown in the look it was written in carries its own colours. */
+.entry[data-look] { color: var(--fg); }
 .entry--check { padding: 14px 20px; }
 .entry__check-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 0.82rem; font-weight: 600; color: var(--muted); }
 .entry__remove { min-height: 28px; font-size: 0.78rem; color: var(--faint); }

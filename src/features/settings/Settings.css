@@ -34,3 +34,4 @@
 }
 .settings__font b { font-size: 1.35rem; font-weight: 400; line-height: 1.2; color: var(--fg); }
 .settings__font[aria-pressed='true'] { border-color: var(--gold-soft); color: var(--fg); }
+.settings__hint--toggle { margin: -6px 0 0 28px; }

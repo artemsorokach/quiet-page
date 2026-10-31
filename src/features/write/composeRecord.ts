@@ -9,6 +9,8 @@ export interface WriteForm {
   answer: string
   free: string
   lang: string
+  /** the look the entry is written in, kept for the Path */
+  look?: { skin: string; mode: 'dark' | 'light'; font: string }
 }
 
 const ID_RANDOM_CHARS = 4
@@ -28,7 +30,7 @@ export function composeRecord(form: WriteForm, id: string, now: number): Journal
 
   if (qa.length === 0) {
     if (form.mood === null && form.feelings.length === 0) return null
-    return { id, type: 'check', ts: now, mood: form.mood, scale: form.scale, feelings: [...form.feelings] }
+    return { id, type: 'check', ts: now, mood: form.mood, scale: form.scale, feelings: [...form.feelings], ...(form.look ? { look: form.look } : {}) }
   }
 
   return {
@@ -41,5 +43,6 @@ export function composeRecord(form: WriteForm, id: string, now: number): Journal
     text: qa.map((item) => item.text).join('\n\n'),
     prompt: qa[0]?.prompt ?? null,
     lang: form.lang,
+    ...(form.look ? { look: form.look } : {}),
   }
 }

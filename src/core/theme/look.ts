@@ -32,6 +32,8 @@ export interface Look {
   font: WritingFont
   /** fade the rest of the page while writing */
   focus: boolean
+  /** show each Path entry in the look it was written in (off by default) */
+  pathLook: boolean
 }
 
 export function readLook(): Look {
@@ -39,6 +41,7 @@ export function readLook(): Look {
     atmosphere: readSetting<Atmosphere>('ts-atmo', 'still', oneOf(ATMOSPHERES)),
     font: readSetting<WritingFont>('ts-wfont', 'nunito', oneOf(WRITING_FONTS)),
     focus: readSetting('ts-focus', true, isBoolean),
+    pathLook: readSetting('ts-pathlook', false, isBoolean),
   }
 }
 
@@ -46,6 +49,7 @@ export function saveLook(look: Look): void {
   writeSetting('ts-atmo', look.atmosphere)
   writeSetting('ts-wfont', look.font)
   writeSetting('ts-focus', look.focus)
+  writeSetting('ts-pathlook', look.pathLook)
 }
 
 export function applyLook(look: Look): void {
