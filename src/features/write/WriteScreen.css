@@ -76,10 +76,13 @@
 .write__state { display: flex; flex-direction: column; gap: 22px; }
 /* «Як ти зараз?» and the feelings sit together in one calm block, apart from the writing */
 .write__state {
-  padding: 18px 16px 16px; border-radius: 20px;
+  /* narrow sides so long mood words (Виснажено, Наполненно, Voller Kraft) have room; text stays indented */
+  padding: 18px 10px 16px; border-radius: 20px;
   background: color-mix(in srgb, var(--surface) 70%, transparent);
   border: 1px solid color-mix(in srgb, var(--line) 40%, var(--surface));
 }
+.write__state .mood-scale__legend, .write__state .feelings { padding-left: 6px; }
+.write__state .mood-scale__options { gap: 0; }
 .write__chip--next { display: inline-flex; align-items: center; gap: 7px; }
 .write__chip--next svg { width: 15px; height: 15px; }
 .write__fields { display: flex; flex-direction: column; gap: 18px; }
