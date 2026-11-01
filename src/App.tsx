@@ -24,7 +24,7 @@ import { sampleRecords } from './features/welcome/demo.ts'
 import { WriteScreen, type SaveResult } from './features/write/WriteScreen.tsx'
 import { composeRecord, newRecordId, type WriteForm } from './features/write/composeRecord.ts'
 import { Toast } from './ui/Toast.tsx'
-import { HeartHandIcon } from './ui/icons.tsx'
+import { SupportIcon } from './ui/icons.tsx'
 import './styles/global.css'
 import './App.css'
 
@@ -250,7 +250,7 @@ function Shell({ prefs }: { prefs: Preferences }) {
       </main>
       {tab !== 'write' && (
         <button type="button" class="write__support app__support" onClick={() => setSupportOpen(true)}>
-          <HeartHandIcon />
+          <SupportIcon />
           {t('supportLink')}
         </button>
       )}

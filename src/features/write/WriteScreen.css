@@ -1,10 +1,9 @@
 .write { display: flex; flex-direction: column; gap: 18px; }
 .write__date {
   margin: 4px 0 -10px;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
   color: var(--faint);
 }
 .write__greeting { margin: 0; font-size: 1.4rem; font-weight: 400; line-height: 1.4; color: color-mix(in srgb, var(--fg) 88%, var(--bg)); text-wrap: balance; }

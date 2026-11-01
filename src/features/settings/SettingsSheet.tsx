@@ -123,11 +123,16 @@ export function SettingsSheet(props: SettingsSheetProps) {
           <input type="checkbox" checked={look.focus} onChange={(e) => props.onLook({ ...look, focus: e.currentTarget.checked })} />
           <span>{t('focus')}</span>
         </label>
-        <label class="settings__toggle">
-          <input type="checkbox" checked={look.pathLook} onChange={(e) => props.onLook({ ...look, pathLook: e.currentTarget.checked })} />
-          <span>{t('pathLook')}</span>
+        <label class="settings__toggle settings__toggle--hinted">
+          <input
+            type="checkbox" aria-labelledby="pathlook-label" aria-describedby="pathlook-hint"
+            checked={look.pathLook} onChange={(e) => props.onLook({ ...look, pathLook: e.currentTarget.checked })}
+          />
+          <span class="settings__toggle-text">
+            <span id="pathlook-label">{t('pathLook')}</span>
+            <span id="pathlook-hint" class="settings__hint">{t('pathLookHint')}</span>
+          </span>
         </label>
-        <p class="settings__hint settings__hint--toggle">{t('pathLookHint')}</p>
       </div>
 
       <div class="settings__group">

@@ -23,7 +23,7 @@
 .settings__email { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; margin: 0; font-weight: 600; overflow-wrap: anywhere; }
 .settings__links { display: flex; flex-wrap: wrap; gap: 4px 18px; }
 .settings__toggle { display: flex; align-items: center; gap: 10px; min-height: var(--tap); cursor: pointer; font-size: 0.92rem; }
-.settings__toggle input { width: 18px; height: 18px; margin: 0; accent-color: var(--primary); }
+.settings__toggle input { flex: none; width: 18px; height: 18px; margin: 0; accent-color: var(--primary); }
 .settings__local { margin: 0; font-size: 0.9rem; line-height: 1.6; color: var(--muted); }
 .settings__hint { margin: 8px 0 0; font-size: 0.84rem; line-height: 1.5; color: var(--faint); }
 .settings__fonts { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
@@ -34,7 +34,11 @@
 }
 .settings__font b { font-size: 1.35rem; font-weight: 400; line-height: 1.2; color: var(--fg); }
 .settings__font[aria-pressed='true'] { border-color: var(--gold-soft); color: var(--fg); }
-.settings__hint--toggle { margin: -6px 0 0 28px; }
+.settings__toggle--hinted { align-items: flex-start; }
+.settings__toggle--hinted input { margin-top: 4px; }
+/* The hint sits right under the label's text, in the same column */
+.settings__toggle-text { display: flex; flex-direction: column; gap: 3px; line-height: 1.45; }
+.settings__toggle-text .settings__hint { margin: 0; font-size: 0.8rem; line-height: 1.5; text-wrap: pretty; }
 .settings__data { gap: 10px; padding-top: 14px; border-top: 1px solid color-mix(in srgb, var(--line) 50%, var(--surface-2)); }
 .settings__data .label { margin-bottom: 0; }
 .settings__rows { display: flex; flex-direction: column; overflow: hidden; border-radius: 16px; background: var(--surface); }

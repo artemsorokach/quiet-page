@@ -19,10 +19,11 @@ export function SettingsIcon() {
   )
 }
 
-export function HeartHandIcon() {
+/** «Якщо зараз дуже важко»: a phone says at once what is behind the link. */
+export function SupportIcon() {
   return (
     <svg {...base}>
-      <path d="M12 20s-7-4.4-7-9.6A3.9 3.9 0 0 1 12 8a3.9 3.9 0 0 1 7 2.4C19 15.6 12 20 12 20z" />
+      <path d="M6.5 4h3l1.5 4-2 1.2a10 10 0 0 0 5.8 5.8L16 13l4 1.5v3a2 2 0 0 1-2.2 2A16 16 0 0 1 4.5 6.2 2 2 0 0 1 6.5 4z" />
     </svg>
   )
 }

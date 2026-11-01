@@ -1,9 +1,17 @@
 .support__lead { margin: 0; font-size: 1.05rem; line-height: 1.55; }
 .support__country { display: flex; align-items: center; gap: 12px; font-size: 0.9rem; color: var(--muted); }
+.support__select { position: relative; flex: 1; display: flex; }
+/* Own chevron, set in from the edge and in the theme's colour */
+.support__select::after {
+  content: ''; position: absolute; right: 18px; top: 50%; width: 7px; height: 7px; margin-top: -6px;
+  border-right: 1.5px solid var(--muted); border-bottom: 1.5px solid var(--muted); transform: rotate(45deg); pointer-events: none;
+}
 .support__country select {
   flex: 1;
   min-height: var(--tap);
-  padding: 0 12px;
+  padding: 0 44px 0 14px;
+  -webkit-appearance: none;
+  appearance: none;
   border-radius: var(--radius-s);
   border: 1px solid var(--line);
   background: var(--surface);

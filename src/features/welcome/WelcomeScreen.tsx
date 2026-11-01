@@ -1,7 +1,7 @@
 import { useI18n } from '../../core/i18n/I18nProvider.tsx'
 import { LANGS, type Lang } from '../../core/i18n/format.ts'
 import { Button } from '../../ui/Button.tsx'
-import { HeartHandIcon, LockIcon, MarkIcon, MoonIcon, SunIcon } from '../../ui/icons.tsx'
+import { LockIcon, MarkIcon, MoonIcon, SunIcon, SupportIcon } from '../../ui/icons.tsx'
 import { Paragraphs, RichText } from '../../ui/RichText.tsx'
 import './Welcome.css'
 
@@ -76,9 +76,10 @@ export function WelcomeScreen({ returning, darkNow, onToggleDark, onLang, onStar
         <Button onClick={onStart}>{returning ? t('back') : t('start')}</Button>
         <Button variant="ghost" onClick={onDemo}>{t('demoBtn')}</Button>
       </div>
-      <p class="welcome__beta">{t('betaNote')}</p>
+      {/* Each sentence on its own line, so a short tail never wraps alone */}
+      <p class="welcome__beta">{t('betaNote').replace('. ', '.\n')}</p>
       <button type="button" class="write__support" onClick={onSupport}>
-        <HeartHandIcon />
+        <SupportIcon />
         {t('supportLink')}
       </button>
     </section>

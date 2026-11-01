@@ -60,11 +60,13 @@ export function SupportSheet({ open, onClose }: SupportSheetProps) {
 
       <label class="support__country">
         <span>{t('supportCountry')}</span>
+        <span class="support__select">
         <select value={country} onChange={(event) => setCountry(event.currentTarget.value as Country)}>
           {COUNTRIES.map((code) => (
             <option key={code} value={code}>{regionNames.of(code) ?? code}</option>
           ))}
         </select>
+        </span>
       </label>
 
       {lines.length > 0 ? (

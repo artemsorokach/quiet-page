@@ -4,7 +4,7 @@ import { useI18n } from '../../core/i18n/I18nProvider.tsx'
 import { Button } from '../../ui/Button.tsx'
 import { GrowingTextarea } from '../../ui/GrowingTextarea.tsx'
 import { FeelingsPicker } from '../../ui/FeelingsPicker.tsx'
-import { HeartHandIcon } from '../../ui/icons.tsx'
+import { SupportIcon } from '../../ui/icons.tsx'
 import { MoodScale, type Mood } from '../../ui/MoodScale.tsx'
 import { FEELING_KEYS } from '../../core/journal/feelings.ts'
 import type { WriteForm } from './composeRecord.ts'
@@ -50,7 +50,7 @@ export function WriteScreen(props: WriteScreenProps) {
   const [free, setFree] = useState(props.initialDraft.free)
   const firstRender = useRef(true)
   const [status, setStatus] = useState<'idle' | 'saving' | 'saved' | 'failed'>('idle')
-  const dateLabel = new Intl.DateTimeFormat(lang, { weekday: 'long', day: 'numeric', month: 'long' }).format(props.date)
+  const dateLabel = capitalize(new Intl.DateTimeFormat(lang, { weekday: 'long', day: 'numeric', month: 'long' }).format(props.date))
   const scales = messages.scales as Record<string, readonly (string | readonly string[])[]>
   const words = scaleWords(scales[props.scale] ?? scales.vaha)
   const focus = useWritingFocus(props.focusMode)
@@ -156,9 +156,14 @@ export function WriteScreen(props: WriteScreenProps) {
       )}
 
       <button type="button" class="write__support recede" onClick={props.onOpenSupport}>
-        <HeartHandIcon />
+        <SupportIcon />
         {t('supportLink')}
       </button>
     </section>
   )
+}
+
+/** «неділя, 1 листопада» → «Неділя, 1 листопада» (some languages write weekdays in lower case). */
+function capitalize(text: string): string {
+  return text.charAt(0).toLocaleUpperCase() + text.slice(1)
 }
