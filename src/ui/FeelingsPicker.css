@@ -19,3 +19,18 @@
   border-color: color-mix(in srgb, var(--gold) 60%, var(--line));
   background: color-mix(in srgb, var(--gold) 14%, var(--surface));
 }
+.feelings__own { display: inline-flex; align-items: center; }
+.feelings__chip--own { padding-right: 30px; }
+.feelings__remove {
+  width: 28px; height: 28px; margin-left: -30px; padding: 0; border: none; border-radius: 50%;
+  background: none; color: var(--faint); font-size: 1rem; line-height: 1;
+}
+.feelings__remove:hover { color: var(--fg); }
+.feelings__chip--ghost { border-style: dashed; background: none; }
+.feelings__form { display: inline-flex; align-items: center; gap: 6px; }
+.feelings__input {
+  width: 11em; min-height: 36px; padding: 6px 14px; border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--gold) 45%, var(--line)); background: var(--surface);
+  font-size: 0.86rem; color: var(--fg);
+}
+.feelings__input:focus { outline: none; }

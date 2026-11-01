@@ -23,6 +23,8 @@ export interface Account {
   phase: Phase
   store: EntryStore
   email: string
+  /** signed-in account id, null while entries live only in this browser */
+  uid: string | null
   canRecover: boolean
   authActions: AuthActions
   authErrorKey: (error: unknown) => 'errCred' | 'errExists' | 'errWeak' | 'errEmail' | 'errAuth'
@@ -79,6 +81,7 @@ export function useAccount(lang: string): Account {
   const [phase, setPhase] = useState<Phase>({ kind: 'starting' })
   const [store, setStore] = useState<EntryStore>(local)
   const [email, setEmail] = useState('')
+  const [uidState, setUidState] = useState<string | null>(null)
   const runtime = useRef<Runtime | null>(null)
   const session = useRef<KeySession | null>(null)
   const uid = useRef<string | null>(null)
@@ -130,12 +133,14 @@ export function useAccount(lang: string): Account {
         if (!user) {
           session.current = null
           uid.current = null
+          setUidState(null)
           setEmail('')
           setStore(local)
           setPhase((current) => (current.kind === 'signIn' ? current : { kind: 'local' }))
           return
         }
         uid.current = user.uid
+        setUidState(user.uid)
         setEmail(user.email ?? '')
         session.current = new KeySession({
           uid: user.uid,
@@ -235,6 +240,7 @@ export function useAccount(lang: string): Account {
     phase,
     store,
     email,
+    uid: uidState,
     canRecover: session.current?.hasRecoveryCode ?? false,
     authActions,
     authErrorKey: (error) => runtime.current?.authErrorKey(error) ?? 'errAuth',

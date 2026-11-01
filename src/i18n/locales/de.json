@@ -116,7 +116,7 @@
   ],
   "calHint": "Die Farbe zeigt die Stimmung des Tages. Tippe auf einen Tag, um seine Einträge zu sehen.",
   "today": "Heute",
-  "betaNote": "Dies ist eine Beta-Version, die App entwickelt sich noch. Wenn du Ideen zur Verbesserung hast, freue ich mich über deine Rückmeldung.",
+  "betaNote": "Dies ist eine Beta-Version. Die App verändert sich nach und nach und wird besser.",
   "feedbackShort": "Jede Idee hilft der App, besser zu werden.",
   "dayEmpty": "An diesem Tag gibt es keine Einträge.",
   "pickDate": "Datum wählen",
@@ -383,7 +383,7 @@
     "Was fehlt dir gerade?",
     "Was hat sich im letzten Monat in dir verändert?",
     "Welche kleine Sache hat den Tag schöner gemacht?",
-    "Was würdest du dir selbst vor einer Woche sagen?",
+    "Was hat sich diese Woche verändert?",
     "Wo war es heute am ruhigsten?",
     "Welche Musik würdest du jetzt gern hören?",
     "Was ist dir heute gelungen, auch wenn nur ein bisschen?",
@@ -397,7 +397,7 @@
     "Hier ist Platz für deine Gedanken, wenn du magst.",
     "Die Seite ist da. Ohne Eile.",
     "Du kannst einfach bei deinen Gedanken sein.",
-    "Nichts muss sein. Aber wenn du etwas sagen möchtest, hier ist es ruhig.",
+    "Nichts muss sein. Aber wenn du etwas sagen möchtest, die Seite ist da.",
     "Du kannst mit einem Wort beginnen.",
     "Hier musst du dich nicht beeilen.",
     "Wenn der Tag lang war, kannst du ihn hier einfach loslassen."
@@ -437,5 +437,10 @@
   "bkSaveHint": "Eine Datei mit allen Einträgen und Einstellungen",
   "bkCopyHint": "Dasselbe ohne Datei: in die Zwischenablage",
   "importHint": "Fügt Einträge aus der Datei hinzu, ohne etwas zu löschen",
-  "bkWarn": "Die Datei ist nicht verschlüsselt, bewahre sie sicher auf."
+  "bkWarn": "Die Datei ist nicht verschlüsselt, bewahre sie sicher auf.",
+  "howItWorks": "Wie die App funktioniert",
+  "weekTitle": "Diese Woche",
+  "monthShow": "Monat",
+  "monthHide": "Einklappen",
+  "whatHere": "Was es hier gibt"
 }

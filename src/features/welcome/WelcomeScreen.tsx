@@ -1,7 +1,7 @@
 import { useI18n } from '../../core/i18n/I18nProvider.tsx'
 import { LANGS, type Lang } from '../../core/i18n/format.ts'
 import { Button } from '../../ui/Button.tsx'
-import { HeartHandIcon, MarkIcon, MoonIcon, SunIcon } from '../../ui/icons.tsx'
+import { HeartHandIcon, LockIcon, MarkIcon, MoonIcon, SunIcon } from '../../ui/icons.tsx'
 import { Paragraphs, RichText } from '../../ui/RichText.tsx'
 import './Welcome.css'
 
@@ -17,6 +17,12 @@ interface WelcomeScreenProps {
 }
 
 const SHORT: Record<Lang, string> = { uk: 'UA', ru: 'RU', en: 'EN', fr: 'FR', de: 'DE', it: 'IT', es: 'ES', pt: 'PT' }
+
+/** «<b>Сторінка.</b> Мить, щоб…» → a title on its own line and the explanation under it. */
+function splitPoint(text: string): { title: string; body: string } {
+  const match = /^<b>(.*?)<\/b>\s*(.*)$/s.exec(text)
+  return match ? { title: (match[1] ?? '').replace(/[.:]$/, ''), body: match[2] ?? '' } : { title: '', body: text }
+}
 
 /** First screen: what the app is, how it keeps entries private, and a calm way in. */
 export function WelcomeScreen({ returning, darkNow, onToggleDark, onLang, onStart, onDemo, onSupport }: WelcomeScreenProps) {
@@ -48,19 +54,29 @@ export function WelcomeScreen({ returning, darkNow, onToggleDark, onLang, onStar
         <div class="welcome__what-body"><Paragraphs text={t('wWhatBody')} /></div>
       </details>
 
+      <p class="welcome__label">{t('whatHere')}</p>
       <ul class="welcome__points">
-        {(['w1', 'w2', 'w3', 'w4'] as const).map((key) => (
-          <li key={key}><RichText text={t(key)} /></li>
-        ))}
+        {(['w1', 'w2', 'w3', 'w4'] as const).map((key) => {
+          const { title, body } = splitPoint(t(key))
+          return (
+            <li key={key}>
+              {title && <strong>{title}</strong>}
+              <RichText text={body} />
+            </li>
+          )
+        })}
       </ul>
 
-      <p class="welcome__privacy">{t('wPrivacy')}</p>
-      <p class="welcome__beta">{t('betaNote')}</p>
+      <p class="welcome__privacy">
+        <LockIcon />
+        <span>{t('wPrivacy')}</span>
+      </p>
 
       <div class="welcome__actions">
         <Button onClick={onStart}>{returning ? t('back') : t('start')}</Button>
         <Button variant="ghost" onClick={onDemo}>{t('demoBtn')}</Button>
       </div>
+      <p class="welcome__beta">{t('betaNote')}</p>
       <button type="button" class="write__support" onClick={onSupport}>
         <HeartHandIcon />
         {t('supportLink')}

@@ -1,3 +1,4 @@
+import { useState } from 'preact/hooks'
 import { useI18n } from '../../core/i18n/I18nProvider.tsx'
 import { LOCALES, dateFormat, dayKey } from '../../core/journal/dates.ts'
 import { moodColor } from '../../core/journal/records.ts'
@@ -36,6 +37,7 @@ function averageMood(list: readonly JournalRecord[]): number | null {
 /** Month grid: each day with records shows the day's average mood as a dot. */
 export function Calendar({ records, month, selectedDay, scaleWords, onMonth, onSelectDay }: CalendarProps) {
   const { t, lang } = useI18n()
+  const [expanded, setExpanded] = useState(false)
   const f = dateFormat(lang)
   const locale = LOCALES[lang]
   const byDay = groupByDay(records)
@@ -56,8 +58,21 @@ export function Calendar({ records, month, selectedDay, scaleWords, onMonth, onS
     onSelectDay(dayKey(new Date(y, mo - 1, d)))
   }
 
+  if (!expanded) {
+    return (
+      <WeekStrip byDay={byDay} today={today} selectedDay={selectedDay} onSelectDay={onSelectDay} onExpand={() => setExpanded(true)} />
+    )
+  }
+
   return (
     <div class="card calendar">
+      <div class="week__head">
+        <b>{t('weekTitle')}</b>
+        <button type="button" class="week__toggle" aria-expanded="true" onClick={() => setExpanded(false)}>
+          {t('monthHide')}
+          <span class="week__chevron week__chevron--up" aria-hidden="true" />
+        </button>
+      </div>
       <div class="calendar__head">
         <button type="button" class="calendar__nav" aria-label={t('calPrev')} onClick={() => onMonth(new Date(year, m - 1, 1))}>‹</button>
         <label class="calendar__title">
@@ -122,6 +137,73 @@ export function Calendar({ records, month, selectedDay, scaleWords, onMonth, onS
         <span><i class="calendar__legend-nomood" />{t('noMood')}</span>
       </div>
       <p class="calendar__hint">{t('calHint')}</p>
+    </div>
+  )
+}
+
+interface WeekStripProps {
+  byDay: Map<string, JournalRecord[]>
+  today: Date
+  selectedDay: string | null
+  onSelectDay: (day: string | null) => void
+  onExpand: () => void
+}
+
+/** This week, Monday to Sunday, each day with its mood colour; the month opens on request. */
+function WeekStrip({ byDay, today, selectedDay, onSelectDay, onExpand }: WeekStripProps) {
+  const { t, lang } = useI18n()
+  const f = dateFormat(lang)
+  const weekday = new Intl.DateTimeFormat(LOCALES[lang], { weekday: 'short' })
+  const monday = new Date(today)
+  monday.setDate(today.getDate() - ((today.getDay() + DAYS_IN_WEEK - 1) % DAYS_IN_WEEK))
+  const days = Array.from({ length: DAYS_IN_WEEK }, (_, i) => new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() + i))
+
+  return (
+    <div class="card week">
+      <div class="week__head">
+        <b>{t('weekTitle')}</b>
+        <button type="button" class="week__toggle" aria-expanded="false" onClick={onExpand}>
+          {t('monthShow')}
+          <span class="week__chevron" aria-hidden="true" />
+        </button>
+      </div>
+      <div class="week__days">
+        {days.map((date) => {
+          const key = dayKey(date)
+          const list = byDay.get(key)
+          const mood = list ? averageMood(list) : null
+          const classes = ['week__day']
+          if (+date === +today) classes.push('week__day--today')
+          if (date > today) classes.push('week__day--future')
+          const label = <>
+            <span class="week__name">{weekday.format(date).replace('.', '')}</span>
+            <b class="week__num">{date.getDate()}</b>
+          </>
+          if (!list) {
+            return (
+              <span key={key} class={classes.join(' ')}>
+                {label}
+                <i class={date > today ? '' : 'week__dot--empty'} />
+              </span>
+            )
+          }
+          if (mood === null) classes.push('week__day--nomood')
+          return (
+            <button
+              key={key}
+              type="button"
+              class={classes.join(' ')}
+              aria-label={`${f.day(date)}: ${list.length}`}
+              aria-pressed={selectedDay === key}
+              onClick={() => onSelectDay(selectedDay === key ? null : key)}
+            >
+              {label}
+              <i style={mood === null ? undefined : { background: moodColor(mood) }} />
+            </button>
+          )
+        })}
+      </div>
+      <p class="week__hint">{t('calHint')}</p>
     </div>
   )
 }

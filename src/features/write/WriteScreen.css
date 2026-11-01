@@ -75,3 +75,4 @@
 
 .write__intro, .write__state { display: flex; flex-direction: column; gap: 18px; }
 .write__fields { display: flex; flex-direction: column; gap: 18px; }
+.write__draft { margin: -6px 0 -8px; font-size: 0.8rem; line-height: 1.5; color: var(--faint); }

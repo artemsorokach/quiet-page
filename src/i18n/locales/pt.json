@@ -116,7 +116,7 @@
   ],
   "calHint": "A cor mostra o estado do dia. Toca num dia para ver as suas notas.",
   "today": "Hoje",
-  "betaNote": "Esta é uma versão beta e a app ainda está a crescer. Se tiveres ideias para a melhorar, a tua opinião será muito bem-vinda.",
+  "betaNote": "Esta é uma versão beta. A app vai mudando aos poucos e ficando melhor.",
   "feedbackShort": "Cada ideia ajuda a app a melhorar.",
   "dayEmpty": "Não há notas neste dia.",
   "pickDate": "Escolher uma data",
@@ -381,7 +381,7 @@
     "O que te falta neste momento?",
     "O que mudou em ti no último mês?",
     "Que pequena coisa tornou o dia melhor?",
-    "O que dirias a quem eras há uma semana?",
+    "O que mudou esta semana?",
     "Onde encontraste mais calma hoje?",
     "Que música gostavas de ouvir agora?",
     "O que correu bem hoje, mesmo que só um pouco?",
@@ -395,7 +395,7 @@
     "Aqui há espaço para os teus pensamentos, se quiseres.",
     "A página está aqui. Sem pressa.",
     "Podes simplesmente ficar com os teus pensamentos.",
-    "Nada é obrigatório. Mas se quiseres dizer alguma coisa, aqui há calma.",
+    "Nada é obrigatório. Mas se quiseres dizer alguma coisa, a página está aqui.",
     "Podes começar com uma só palavra.",
     "Aqui não é preciso ter pressa.",
     "Se o dia foi longo, podes simplesmente deixá-lo aqui."
@@ -437,5 +437,10 @@
   "bkSaveHint": "Um ficheiro com todas as entradas e definições",
   "bkCopyHint": "O mesmo, sem ficheiro: para a área de transferência",
   "importHint": "Acrescenta entradas do ficheiro sem apagar nada",
-  "bkWarn": "O ficheiro não está cifrado, por isso guarda-o num lugar seguro."
+  "bkWarn": "O ficheiro não está cifrado, por isso guarda-o num lugar seguro.",
+  "howItWorks": "Como funciona a app",
+  "weekTitle": "Esta semana",
+  "monthShow": "Mês",
+  "monthHide": "Recolher",
+  "whatHere": "O que há aqui"
 }

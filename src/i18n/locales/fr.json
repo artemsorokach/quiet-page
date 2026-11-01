@@ -116,7 +116,7 @@
   ],
   "calHint": "La couleur montre l'état du jour. Touche un jour pour voir ses notes.",
   "today": "Aujourd'hui",
-  "betaNote": "C'est une version bêta, l'application évolue encore. Si tu as des idées pour l'améliorer, ton avis sera le bienvenu.",
+  "betaNote": "C’est une version bêta. L’application évolue peu à peu et s’améliore.",
   "feedbackShort": "Chaque idée aide l’application à s’améliorer.",
   "dayEmpty": "Aucune note ce jour-là.",
   "pickDate": "Choisir une date",
@@ -383,7 +383,7 @@
     "Qu'est-ce qui te manque en ce moment ?",
     "Qu'est-ce qui a changé en toi ce dernier mois ?",
     "Quelle petite chose a rendu la journée meilleure ?",
-    "Que dirais-tu à la personne que tu étais il y a une semaine ?",
+    "Qu’est-ce qui a changé cette semaine ?",
     "Où as-tu trouvé le plus de calme aujourd'hui ?",
     "Quelle musique aimerais-tu entendre maintenant ?",
     "Qu'est-ce qui a réussi aujourd'hui, même un peu ?",
@@ -397,7 +397,7 @@
     "Il y a de la place ici pour tes pensées, si tu veux.",
     "La page est là. Sans hâte.",
     "Tu peux simplement rester avec tes pensées.",
-    "Rien n'est obligatoire. Mais si tu as envie de dire quelque chose, c'est calme ici.",
+    "Rien n'est obligatoire. Mais si tu as envie de dire quelque chose, la page est là.",
     "Tu peux commencer par un seul mot.",
     "Ici, rien ne presse.",
     "Si la journée a été longue, tu peux simplement la déposer ici."
@@ -437,5 +437,10 @@
   "bkSaveHint": "Un fichier avec toutes les notes et les réglages",
   "bkCopyHint": "La même chose, sans fichier : dans le presse-papiers",
   "importHint": "Ajoute les notes du fichier sans rien supprimer",
-  "bkWarn": "Le fichier n’est pas chiffré : garde-le en lieu sûr."
+  "bkWarn": "Le fichier n’est pas chiffré : garde-le en lieu sûr.",
+  "howItWorks": "Comment fonctionne l’application",
+  "weekTitle": "Cette semaine",
+  "monthShow": "Mois",
+  "monthHide": "Réduire",
+  "whatHere": "Ce qu’on trouve ici"
 }

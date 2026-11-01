@@ -1,4 +1,5 @@
-import { useState } from 'preact/hooks'
+import { useEffect, useRef, useState } from 'preact/hooks'
+import type { Draft } from '../../core/draft/draft.ts'
 import { useI18n } from '../../core/i18n/I18nProvider.tsx'
 import { Button } from '../../ui/Button.tsx'
 import { GrowingTextarea } from '../../ui/GrowingTextarea.tsx'
@@ -26,6 +27,13 @@ interface WriteScreenProps {
   onOpenSupport: () => void
   onSignIn: () => void
   onSave: (form: WriteForm) => Promise<SaveResult>
+  /** what was on the page before (kept on this device until «Зберегти») */
+  initialDraft: Draft
+  onDraftChange: (draft: Omit<Draft, 'question'>) => void
+  /** the person's own feeling words */
+  ownWords: readonly string[]
+  onAddOwn: (word: string) => string
+  onHideOwn: (word: string) => void
 }
 
 /** A scale is stored as [name, [five words]]. */
@@ -36,16 +44,25 @@ function scaleWords(scale: readonly (string | readonly string[])[] | undefined):
 
 export function WriteScreen(props: WriteScreenProps) {
   const { lang, messages, t } = useI18n()
-  const [mood, setMood] = useState<Mood | null>(null)
-  const [feelings, setFeelings] = useState<string[]>([])
-  const [answer, setAnswer] = useState('')
-  const [free, setFree] = useState('')
+  const [mood, setMood] = useState<Mood | null>(props.initialDraft.mood as Mood | null)
+  const [feelings, setFeelings] = useState<string[]>(props.initialDraft.feelings)
+  const [answer, setAnswer] = useState(props.initialDraft.answer)
+  const [free, setFree] = useState(props.initialDraft.free)
+  const firstRender = useRef(true)
   const [status, setStatus] = useState<'idle' | 'saving' | 'saved' | 'failed'>('idle')
   const dateLabel = new Intl.DateTimeFormat(lang, { weekday: 'long', day: 'numeric', month: 'long' }).format(props.date)
   const scales = messages.scales as Record<string, readonly (string | readonly string[])[]>
   const words = scaleWords(scales[props.scale] ?? scales.vaha)
   const focus = useWritingFocus(props.focusMode)
   const hasContent = Boolean((props.question && answer.trim()) || free.trim() || mood !== null || feelings.length)
+
+  useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false
+      return
+    }
+    props.onDraftChange({ mood, feelings, answer, free })
+  }, [mood, feelings, answer, free])
 
   async function save() {
     focus.stop()
@@ -73,9 +90,15 @@ export function WriteScreen(props: WriteScreenProps) {
         <MoodScale words={words} value={mood} legend={t('howNow')} onChange={setMood} />
         <FeelingsPicker
           options={FEELING_KEYS.map((key, i) => ({ key, label: messages.feelings[i] ?? key }))}
+          own={props.ownWords}
           value={feelings}
-          labels={{ add: t('feelAdd'), hide: t('feelHide'), prefix: t('feelsPrefix') }}
+          labels={{
+            add: t('feelAdd'), hide: t('feelHide'), prefix: t('feelsPrefix'),
+            own: t('feelOwn'), ownPlaceholder: t('feelOwnPh'), ownAdd: t('addBtn'), ownRemove: t('feelHideOne'),
+          }}
           onChange={setFeelings}
+          onAddOwn={props.onAddOwn}
+          onHideOwn={props.onHideOwn}
         />
       </div>
 
@@ -115,6 +138,8 @@ export function WriteScreen(props: WriteScreenProps) {
         />
       </div>
       </div>
+
+      {hasContent && status !== 'saving' && <p class="write__draft">{t('draftHint')}</p>}
 
       <div class="write__actions">
         <Button disabled={!hasContent || status === 'saving'} onClick={save}>{t('save')}</Button>

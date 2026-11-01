@@ -116,7 +116,7 @@
   ],
   "calHint": "The colour shows the state of the day. Tap a day to see its entries.",
   "today": "Today",
-  "betaNote": "This is a beta version, and the app is still growing. If you have ideas on how to improve it, I'd be grateful for your feedback.",
+  "betaNote": "This is a beta version. The app is gradually changing and getting better.",
   "feedbackShort": "Every idea helps the app get better.",
   "dayEmpty": "No entries on this day.",
   "pickDate": "Choose a date",
@@ -383,7 +383,7 @@
     "What are you missing right now?",
     "What has changed in you over the past month?",
     "What small thing made the day better?",
-    "What would you like to tell yourself from a week ago?",
+    "What has changed this week?",
     "Where did you feel calmest today?",
     "What music would you like to hear right now?",
     "What went well today, even a little?",
@@ -397,7 +397,7 @@
     "There's room here for your thoughts, if you like.",
     "The page is here. No rush.",
     "You can simply be with your thoughts.",
-    "Nothing is required. But if you'd like to say something, it's quiet here.",
+    "Nothing is required. But if you'd like to say something, the page is here.",
     "You can start with a single word.",
     "There's nowhere you need to hurry here.",
     "If the day was long, you can simply let it go here."
@@ -437,5 +437,10 @@
   "bkSaveHint": "A file with all entries and settings",
   "bkCopyHint": "The same, without a file: to the clipboard",
   "importHint": "Adds entries from the file without deleting anything",
-  "bkWarn": "The file isn’t encrypted, so keep it somewhere safe."
+  "bkWarn": "The file isn’t encrypted, so keep it somewhere safe.",
+  "howItWorks": "How the app works",
+  "weekTitle": "This week",
+  "monthShow": "Month",
+  "monthHide": "Hide",
+  "whatHere": "What’s here"
 }

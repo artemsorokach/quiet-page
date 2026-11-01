@@ -1,28 +1,30 @@
 .grow-field { position: relative; display: block; }
-.grow-field textarea { display: block; overflow-y: auto; }
-/* The browser's own corner mark is hidden; a quiet one in the theme's faintest colour replaces it. */
-.grow-field textarea::-webkit-resizer { background: transparent; }
-.grow-field::after {
+/* The browser's own handle is replaced by one that also works with a finger. */
+.grow-field textarea { display: block; overflow-y: auto; resize: none; }
+.grow-field__handle {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 36px;
+  height: 36px;
+  cursor: ns-resize;
+  touch-action: none;
+}
+.grow-field__handle::after {
   content: '';
   position: absolute;
-  right: 9px;
-  bottom: 9px;
-  width: 10px;
-  height: 10px;
-  pointer-events: none;
-  opacity: 0.8;
+  right: 10px;
+  bottom: 10px;
+  width: 11px;
+  height: 11px;
+  opacity: 0.85;
   background: linear-gradient(
     135deg,
     transparent 45%,
-    color-mix(in srgb, var(--faint) 55%, transparent) 45% 52%,
+    color-mix(in srgb, var(--faint) 60%, transparent) 45% 52%,
     transparent 52% 70%,
-    color-mix(in srgb, var(--faint) 55%, transparent) 70% 77%,
+    color-mix(in srgb, var(--faint) 60%, transparent) 70% 77%,
     transparent 77%
   );
 }
-@media (pointer: coarse) and (hover: none) {
-  @supports (-webkit-touch-callout: none) {
-    /* iOS Safari cannot drag text fields: the field grows by itself, so no corner mark there. */
-    .grow-field::after { display: none; }
-  }
-}
+.grow-field__handle:hover::after { opacity: 1; }

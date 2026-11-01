@@ -1,4 +1,4 @@
-import { useState } from 'preact/hooks'
+import { useEffect, useState } from 'preact/hooks'
 import { I18nProvider, useI18n } from './core/i18n/I18nProvider.tsx'
 import { writeSetting } from './core/settings/storage.ts'
 import { MemoryEntryStore } from './core/store/memoryStore.ts'
@@ -14,6 +14,9 @@ import { ShareScreen, type ShareRequest } from './features/share/ShareScreen.tsx
 import { AppHeader } from './features/shell/AppHeader.tsx'
 import { TabNav, type Tab } from './features/shell/TabNav.tsx'
 import { useJournal } from './features/shell/useJournal.ts'
+import { useSwipeTabs } from './features/shell/useSwipeTabs.ts'
+import { useDraft } from './features/write/useDraft.ts'
+import { useOwnFeelings } from './features/write/useOwnFeelings.ts'
 import { usePreferences } from './features/shell/usePreferences.ts'
 import { SupportSheet } from './features/support/SupportSheet.tsx'
 import { WelcomeScreen } from './features/welcome/WelcomeScreen.tsx'
@@ -62,6 +65,32 @@ function Shell({ prefs }: { prefs: Preferences }) {
   const index = questionIndex % messages.prompts.length
   const questionText = messages.prompts[index]
   const question = showQuestion && questionText ? { text: questionText, index } : null
+  // While the app is starting the page is already usable, so it starts with this browser's draft.
+  const draftScope = demo ? null : phase.kind === 'cloud' && account.uid ? `u:${account.uid}` : 'local'
+  const draft = useDraft(draftScope)
+  const own = useOwnFeelings(journal.records, messages.feelings)
+  const [aboutOpen, setAboutOpen] = useState(false)
+  const inApp = !welcome && (phase.kind === 'local' || phase.kind === 'cloud')
+
+  useEffect(() => {
+    if (!draft.ready) return
+    const q = draft.current().question
+    if (q !== null) {
+      setQuestionIndex(q)
+      setShowQuestion(true)
+    }
+  }, [draft.ready, draftScope])
+
+  useEffect(() => {
+    if (draft.ready) draft.update({ question: showQuestion ? questionIndex % messages.prompts.length : null })
+  }, [draft.ready, questionIndex, showQuestion])
+
+  useSwipeTabs(inApp && !settingsOpen && !supportOpen, (direction) => {
+    const order: Tab[] = ['write', 'path', 'share']
+    const next = order[order.indexOf(tab) + (direction === 'next' ? 1 : -1)]
+    if (next) selectTab(next)
+  })
+
   const scaleWords = (messages.scales as unknown as Record<string, readonly [string, readonly string[]]>)[scale]?.[1] ?? []
 
   function selectTab(next: Tab) {
@@ -76,6 +105,7 @@ function Shell({ prefs }: { prefs: Preferences }) {
     if (!record) return 'failed'
     try {
       await store.put(record)
+      draft.clear()
       setQuestionIndex((i) => i + 1)
       return 'saved'
     } catch {
@@ -174,8 +204,14 @@ function Shell({ prefs }: { prefs: Preferences }) {
         <TabNav current={tab} navLabel={t('navLabel')} labels={{ write: t('tWrite'), path: t('tPath'), share: t('tShare') }} onSelect={selectTab} />
       </div>
       <main>
-        {tab === 'write' && (
+        {tab === 'write' && draft.ready && (
           <WriteScreen
+            key={draftScope ?? 'none'}
+            initialDraft={draft.current()}
+            onDraftChange={(d) => draft.update(d)}
+            ownWords={own.words(draft.current().feelings)}
+            onAddOwn={own.add}
+            onHideOwn={own.hide}
             date={today}
             greeting={pickGreeting(messages.greets, today)}
             question={question}
@@ -219,10 +255,18 @@ function Shell({ prefs }: { prefs: Preferences }) {
         </button>
       )}
       <footer class="app-foot recede">
-        <p>Quiet Page · {t('beta')}</p>
-        <p>{t('freeNote')}</p>
-        <p class="app-foot__ideas">{t('feedbackShort')}</p>
-        <button type="button" class="link-btn" onClick={() => setWelcome(true)}>{t('about')}</button>
+        <button type="button" class="app-foot__toggle" aria-expanded={aboutOpen} onClick={() => setAboutOpen(!aboutOpen)}>
+          {t('about')}
+          <span class="app-foot__chevron" aria-hidden="true" />
+        </button>
+        {aboutOpen && (
+          <div class="app-foot__body">
+            <p>Quiet Page · {t('beta')}</p>
+            <p>{t('freeNote')}</p>
+            <p>{t('feedbackShort')}</p>
+            <button type="button" class="link-btn" onClick={() => setWelcome(true)}>{t('howItWorks')}</button>
+          </div>
+        )}
       </footer>
       <SupportSheet open={supportOpen} onClose={() => setSupportOpen(false)} />
       <SettingsSheet

@@ -18,11 +18,11 @@ export function isLang(value: unknown): value is Lang {
   return typeof value === 'string' && (LANGS as readonly string[]).includes(value)
 }
 
-/** Picks the first supported language from the browser's preferences, Ukrainian otherwise. */
+/** Picks the first supported language from the browser's preferences, English otherwise (Artem, 1.11). */
 export function detectLang(preferred: readonly string[]): Lang {
   for (const tag of preferred) {
     const base = tag.toLowerCase().split('-')[0]
     if (isLang(base)) return base
   }
-  return 'uk'
+  return 'en'
 }

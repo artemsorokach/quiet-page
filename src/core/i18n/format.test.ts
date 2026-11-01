@@ -18,6 +18,7 @@ test('placeholdersOf lists names sorted', () => {
 test('detectLang picks the first supported base language', () => {
   assert.equal(detectLang(['de-CH', 'fr']), 'de')
   assert.equal(detectLang(['ja', 'pt-BR']), 'pt')
-  assert.equal(detectLang(['ja']), 'uk')
+  assert.equal(detectLang(['ja']), 'en')
+  assert.equal(detectLang(['pl-PL', 'uk']), 'uk')
   assert.equal(isLang('xx'), false)
 })
