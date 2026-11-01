@@ -323,6 +323,7 @@ await dr.page.getByText('Кожна ідея допомагає додатку �
 await dr.page.getByRole('button', { name: 'Конфіденційність і правова інформація' }).click()
 const legal = dr.page.locator('dialog[open]')
 await legal.getByText('Хто обробляє дані').waitFor()
+await legal.getByText(/у Цюриху/).waitFor()
 assert.equal(await legal.locator('.legal__part').count(), 10)
 await shot(dr.page, 'legal')
 await legal.getByRole('button', { name: 'Закрити' }).click()

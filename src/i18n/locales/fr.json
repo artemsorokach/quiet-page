@@ -477,7 +477,7 @@
     ],
     [
       "Qui traite les données",
-      "La connexion et le stockage des notes chiffrées sont assurés par Google Firebase (Google Cloud). Le site est hébergé sur GitHub Pages ; comme tout hébergeur, il voit les données techniques des requêtes, par exemple l’adresse IP. Les données peuvent être traitées dans des centres de données hors de Suisse, notamment dans l’UE et aux États-Unis, selon les conditions de protection des données de ces entreprises."
+      "Les notes chiffrées sont stockées dans Google Cloud Firestore, dans le centre de données de Google à Zurich (Suisse). La connexion est assurée par Google Firebase Authentication ; Google peut aussi traiter ces données (par exemple l’adresse e-mail) hors de Suisse, notamment dans l’UE et aux États-Unis. Le site est hébergé sur GitHub Pages ; comme tout hébergeur, il voit les données techniques des requêtes, par exemple l’adresse IP, et peut aussi les traiter à l’étranger. Tout cela selon les conditions de protection des données de ces entreprises."
     ],
     [
       "Durée de conservation",

@@ -477,7 +477,7 @@
     ],
     [
       "Wer die Daten bearbeitet",
-      "Anmeldung und Speicherung der verschlüsselten Einträge erfolgen über Google Firebase (Google Cloud). Die Website liegt auf GitHub Pages; wie jeder Hoster sieht GitHub technische Anfragedaten, etwa die IP-Adresse. Daten können in Rechenzentren ausserhalb der Schweiz bearbeitet werden, auch in der EU und den USA, gemäss den Datenschutzbedingungen dieser Unternehmen."
+      "Die verschlüsselten Einträge werden in Google Cloud Firestore gespeichert, im Rechenzentrum von Google in Zürich (Schweiz). Die Anmeldung erfolgt über Google Firebase Authentication; diese Daten (etwa die E-Mail-Adresse) kann Google auch ausserhalb der Schweiz bearbeiten, unter anderem in der EU und den USA. Die Website liegt auf GitHub Pages; wie jeder Hoster sieht GitHub technische Anfragedaten, etwa die IP-Adresse, und kann sie ebenfalls im Ausland bearbeiten. All dies gemäss den Datenschutzbedingungen dieser Unternehmen."
     ],
     [
       "Wie lange gespeichert wird",

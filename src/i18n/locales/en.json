@@ -477,7 +477,7 @@
     ],
     [
       "Who processes the data",
-      "Sign-in and storage of the encrypted entries are provided by Google Firebase (Google Cloud). The site is hosted on GitHub Pages; like any host, it sees technical request data such as the IP address. Data may be processed in data centres outside Switzerland, including the EU and the USA, under these companies’ data protection terms."
+      "Encrypted entries are stored in Google Cloud Firestore, in Google’s data centre in Zurich (Switzerland). Sign-in is provided by Google Firebase Authentication; Google may process this data (such as the e-mail address) outside Switzerland too, including in the EU and the USA. The site is hosted on GitHub Pages; like any host, it sees technical request data such as the IP address and may also process it abroad. All of this is governed by these companies’ data protection terms."
     ],
     [
       "How long it is kept",

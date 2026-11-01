@@ -477,7 +477,7 @@
     ],
     [
       "Quién trata los datos",
-      "El acceso y el almacenamiento de las notas cifradas los proporciona Google Firebase (Google Cloud). El sitio está alojado en GitHub Pages; como cualquier alojamiento, ve datos técnicos de las solicitudes, por ejemplo la dirección IP. Los datos pueden tratarse en centros de datos fuera de Suiza, incluidos la UE y EE. UU., según las condiciones de protección de datos de estas empresas."
+      "Las notas cifradas se guardan en Google Cloud Firestore, en el centro de datos de Google en Zúrich (Suiza). El acceso lo proporciona Google Firebase Authentication; Google puede tratar estos datos (por ejemplo, la dirección de e-mail) también fuera de Suiza, incluidos la UE y EE. UU. El sitio está alojado en GitHub Pages; como cualquier alojamiento, ve datos técnicos de las solicitudes, por ejemplo la dirección IP, y también puede tratarlos en el extranjero. Todo ello según las condiciones de protección de datos de estas empresas."
     ],
     [
       "Cuánto tiempo se guarda",
