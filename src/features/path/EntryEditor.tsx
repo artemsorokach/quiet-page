@@ -3,6 +3,7 @@ import { useI18n } from '../../core/i18n/I18nProvider.tsx'
 import { dateFormat } from '../../core/journal/dates.ts'
 import { additionsOf, applyEdit, qaOf } from '../../core/journal/records.ts'
 import type { JournalRecord } from '../../core/store/types.ts'
+import { GrowingTextarea } from '../../ui/GrowingTextarea.tsx'
 import { Button } from '../../ui/Button.tsx'
 
 interface EditorProps {
@@ -39,9 +40,9 @@ export function EntryEditor({ record, onSave, onCancel, onEmpty }: EditorProps) 
       {qa.map((item, i) => (
         <label key={`q${i}`} class="entry__edit-block">
           <span class="entry__question">{item.prompt ?? t('free')}</span>
-          <textarea
+          <GrowingTextarea
             class="entry__textarea"
-            value={answers[i]}
+            value={answers[i] ?? ''}
             onInput={(e) => setAnswers(answers.map((v, k) => (k === i ? (e.currentTarget as HTMLTextAreaElement).value : v)))}
           />
         </label>
@@ -49,9 +50,9 @@ export function EntryEditor({ record, onSave, onCancel, onEmpty }: EditorProps) 
       {adds.map((a, i) => (
         <label key={`a${a.at}`} class="entry__edit-block">
           <span class="entry__addition-meta">{t('addition')} · {f.day(a.at)}, {f.time(a.at)}</span>
-          <textarea
+          <GrowingTextarea
             class="entry__textarea"
-            value={addTexts[i]}
+            value={addTexts[i] ?? ''}
             onInput={(e) => setAddTexts(addTexts.map((v, k) => (k === i ? (e.currentTarget as HTMLTextAreaElement).value : v)))}
           />
         </label>
@@ -87,11 +88,11 @@ export function AdditionEditor({ onAdd, onCancel }: AdditionProps) {
     <div class="entry__editor">
       <label class="entry__edit-block">
         <span class="entry__addition-meta">{t('addition')} · {t('now')}</span>
-        <textarea
+        <GrowingTextarea
           class="entry__textarea"
           value={text}
           placeholder={t('addPh')}
-          ref={(el) => el?.focus({ preventScroll: true })}
+          focusOnMount
           onInput={(e) => setText((e.currentTarget as HTMLTextAreaElement).value)}
         />
       </label>

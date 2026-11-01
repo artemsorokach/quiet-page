@@ -192,6 +192,14 @@ await w.page.locator('#write-free').waitFor()
 assert.equal(await w.page.evaluate(() => localStorage.getItem('ts-entries')), null, 'the example saved nothing')
 assert.equal(await w.page.evaluate(() => localStorage.getItem('ts-welcomed')), 'true')
 
+// The free field grows with the text (no length limit) and shrinks back after saving.
+const free = w.page.locator('#write-free')
+const startHeight = (await free.boundingBox()).height
+await free.fill('Рядок, який повторюється.\n'.repeat(30))
+assert.ok((await free.boundingBox()).height > startHeight + 200, 'field grows with the text')
+await free.fill('')
+assert.ok(Math.abs((await free.boundingBox()).height - startHeight) < 2, 'empty field is back to its size')
+
 // Focus mode: typing fades the rest; writing font and atmosphere apply.
 await w.page.locator('#write-free').pressSequentially('Тихо пишу', { delay: 30 })
 await w.page.waitForFunction(() => document.body.classList.contains('writing'))

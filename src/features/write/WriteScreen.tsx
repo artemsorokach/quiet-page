@@ -1,6 +1,7 @@
 import { useState } from 'preact/hooks'
 import { useI18n } from '../../core/i18n/I18nProvider.tsx'
 import { Button } from '../../ui/Button.tsx'
+import { GrowingTextarea } from '../../ui/GrowingTextarea.tsx'
 import { FeelingsPicker } from '../../ui/FeelingsPicker.tsx'
 import { HeartHandIcon } from '../../ui/icons.tsx'
 import { MoodScale, type Mood } from '../../ui/MoodScale.tsx'
@@ -87,13 +88,13 @@ export function WriteScreen(props: WriteScreenProps) {
             <button type="button" class="write__chip" onClick={props.onNextQuestion}>{t('nextQ')}</button>
             <button type="button" class="write__chip" onClick={props.onToggleQuestion}>{t('hideQ')}</button>
           </div>
-          <textarea
+          <GrowingTextarea
             class="write__field write__field--answer"
             aria-labelledby="write-question"
             rows={3}
             placeholder={t('ansPh')}
             value={answer}
-            onInput={(event) => setAnswer(event.currentTarget.value)}
+            onInput={(event) => setAnswer((event.currentTarget as HTMLTextAreaElement).value)}
           />
         </div>
       ) : (
@@ -104,13 +105,13 @@ export function WriteScreen(props: WriteScreenProps) {
 
       <div class="write__block">
         <label class="write__free-label" for="write-free">{t('free')}</label>
-        <textarea
+        <GrowingTextarea
           id="write-free"
           class="write__field"
           rows={6}
           placeholder={t('freePh')}
           value={free}
-          onInput={(event) => setFree(event.currentTarget.value)}
+          onInput={(event) => setFree((event.currentTarget as HTMLTextAreaElement).value)}
         />
       </div>
       </div>

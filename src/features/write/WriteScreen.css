@@ -7,7 +7,7 @@
   text-transform: uppercase;
   color: var(--faint);
 }
-.write__greeting { margin: 0; font-size: 1.32rem; font-weight: 500; line-height: 1.4; text-wrap: balance; }
+.write__greeting { margin: 0; font-size: 1.4rem; font-weight: 400; line-height: 1.4; color: color-mix(in srgb, var(--fg) 88%, var(--bg)); text-wrap: balance; }
 
 .write__chip {
   min-height: 36px;
