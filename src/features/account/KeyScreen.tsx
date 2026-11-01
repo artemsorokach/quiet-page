@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'preact/hooks'
+import { useEffect, useRef, useState } from 'preact/hooks'
 import { WrongSecretError } from '../../core/crypto/errors.ts'
 import { useI18n } from '../../core/i18n/I18nProvider.tsx'
 import { Button } from '../../ui/Button.tsx'
@@ -51,7 +51,12 @@ export function KeyScreen({ mode, email, canRecover, actions, onModeChange }: Ke
   const asksPassword = mode === 'new' || mode === 'open' || mode === 'setpw'
   const asksRepeat = mode === 'new' || mode === 'setpw'
 
+  // Clear the fields only when the step changes, never on first show: an effect runs after the
+  // first paint, and clearing then would wipe what the person (or a password manager) just typed.
+  const shownMode = useRef(mode)
   useEffect(() => {
+    if (shownMode.current === mode) return
+    shownMode.current = mode
     setPassword('')
     setRepeat('')
     setCode('')
