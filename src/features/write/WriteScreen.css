@@ -1,4 +1,4 @@
-.write { display: flex; flex-direction: column; gap: 30px; }
+.write { display: flex; flex-direction: column; gap: 34px; }
 .write__date {
   margin: 4px 0 -10px;
   font-size: 0.88rem;
@@ -72,7 +72,15 @@
   color: var(--muted);
 }
 
-.write__intro { display: flex; flex-direction: column; gap: 18px; }
+.write__intro { display: flex; flex-direction: column; gap: 14px; }
 .write__state { display: flex; flex-direction: column; gap: 22px; }
+/* «Як ти зараз?» and the feelings sit together in one calm block, apart from the writing */
+.write__state {
+  padding: 18px 16px 16px; border-radius: 20px;
+  background: color-mix(in srgb, var(--surface) 70%, transparent);
+  border: 1px solid color-mix(in srgb, var(--line) 40%, var(--surface));
+}
+.write__chip--next { display: inline-flex; align-items: center; gap: 7px; }
+.write__chip--next svg { width: 15px; height: 15px; }
 .write__fields { display: flex; flex-direction: column; gap: 18px; }
 .write__draft { margin: -6px 0 -8px; font-size: 0.8rem; line-height: 1.5; color: var(--faint); }

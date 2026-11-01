@@ -62,3 +62,13 @@ export function LockIcon() {
     </svg>
   )
 }
+
+/** «Інше питання»: a turning arrow */
+export function NextIcon() {
+  return (
+    <svg {...base}>
+      <path d="M20 12a8 8 0 1 1-2.3-5.6" />
+      <path d="M20 4v5h-5" />
+    </svg>
+  )
+}
