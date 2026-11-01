@@ -55,7 +55,7 @@ export function useJournal(store: EntryStore, i18n: Translator, scale: string) {
     save: async (record, done) => {
       try {
         await store.put(record)
-        notify(t(done === 'added' ? 'added' : 'editedToast'))
+        notify(t(done === 'added' ? 'added' : done === 'restyled' ? 'lookSaved' : 'editedToast'))
         return true
       } catch {
         notify(t(done === 'added' ? 'addFail' : 'editFail'))

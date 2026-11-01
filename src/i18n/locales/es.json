@@ -500,5 +500,13 @@
       "La app es gratuita y va cambiando poco a poco. Se ofrece «tal cual», sin garantía de funcionamiento ininterrumpido, así que conviene guardar de vez en cuando una copia de seguridad."
     ]
   ],
-  "delAccConfirm": "Eliminar para siempre"
+  "delAccConfirm": "Eliminar para siempre",
+  "unsavedState": "En tu página hay algo sin guardar: tu estado y tus emociones.",
+  "unsavedText": "En tu página hay una nota sin guardar.",
+  "saveNow": "Guardar ahora",
+  "backToPage": "Volver",
+  "mLook": "Apariencia",
+  "lookTitle": "Apariencia de esta nota",
+  "lookUndo": "Como antes",
+  "lookSaved": "Apariencia guardada."
 }

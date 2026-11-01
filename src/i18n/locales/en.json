@@ -500,5 +500,13 @@
       "The app is free and changes gradually. It is provided “as is”, without a guarantee of uninterrupted service, so it is worth saving a backup from time to time."
     ]
   ],
-  "delAccConfirm": "Delete for good"
+  "delAccConfirm": "Delete for good",
+  "unsavedState": "Your page has something unsaved: your state and feelings.",
+  "unsavedText": "Your page has an unsaved entry.",
+  "saveNow": "Save now",
+  "backToPage": "Go back",
+  "mLook": "Look",
+  "lookTitle": "Look of this entry",
+  "lookUndo": "As before",
+  "lookSaved": "Look saved."
 }

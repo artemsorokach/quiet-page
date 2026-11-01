@@ -1,7 +1,8 @@
+import type { ComponentChildren } from 'preact'
 import { Fragment } from 'preact'
 import { useEffect, useState } from 'preact/hooks'
 import { loadWritingFont } from '../../core/theme/look.ts'
-import { recordLook } from '../../core/theme/recordLook.ts'
+import { recordLook, type RecordLook } from '../../core/theme/recordLook.ts'
 import { useI18n } from '../../core/i18n/I18nProvider.tsx'
 import { dateFormat, dayKey, parseDayKey } from '../../core/journal/dates.ts'
 import type { JournalRecord } from '../../core/store/types.ts'
@@ -15,6 +16,10 @@ interface PathScreenProps {
   /** show each entry in the look it was written in */
   showLook: boolean
   scaleWords: readonly string[]
+  /** the look being written in now (where «Оформлення» starts for older entries) */
+  currentLook: RecordLook
+  /** shown above the feed, e.g. a reminder about unsaved text on «Сторінка» */
+  notice?: ComponentChildren
   actions: RecordActions
   onSendDay: (day: string) => void
 }
@@ -25,7 +30,7 @@ const thisMonth = () => {
 }
 
 /** Records over time: a calendar of moods and the feed of entries, newest first. */
-export function PathScreen({ records, scale, showLook, scaleWords, actions, onSendDay }: PathScreenProps) {
+export function PathScreen({ records, scale, showLook, scaleWords, currentLook, notice, actions, onSendDay }: PathScreenProps) {
   const { t, lang } = useI18n()
   const f = dateFormat(lang)
   const [month, setMonth] = useState(thisMonth)
@@ -33,8 +38,8 @@ export function PathScreen({ records, scale, showLook, scaleWords, actions, onSe
   const list = day ? records.filter((r) => dayKey(r.ts) === day) : records
 
   useEffect(() => {
-    if (!showLook) return
-    new Set(records.map((r) => recordLook(r)?.font).filter((f) => f !== undefined)).forEach((font) => void loadWritingFont(font))
+    const shown = records.map((r) => recordLook(r)).filter((look) => look && (showLook || look.chosen))
+    new Set(shown.map((look) => look?.font).filter((f) => f !== undefined)).forEach((font) => void loadWritingFont(font))
   }, [showLook, records])
 
   function selectDay(next: string | null) {
@@ -45,6 +50,7 @@ export function PathScreen({ records, scale, showLook, scaleWords, actions, onSe
   let lastMonth = ''
   return (
     <section class="path" aria-label={t('tPath')}>
+      {notice}
       <Calendar records={records} month={month} selectedDay={day} scaleWords={scaleWords} onMonth={setMonth} onSelectDay={selectDay} />
       <div class="path__feed" id="path-feed">
         {records.length === 0 && (
@@ -70,7 +76,7 @@ export function PathScreen({ records, scale, showLook, scaleWords, actions, onSe
           return (
             <Fragment key={record.id}>
               {header && <h2 class="path__month">{header}</h2>}
-              <EntryCard record={record} scale={scale} showLook={showLook} actions={actions} />
+              <EntryCard record={record} scale={scale} showLook={showLook} currentLook={currentLook} actions={actions} />
             </Fragment>
           )
         })}

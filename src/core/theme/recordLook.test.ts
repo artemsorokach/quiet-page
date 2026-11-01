@@ -17,3 +17,8 @@ test('lookAttributes marks the card, or nothing without a look', () => {
   assert.deepEqual(lookAttributes({ skin: 'lis', mode: 'light', font: 'caveat' }), { 'data-look': 'lis-light', 'data-look-font': 'caveat' })
   assert.deepEqual(lookAttributes(null), {})
 })
+
+test('a look picked later in the Path is marked as chosen; anything else in that field is ignored', () => {
+  assert.equal(recordLook({ look: { skin: 'lis', mode: 'light', font: 'lora', chosen: true } })?.chosen, true)
+  assert.equal(recordLook({ look: { skin: 'lis', mode: 'light', font: 'lora', chosen: 'yes' } })?.chosen, undefined)
+})

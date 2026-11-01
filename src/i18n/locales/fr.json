@@ -500,5 +500,13 @@
       "L’application est gratuite et évolue peu à peu. Elle est fournie « telle quelle », sans garantie de fonctionnement ininterrompu ; il vaut donc la peine d’enregistrer une sauvegarde de temps en temps."
     ]
   ],
-  "delAccConfirm": "Supprimer définitivement"
+  "delAccConfirm": "Supprimer définitivement",
+  "unsavedState": "Ta page contient quelque chose de non enregistré : ton état et tes émotions.",
+  "unsavedText": "Ta page contient une note non enregistrée.",
+  "saveNow": "Enregistrer maintenant",
+  "backToPage": "Revenir",
+  "mLook": "Apparence",
+  "lookTitle": "Apparence de cette note",
+  "lookUndo": "Comme avant",
+  "lookSaved": "Apparence enregistrée."
 }

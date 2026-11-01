@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'preact/hooks'
+import { useEffect, useLayoutEffect, useState } from 'preact/hooks'
 import { I18nProvider, useI18n } from './core/i18n/I18nProvider.tsx'
 import { writeSetting } from './core/settings/storage.ts'
 import { MemoryEntryStore } from './core/store/memoryStore.ts'
@@ -12,6 +12,8 @@ import { useAccount } from './features/account/useAccount.ts'
 import { useRevealOnScroll } from './features/shell/useRevealOnScroll.ts'
 import { LegalSheet } from './features/legal/LegalSheet.tsx'
 import { PathScreen } from './features/path/PathScreen.tsx'
+import { UnsavedNote } from './features/path/UnsavedNote.tsx'
+import { isEmptyDraft } from './core/draft/draft.ts'
 import { SettingsSheet } from './features/settings/SettingsSheet.tsx'
 import { ShareScreen, type ShareRequest } from './features/share/ShareScreen.tsx'
 import { AppHeader } from './features/shell/AppHeader.tsx'
@@ -63,6 +65,8 @@ function Shell({ prefs }: { prefs: Preferences }) {
   const [legalOpen, setLegalOpen] = useState(false)
   /** which side the new tab floats in from; null on first show */
   const footRef = useRevealOnScroll<HTMLElement>()
+  /** re-renders the Path after saving from its «незбережене» note */
+  const [, setUnsavedTick] = useState(0)
   const [tabMotion, setTabMotion] = useState<'next' | 'prev' | null>(null)
   const [showQuestion, setShowQuestion] = useState(true)
   const [supportOpen, setSupportOpen] = useState(false)
@@ -78,6 +82,20 @@ function Shell({ prefs }: { prefs: Preferences }) {
   const own = useOwnFeelings(journal.records, messages.feelings)
   const [aboutOpen, setAboutOpen] = useState(false)
   const inApp = !welcome && (phase.kind === 'local' || phase.kind === 'cloud')
+
+  // Before the first paint, so the welcome page never flashes at the old scroll position.
+  useLayoutEffect(() => {
+    if (!welcome) return
+    setAboutOpen(false)
+    window.scrollTo(0, 0)
+  }, [welcome])
+
+  // «Про додаток» opens and the page glides down so its text is in view.
+  useEffect(() => {
+    if (!aboutOpen) return
+    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    requestAnimationFrame(() => window.scrollTo({ top: document.documentElement.scrollHeight, behavior: reduce ? 'auto' : 'smooth' }))
+  }, [aboutOpen])
 
   useEffect(() => {
     const notice = takeNotice()
@@ -126,6 +144,33 @@ function Shell({ prefs }: { prefs: Preferences }) {
     } catch {
       return 'failed'
     }
+  }
+
+  /** What «Сторінка» still holds, as a form to save straight from the Path. */
+  function draftForm(): WriteForm {
+    const d = draft.current()
+    const text = d.question !== null ? messages.prompts[d.question % messages.prompts.length] : undefined
+    return {
+      mood: d.mood, scale, feelings: d.feelings, answer: d.answer, free: d.free, lang,
+      question: text ? { text, index: d.question ?? 0 } : null,
+    }
+  }
+
+  function unsavedNote() {
+    const d = draft.current()
+    if (!draft.ready || isEmptyDraft(d)) return null
+    return (
+      <UnsavedNote
+        hasText={Boolean(d.answer.trim() || d.free.trim())}
+        onBack={() => selectTab('write')}
+        onSave={() =>
+          void save(draftForm()).then((result) => {
+            journal.notify(t(result === 'saved' ? 'toastSaved' : 'saveFail'))
+            setUnsavedTick((n) => n + 1)
+          })
+        }
+      />
+    )
   }
 
   function closeWelcome() {
@@ -259,6 +304,8 @@ function Shell({ prefs }: { prefs: Preferences }) {
             showLook={look.pathLook}
             scale={scale}
             scaleWords={scaleWords}
+            currentLook={{ skin: theme.skin, mode: resolvedMode(theme.mode), font: look.font }}
+            notice={unsavedNote()}
             actions={journal.recordActions}
             onSendDay={(day) => {
               setShareRequest({ days: [day], nonce: Date.now() })

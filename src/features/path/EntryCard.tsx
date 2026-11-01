@@ -3,15 +3,16 @@ import { useI18n } from '../../core/i18n/I18nProvider.tsx'
 import { dateFormat } from '../../core/journal/dates.ts'
 import { additionsOf, applyAddition, historyOf, isCheck, qaOf } from '../../core/journal/records.ts'
 import type { JournalRecord } from '../../core/store/types.ts'
-import { lookAttributes, recordLook } from '../../core/theme/recordLook.ts'
+import { lookAttributes, recordLook, type RecordLook } from '../../core/theme/recordLook.ts'
 import { ConfirmButton } from '../../ui/ConfirmButton.tsx'
 import { AdditionEditor, EntryEditor } from './EntryEditor.tsx'
 import { History } from './History.tsx'
+import { LookPicker } from './LookPicker.tsx'
 import { RecordState } from './RecordState.tsx'
 
 export interface RecordActions {
   /** Saves a changed record; resolves false (after telling the person) when it failed. */
-  save: (record: JournalRecord, done: 'added' | 'edited') => Promise<boolean>
+  save: (record: JournalRecord, done: 'added' | 'edited' | 'restyled') => Promise<boolean>
   remove: (record: JournalRecord) => void
   send: (record: JournalRecord) => void
   notify: (message: string) => void
@@ -21,7 +22,15 @@ interface CardProps {
   record: JournalRecord
   scale: string
   showLook?: boolean
+  /** the look being written in now: where «Оформлення» starts for entries saved without one */
+  currentLook?: RecordLook
   actions: RecordActions
+}
+
+/** An entry shows its look when the setting is on, or always when the person picked one for it. */
+const shownLook = (record: JournalRecord, showLook?: boolean) => {
+  const look = recordLook(record)
+  return showLook || look?.chosen ? look : null
 }
 
 /** A mood note without text. */
@@ -29,7 +38,7 @@ export function CheckCard({ record, scale, showLook, actions }: CardProps) {
   const { t, lang } = useI18n()
   const f = dateFormat(lang)
   return (
-    <div class="card entry entry--check" {...lookAttributes(showLook ? recordLook(record) : null)}>
+    <div class="card entry entry--check" {...lookAttributes(shownLook(record, showLook))}>
       <div class="entry__check-head">
         <span>{t('checkLbl')} · {f.day(record.ts)}, {f.time(record.ts)}</span>
         <ConfirmButton label={t('remove')} confirmLabel={t('removeConfirm')} class="link-btn entry__remove" onConfirm={() => actions.remove(record)} />
@@ -39,10 +48,10 @@ export function CheckCard({ record, scale, showLook, actions }: CardProps) {
   )
 }
 
-type Mode = 'view' | 'edit' | 'add'
+type Mode = 'view' | 'edit' | 'add' | 'look'
 
 /** One entry in the Path: text clamped to a few lines, with a quiet menu of actions. */
-export function EntryCard({ record, scale, showLook, actions }: CardProps) {
+export function EntryCard({ record, scale, showLook, currentLook, actions }: CardProps) {
   const { t, lang } = useI18n()
   const f = dateFormat(lang)
   const [mode, setModeState] = useState<Mode>('view')
@@ -52,6 +61,9 @@ export function EntryCard({ record, scale, showLook, actions }: CardProps) {
   const [historyOpen, setHistoryOpen] = useState(false)
   const body = useRef<HTMLDivElement>(null)
   const hasHistory = historyOf(record).length > 0
+  /** the look shown while «Оформлення» is open, before «Готово» */
+  const [trying, setTrying] = useState<RecordLook | null>(null)
+  const fallbackLook: RecordLook = currentLook ?? { skin: 'hlybyna', mode: 'dark', font: 'nunito' }
 
   useLayoutEffect(() => {
     const el = body.current
@@ -66,7 +78,7 @@ export function EntryCard({ record, scale, showLook, actions }: CardProps) {
   if (isCheck(record)) return <CheckCard record={record} scale={scale} showLook={showLook} actions={actions} />
 
   return (
-    <article class="card entry" {...lookAttributes(showLook ? recordLook(record) : null)}>
+    <article class="card entry" {...lookAttributes(trying ?? shownLook(record, showLook))}>
       <div class="entry__head">
         <span>{f.date(record.ts)}, {f.time(record.ts)}</span>
         {hasHistory && (
@@ -100,6 +112,22 @@ export function EntryCard({ record, scale, showLook, actions }: CardProps) {
         </div>
       )}
       {historyOpen && <History record={record} />}
+      {mode === 'look' && (
+        <LookPicker
+          value={recordLook(record) ?? fallbackLook}
+          onChange={setTrying}
+          onCancel={() => {
+            setTrying(null)
+            setMode('view')
+          }}
+          onDone={() => {
+            const chosen = trying
+            setTrying(null)
+            setMode('view')
+            if (chosen) void actions.save({ ...record, look: { skin: chosen.skin, mode: chosen.mode, font: chosen.font, chosen: true } }, 'restyled')
+          }}
+        />
+      )}
       {mode === 'add' && (
         <AdditionEditor onAdd={(text) => actions.save(applyAddition(record, text, Date.now()), 'added')} onCancel={() => setMode('view')} />
       )}
@@ -117,6 +145,7 @@ export function EntryCard({ record, scale, showLook, actions }: CardProps) {
             <div class="entry__menu">
               <button type="button" class="link-btn" onClick={() => setMode('add')}>{t('mAdd')}</button>
               <button type="button" class="link-btn" onClick={() => setMode('edit')}>{t('mEdit')}</button>
+              <button type="button" class="link-btn" onClick={() => setMode('look')}>{t('mLook')}</button>
               <button type="button" class="link-btn" onClick={() => { setMenuOpen(false); actions.send(record) }}>{t('mSend')}</button>
               <ConfirmButton label={t('mDel')} confirmLabel={t('delConfirm')} onConfirm={() => actions.remove(record)} />
             </div>

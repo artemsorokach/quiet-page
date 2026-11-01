@@ -70,7 +70,8 @@
   transform: rotate(45deg); transition: transform 0.25s;
 }
 .app-foot__toggle[aria-expanded='true'] .app-foot__chevron { transform: rotate(-135deg); margin-top: 3px; }
-.app-foot__body { display: flex; flex-direction: column; align-items: center; gap: 6px; padding-bottom: 8px; }
+.app-foot__body { display: flex; flex-direction: column; align-items: center; gap: 6px; padding-bottom: 8px; animation: foot-open 0.5s ease both; }
+@keyframes foot-open { from { opacity: 0; transform: translateY(-6px); } }
 .app-foot .link-btn { font-size: 0.8rem; color: var(--muted); }
 /* «Про додаток» appears softly when one scrolls down to it */
 .app-foot > * { opacity: 0; transform: translateY(6px); transition: opacity 0.9s ease, transform 0.9s ease; }

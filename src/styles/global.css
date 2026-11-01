@@ -12,7 +12,10 @@ body {
   font-size: 16.5px;
   line-height: 1.6;
   padding: env(safe-area-inset-top, 0px) max(16px, env(safe-area-inset-right, 0px)) env(safe-area-inset-bottom, 0px) max(16px, env(safe-area-inset-left, 0px));
+  /* nothing may push the page sideways (e.g. a tab floating in), so it never wobbles on phones */
+  overflow-x: hidden;
 }
+@supports (overflow: clip) { body { overflow-x: clip; } }
 button, textarea, input { font: inherit; color: inherit; }
 button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
 :focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; border-radius: var(--radius-s); }

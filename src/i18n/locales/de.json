@@ -500,5 +500,13 @@
       "Die App ist kostenlos und verändert sich nach und nach. Sie wird «wie besehen» bereitgestellt, ohne Garantie für unterbrechungsfreien Betrieb; es lohnt sich also, ab und zu eine Sicherung zu speichern."
     ]
   ],
-  "delAccConfirm": "Endgültig löschen"
+  "delAccConfirm": "Endgültig löschen",
+  "unsavedState": "Auf deiner Seite ist noch etwas ungespeichert: Zustand und Gefühle.",
+  "unsavedText": "Auf deiner Seite ist ein ungespeicherter Eintrag.",
+  "saveNow": "Jetzt speichern",
+  "backToPage": "Zurück",
+  "mLook": "Aussehen",
+  "lookTitle": "Aussehen dieses Eintrags",
+  "lookUndo": "Wie vorher",
+  "lookSaved": "Aussehen gespeichert."
 }

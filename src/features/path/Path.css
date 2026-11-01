@@ -124,3 +124,26 @@ button.week__day { cursor: pointer; }
 .week__day[aria-pressed='true'] { background: var(--surface-2); box-shadow: inset 0 0 0 1.5px var(--fg); }
 .week__hint { margin: 10px 0 0; font-size: 0.8rem; line-height: 1.5; color: var(--faint); }
 .calendar .week__head { margin-bottom: 10px; }
+
+/* «На «Сторінці» є незбережене…» */
+.unsaved {
+  display: flex; flex-direction: column; gap: 12px; padding: 14px 16px; border-radius: var(--radius-l);
+  background: color-mix(in srgb, var(--warm) 14%, var(--surface)); font-size: 0.92rem; line-height: 1.55;
+}
+.unsaved p { margin: 0; }
+.unsaved__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; }
+.unsaved__save { min-height: 40px; padding: 0 18px; font-size: 0.9rem; }
+
+/* «•••» → «Оформлення» */
+.look-picker { display: flex; flex-direction: column; gap: 14px; padding: 14px; border-radius: var(--radius-m); background: color-mix(in srgb, var(--fg) 5%, transparent); }
+.look-picker__label { margin: 0; font-size: 0.74rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--faint); }
+.look-picker__skins, .look-picker__fonts { display: flex; flex-wrap: wrap; gap: 10px; }
+.look-picker__skin { width: 36px; height: 36px; padding: 0; border: none; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(127, 127, 127, 0.3); }
+.look-picker__skin[aria-pressed='true'] { outline: 2px solid var(--gold); outline-offset: 3px; }
+.look-picker__font {
+  min-width: 48px; min-height: 40px; padding: 4px 8px; border-radius: 12px; border: 1.5px solid transparent;
+  background: var(--surface); font-size: 1.15rem; color: var(--fg);
+}
+.look-picker__font[aria-pressed='true'] { border-color: var(--gold-soft); }
+.look-picker__actions { display: flex; align-items: center; justify-content: flex-end; gap: 18px; }
+.look-picker__done { min-height: 40px; padding: 0 18px; font-size: 0.9rem; }
