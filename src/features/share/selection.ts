@@ -2,7 +2,7 @@ import { dayKey } from '../../core/journal/dates.ts'
 import { isCheck } from '../../core/journal/records.ts'
 import type { JournalRecord } from '../../core/store/types.ts'
 
-export type Range = '7' | '30' | 'all' | 'days'
+export type Range = 'today' | '7' | '30' | 'all' | 'days'
 export type Preset = 'all' | 'entries' | 'checks'
 
 /** What the person unticked in the list. Everything is included by default. */
@@ -24,6 +24,7 @@ export function inRange(records: readonly JournalRecord[], range: Range, days: R
   const sorted = [...records].sort((a, b) => b.ts - a.ts)
   if (range === 'all') return sorted
   if (range === 'days') return sorted.filter((r) => days.has(dayKey(r.ts)))
+  if (range === 'today') return sorted.filter((r) => dayKey(r.ts) === dayKey(now))
   const since = now - Number(range) * DAY_MS
   return sorted.filter((r) => r.ts >= since)
 }

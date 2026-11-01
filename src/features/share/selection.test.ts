@@ -50,3 +50,12 @@ test('without mood the entry is sent with empty state', () => {
   assert.equal(out?.mood, null)
   assert.equal((out as { text: string }).text, 'text a')
 })
+
+test('«Сьогодні» keeps only records from today’s date', () => {
+  const now = new Date(2026, 10, 1, 9).getTime()
+  const list = [
+    { id: 'm', ts: new Date(2026, 10, 1, 7).getTime() },
+    { id: 'y', ts: new Date(2026, 9, 31, 23).getTime() },
+  ] as unknown as JournalRecord[]
+  assert.deepEqual(inRange(list, 'today', new Set(), now).map((r) => r.id), ['m'])
+})

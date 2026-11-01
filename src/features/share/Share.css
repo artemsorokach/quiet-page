@@ -41,3 +41,25 @@
 .pick-item--off .pick-item__text, .pick-item--off .pick-item__state,
 .pick-item__part--off .pick-item__text, .pick-item__part--off .pick-item__state { color: var(--faint); }
 .pick-item--off .pick-item__when { opacity: 0.7; }
+
+/* «Як працює «Поділитися»» — folded like «Що таке саморефлексія?» on the welcome page */
+.share__about { padding: 12px 16px; border-radius: 16px; background: var(--surface); border: 1px solid color-mix(in srgb, var(--line) 55%, var(--surface)); }
+.share__about summary { display: flex; align-items: center; gap: 8px; min-height: 28px; font-weight: 600; color: var(--fg); cursor: pointer; list-style: none; }
+.share__about summary::-webkit-details-marker { display: none; }
+.share__about summary::before {
+  content: ''; display: inline-block; width: 7px; height: 7px; margin: 0 4px 0 2px; transition: transform 0.25s;
+  border-right: 1.5px solid color-mix(in srgb, var(--gold) 55%, var(--surface)); border-bottom: 1.5px solid color-mix(in srgb, var(--gold) 55%, var(--surface)); transform: rotate(-45deg);
+}
+.share__about[open] summary::before { transform: rotate(45deg) translate(-2px, -2px); }
+.share__about .share__explain { margin-top: 10px; font-size: 0.94rem; }
+.share__ranges { display: flex; flex-wrap: wrap; gap: 8px; }
+.share__range {
+  min-height: 40px; padding: 8px 16px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--line) 70%, var(--surface));
+  background: var(--surface); font-size: 0.92rem; color: var(--fg);
+}
+.share__range[aria-pressed='true'] { border-color: var(--gold-soft); background: color-mix(in srgb, var(--gold) 18%, var(--surface)); }
+.share__period { margin: 10px 0 0; font-size: 0.86rem; color: var(--muted); }
+.share__send { display: flex; flex-direction: column; gap: 10px; }
+.share__send .label { margin-bottom: 0; }
+.share__send .btn { align-self: stretch; }
+.share__note { margin: -2px 0 0; font-size: 0.84rem; line-height: 1.5; color: var(--faint); }

@@ -83,9 +83,12 @@ assert.equal(d2.additions.length, 2)
 
 // Share
 await tab(a.page, 'Поділитися')
+// First visit: the explanation is open; later it waits folded.
 await a.page.getByText('Ти створюєш', { exact: false }).waitFor()
+assert.equal(await a.page.locator('details.share__about').getAttribute('open'), '')
+await a.page.getByText(/^Записів: \d+ · /).waitFor()
 await shot(a.page, 'share')
-await a.page.getByRole('button', { name: 'Скопіювати текстом' }).click()
+await a.page.getByRole('button', { name: 'Скопіювати текст' }).click()
 await toast(a.page, 'Скопійовано')
 const copied = await a.page.evaluate(() => navigator.clipboard.readText())
 assert.match(copied, /Ранкова кава біля вікна\. Після/)
@@ -97,6 +100,7 @@ await a.page.locator('dialog[open]').getByRole('button', { name: 'Лише ві�
 await shot(a.page, 'share-pick')
 await a.page.locator('dialog[open]').getByRole('button', { name: 'Готово' }).click()
 const [download] = await Promise.all([a.page.waitForEvent('download'), a.page.getByRole('button', { name: 'Зберегти файл' }).click()])
+assert.equal(await a.page.getByText('Файл збережеться в «Завантаження», звідти його можна надіслати.').count(), 1, 'on a computer the button says what it does')
 const html = await (await import('node:fs/promises')).readFile(await download.path(), 'utf8')
 assert.match(html, /<!doctype html>/)
 assert.ok(!html.includes('Ранкова кава'), 'text left out with «Лише відмітки»')
@@ -106,7 +110,8 @@ assert.match(html, /Відмітка/)
 await tab(a.page, 'Шлях')
 await (await dayWithRecords(a.page)).click()
 await a.page.getByRole('button', { name: 'Надіслати цей день' }).click()
-await a.page.locator('input[name="range"][value="days"]:checked').waitFor()
+await a.page.locator('.share__range[aria-pressed="true"]', { hasText: 'Обрати дні' }).waitFor()
+assert.equal(await a.page.locator('details.share__about[open]').count(), 0, 'folded on later visits')
 
 // Backup export
 await a.page.getByRole('button', { name: 'Налаштування' }).click()
