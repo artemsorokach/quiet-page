@@ -9,6 +9,7 @@ import { DeleteAccountScreen } from './features/account/DeleteAccountScreen.tsx'
 import { RecoveryCodeScreen } from './features/account/RecoveryCodeScreen.tsx'
 import { SecurityScreen } from './features/account/SecurityScreen.tsx'
 import { useAccount } from './features/account/useAccount.ts'
+import { useRevealOnScroll } from './features/shell/useRevealOnScroll.ts'
 import { LegalSheet } from './features/legal/LegalSheet.tsx'
 import { PathScreen } from './features/path/PathScreen.tsx'
 import { SettingsSheet } from './features/settings/SettingsSheet.tsx'
@@ -60,6 +61,9 @@ function Shell({ prefs }: { prefs: Preferences }) {
   const [tab, setTab] = useState<Tab>('write')
   const [questionIndex, setQuestionIndex] = useState(() => new Date().getDate() % messages.prompts.length)
   const [legalOpen, setLegalOpen] = useState(false)
+  /** which side the new tab floats in from; null on first show */
+  const footRef = useRevealOnScroll<HTMLElement>()
+  const [tabMotion, setTabMotion] = useState<'next' | 'prev' | null>(null)
   const [showQuestion, setShowQuestion] = useState(true)
   const [supportOpen, setSupportOpen] = useState(false)
   const [settingsOpen, setSettingsOpen] = useState(false)
@@ -102,6 +106,9 @@ function Shell({ prefs }: { prefs: Preferences }) {
   const scaleWords = (messages.scales as unknown as Record<string, readonly [string, readonly string[]]>)[scale]?.[1] ?? []
 
   function selectTab(next: Tab) {
+    if (next === tab) return
+    const order: Tab[] = ['write', 'path', 'share']
+    setTabMotion(order.indexOf(next) > order.indexOf(tab) ? 'next' : 'prev')
     setTab(next)
     window.scrollTo(0, 0)
   }
@@ -224,7 +231,7 @@ function Shell({ prefs }: { prefs: Preferences }) {
         <AppHeader appName={t('appName')} settingsLabel={t('settingsBtn')} onBrand={() => setWelcome(true)} onOpenSettings={() => setSettingsOpen(true)} />
         <TabNav current={tab} navLabel={t('navLabel')} labels={{ write: t('tWrite'), path: t('tPath'), share: t('tShare') }} onSelect={selectTab} />
       </div>
-      <main>
+      <main key={tab} class={tabMotion ? `tab-in tab-in--${tabMotion}` : undefined}>
         {tab === 'write' && draft.ready && (
           <WriteScreen
             key={draftScope ?? 'none'}
@@ -275,7 +282,7 @@ function Shell({ prefs }: { prefs: Preferences }) {
           {t('supportLink')}
         </button>
       )}
-      <footer class="app-foot recede">
+      <footer class="app-foot recede" ref={footRef}>
         <button type="button" class="app-foot__toggle" aria-expanded={aboutOpen} onClick={() => setAboutOpen(!aboutOpen)}>
           {t('about')}
           <span class="app-foot__chevron" aria-hidden="true" />
