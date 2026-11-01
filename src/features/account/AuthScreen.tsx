@@ -50,7 +50,7 @@ export function AuthScreen({ actions, errorMessage, onBack }: AuthScreenProps) {
         }}
       >
         <Field id="auth-email" type="email" label={t('authEmail')} value={email} autoComplete="email" onInput={setEmail} />
-        <Field id="auth-pass" type="password" label={t('authPass')} value={password} autoComplete="current-password" onInput={setPassword} />
+        <Field id="auth-pass" type="password" label={t('authPassApp')} hint={t('authPassHint')} value={password} autoComplete="current-password" onInput={setPassword} />
         <div class="account__actions">
           <Button type="submit" disabled={busy}>{t('authSignIn')}</Button>
           <Button variant="ghost" disabled={busy} onClick={() => attempt(() => actions.email(email.trim(), password, true))}>
@@ -58,6 +58,7 @@ export function AuthScreen({ actions, errorMessage, onBack }: AuthScreenProps) {
           </Button>
         </div>
       </form>
+      <p class="account__after">{t('authSecondPw')}</p>
       <p class="account__message" role="status">{message}</p>
       <div class="account__links">
         <Button

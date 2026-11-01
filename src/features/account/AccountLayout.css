@@ -48,3 +48,15 @@
 .account__code span { display: inline-block; white-space: nowrap; }
 .account__mail { display: inline-flex; align-items: center; text-decoration: none; }
 .account__hint { margin: 0; font-size: 0.86rem; line-height: 1.55; color: var(--faint); }
+
+/* Password with an eye to show or hide it */
+.account__secret { position: relative; display: block; }
+.account__secret .account__input { padding-right: 52px; }
+.account__eye {
+  position: absolute; top: 50%; right: 4px; transform: translateY(-50%); display: grid; place-items: center;
+  width: 44px; height: 44px; padding: 0; border: none; border-radius: 12px; background: none; color: var(--faint);
+}
+.account__eye:hover, .account__eye[aria-pressed='true'] { color: var(--muted); }
+.account__eye svg { width: 20px; height: 20px; }
+.account__form .account__hint { margin: -4px 2px 2px; }
+.account__after { margin: 0; padding-left: 14px; border-left: 2px solid color-mix(in srgb, var(--gold) 60%, var(--bg)); font-size: 0.88rem; line-height: 1.6; color: var(--muted); }

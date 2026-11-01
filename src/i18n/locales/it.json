@@ -555,5 +555,10 @@
   "asText": "Come testo",
   "copyText": "Copia il testo",
   "copyTextNote": "Testo semplice da incollare in una chat o in un’e-mail.",
-  "shareFromPath": "Una singola nota o un giorno si possono inviare anche dal «Percorso»."
+  "shareFromPath": "Una singola nota o un giorno si possono inviare anche dal «Percorso».",
+  "authPassApp": "Password per Quiet Page",
+  "authPassHint": "Non quella dell’e-mail: la inventi tu quando crei l’account.",
+  "authSecondPw": "Dopo l’accesso servirà anche una password per le note: le cifra sul tuo dispositivo.",
+  "pwShow": "Mostra password",
+  "pwHide": "Nascondi password"
 }

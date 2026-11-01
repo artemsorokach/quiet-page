@@ -100,3 +100,23 @@ export function SearchIcon() {
     </svg>
   )
 }
+
+/** Show the password */
+export function EyeIcon() {
+  return (
+    <svg {...base}>
+      <path d="M2.5 12s3.5-6.5 9.5-6.5 9.5 6.5 9.5 6.5-3.5 6.5-9.5 6.5S2.5 12 2.5 12z" />
+      <circle cx="12" cy="12" r="2.8" />
+    </svg>
+  )
+}
+
+/** Hide the password */
+export function EyeOffIcon() {
+  return (
+    <svg {...base}>
+      <path d="M2.5 12s3.5-6.5 9.5-6.5c2 0 3.7.7 5.1 1.7M21.5 12s-3.5 6.5-9.5 6.5c-2 0-3.7-.7-5.1-1.7" />
+      <path d="M4 4l16 16" />
+    </svg>
+  )
+}

@@ -555,5 +555,10 @@
   "asText": "Como texto",
   "copyText": "Copiar texto",
   "copyTextNote": "Texto simple para pegar en un chat o un correo.",
-  "shareFromPath": "Una nota o un día también se pueden enviar desde el «Camino»."
+  "shareFromPath": "Una nota o un día también se pueden enviar desde el «Camino».",
+  "authPassApp": "Contraseña para Quiet Page",
+  "authPassHint": "No es la de tu correo: la inventas tú al crear la cuenta.",
+  "authSecondPw": "Después de entrar necesitarás también una contraseña para tus notas: las cifra en tu dispositivo.",
+  "pwShow": "Mostrar contraseña",
+  "pwHide": "Ocultar contraseña"
 }

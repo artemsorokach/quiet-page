@@ -555,5 +555,10 @@
   "asText": "As text",
   "copyText": "Copy text",
   "copyTextNote": "Plain text to paste into a messenger or an email.",
-  "shareFromPath": "A single entry or day can also be sent from “Path”."
+  "shareFromPath": "A single entry or day can also be sent from “Path”.",
+  "authPassApp": "Password for Quiet Page",
+  "authPassHint": "Not your email password: you make it up when you create the account.",
+  "authSecondPw": "After signing in you’ll also need a password for your entries: it encrypts them on your device.",
+  "pwShow": "Show password",
+  "pwHide": "Hide password"
 }

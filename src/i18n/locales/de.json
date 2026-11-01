@@ -555,5 +555,10 @@
   "asText": "Als Text",
   "copyText": "Text kopieren",
   "copyTextNote": "Reiner Text zum Einfügen in einen Messenger oder eine E-Mail.",
-  "shareFromPath": "Einen einzelnen Eintrag oder Tag kannst du auch im «Weg» senden."
+  "shareFromPath": "Einen einzelnen Eintrag oder Tag kannst du auch im «Weg» senden.",
+  "authPassApp": "Passwort für Quiet Page",
+  "authPassHint": "Nicht das E-Mail-Passwort: Du legst es beim Erstellen des Kontos selbst fest.",
+  "authSecondPw": "Nach der Anmeldung brauchst du noch ein Passwort für deine Einträge: Damit werden sie auf deinem Gerät verschlüsselt.",
+  "pwShow": "Passwort anzeigen",
+  "pwHide": "Passwort verbergen"
 }
