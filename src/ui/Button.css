@@ -28,16 +28,18 @@
 }
 .btn--quiet:hover { color: var(--fg); }
 
+/* Icon-only button: no ring or fill (the logo is the only circle); the tap area stays 44px. */
 .icon-btn {
   display: inline-grid;
   place-items: center;
   width: var(--tap);
   height: var(--tap);
-  border-radius: 50%;
-  border: 1px solid color-mix(in srgb, var(--line) 60%, transparent);
-  background: color-mix(in srgb, var(--surface) 70%, transparent);
+  margin-right: -10px;
+  border: none;
+  border-radius: var(--radius-s);
+  background: none;
   color: var(--muted);
-  transition: color 0.2s, background-color 0.2s;
+  transition: color 0.2s;
 }
-.icon-btn:hover { color: var(--fg); background: var(--surface); }
-.icon-btn svg { width: 20px; height: 20px; }
+.icon-btn:hover { color: var(--fg); }
+.icon-btn svg { width: 22px; height: 22px; }
