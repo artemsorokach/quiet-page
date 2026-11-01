@@ -7,7 +7,7 @@ import { asHtml } from '../../core/journal/exporting.ts'
 import { isCheck } from '../../core/journal/records.ts'
 import type { EntryStore, JournalRecord } from '../../core/store/types.ts'
 import type { RecordActions } from '../path/EntryCard.tsx'
-import type { BackupActions } from '../share/BackupCard.tsx'
+import type { BackupActions } from '../settings/DataSection.tsx'
 
 const TOAST_MS = 2800
 const stamp = () => new Date().toISOString().slice(0, 10)

@@ -7,6 +7,7 @@ import { SKINS, resolvedMode, type Theme, type ThemeMode } from '../../core/them
 import { Button } from '../../ui/Button.tsx'
 import { Segmented } from '../../ui/Choice.tsx'
 import { Sheet } from '../../ui/Sheet.tsx'
+import { DataSection, type BackupActions } from './DataSection.tsx'
 import './Settings.css'
 
 const LANG_NAMES: Record<Lang, string> = {
@@ -29,6 +30,8 @@ interface SettingsSheetProps {
   scale: ScaleId
   /** null while entries live only in this browser */
   account: AccountSettings | null
+  hasRecords: boolean
+  backup: BackupActions
   onTheme: (theme: Theme) => void
   onLook: (look: Look) => void
   onScale: (scale: ScaleId) => void
@@ -161,6 +164,8 @@ export function SettingsSheet(props: SettingsSheetProps) {
           </p>
         )}
       </div>
+
+      <DataSection hasRecords={props.hasRecords} actions={props.backup} />
 
       <Button variant="ghost" onClick={props.onClose}>{t('done')}</Button>
     </Sheet>

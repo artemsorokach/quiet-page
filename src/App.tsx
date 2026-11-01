@@ -207,7 +207,6 @@ function Shell({ prefs }: { prefs: Preferences }) {
             records={journal.records}
             scale={scale}
             request={shareRequest}
-            backup={journal.backup}
             saveFile={journal.saveFile}
             notify={journal.notify}
           />
@@ -231,6 +230,8 @@ function Shell({ prefs }: { prefs: Preferences }) {
         theme={theme}
         look={look}
         scale={scale}
+        hasRecords={journal.records.length > 0}
+        backup={journal.backup}
         account={
           inCloud && !demo
             ? {

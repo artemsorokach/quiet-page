@@ -33,7 +33,7 @@
   "account": "Konto",
   "signOut": "Abmelden",
   "signIn": "Anmelden",
-  "importBtn": "Aus Datei importieren",
+  "importBtn": "Aus Sicherung wiederherstellen",
   "importFail": "Die Datei konnte nicht gelesen werden.",
   "keyNew": "Neues Passwort",
   "keyOld": "Aktuelles Passwort",
@@ -80,10 +80,8 @@
   "retry": "Erneut versuchen",
   "importDone": "Importierte Einträge: {n}",
   "migrated": "Aus diesem Browser übertragene Einträge: {n}",
-  "bkLbl": "Sicherung",
-  "bkHint": "Alle Einträge und Stimmungen in einer Datei zum Aufbewahren. Die Datei ist nicht verschlüsselt, bewahre sie also sicher auf.",
-  "bkSave": "Alle Einträge exportieren",
-  "bkCopy": "Als Text kopieren",
+  "bkSave": "Sicherung speichern",
+  "bkCopy": "Sicherung kopieren",
   "bkNoFile": "Dateien speichern ist hier nicht verfügbar. Nutze „Als Text kopieren“.",
   "bkDone": "Exportierte Einträge: {n}",
   "bkCopied": "Kopierte Einträge: {n}",
@@ -434,5 +432,10 @@
   "supportInterpreters": "Dolmetschende für andere Sprachen sind verfügbar.",
   "supportNoFree": "Für dieses Land haben wir kein kostenloses Sorgentelefon gefunden. Bei Gefahr steht die Notrufnummer unten.",
   "pathLook": "Einträge im Aussehen zeigen, in dem sie geschrieben wurden",
-  "pathLookHint": "Farben, heller oder dunkler Modus und Schrift wie beim Speichern. Gilt für neue Einträge."
+  "pathLookHint": "Farben, heller oder dunkler Modus und Schrift wie beim Speichern. Gilt für neue Einträge.",
+  "dataLbl": "Daten",
+  "bkSaveHint": "Eine Datei mit allen Einträgen und Einstellungen",
+  "bkCopyHint": "Dasselbe ohne Datei: in die Zwischenablage",
+  "importHint": "Fügt Einträge aus der Datei hinzu, ohne etwas zu löschen",
+  "bkWarn": "Die Datei ist nicht verschlüsselt, bewahre sie sicher auf."
 }

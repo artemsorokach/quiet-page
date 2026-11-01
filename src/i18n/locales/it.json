@@ -33,7 +33,7 @@
   "account": "Account",
   "signOut": "Esci",
   "signIn": "Accedi",
-  "importBtn": "Importa da file",
+  "importBtn": "Ripristina da un backup",
   "importFail": "Impossibile leggere il file.",
   "keyNew": "Nuova password",
   "keyOld": "Password attuale",
@@ -80,10 +80,8 @@
   "retry": "Riprova",
   "importDone": "Note importate: {n}",
   "migrated": "Note trasferite da questo browser: {n}",
-  "bkLbl": "Backup",
-  "bkHint": "Tutte le note e gli stati in un unico file, da conservare. Il file non è cifrato: tienilo in un posto sicuro.",
-  "bkSave": "Esporta tutte le note",
-  "bkCopy": "Copia come testo",
+  "bkSave": "Salva un backup",
+  "bkCopy": "Copia il backup",
   "bkNoFile": "Il salvataggio dei file non è disponibile qui. Usa «Copia come testo».",
   "bkDone": "Note esportate: {n}",
   "bkCopied": "Note copiate: {n}",
@@ -434,5 +432,10 @@
   "supportInterpreters": "Sono disponibili interpreti per altre lingue.",
   "supportNoFree": "Non abbiamo trovato una linea di ascolto gratuita per questo paese. Se sei in pericolo, il numero di emergenza è qui sotto.",
   "pathLook": "Mostra le note con l’aspetto in cui sono state scritte",
-  "pathLookHint": "Colori, modalità chiara o scura e carattere, come al momento del salvataggio. Vale per le nuove note."
+  "pathLookHint": "Colori, modalità chiara o scura e carattere, come al momento del salvataggio. Vale per le nuove note.",
+  "dataLbl": "Dati",
+  "bkSaveHint": "Un file con tutte le note e le impostazioni",
+  "bkCopyHint": "Lo stesso, senza file: negli appunti",
+  "importHint": "Aggiunge le note dal file senza cancellare nulla",
+  "bkWarn": "Il file non è cifrato, quindi tienilo in un posto sicuro."
 }

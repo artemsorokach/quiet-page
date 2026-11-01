@@ -8,7 +8,6 @@ import { Button } from '../../ui/Button.tsx'
 import { RadioOptions, Segmented } from '../../ui/Choice.tsx'
 import { RichText } from '../../ui/RichText.tsx'
 import { Sheet } from '../../ui/Sheet.tsx'
-import { BackupCard, type BackupActions } from './BackupCard.tsx'
 import { PickList } from './PickList.tsx'
 import { EMPTY_SELECTION, daysWithRecords, inRange, picked, presetSelection, type Preset, type Range, type Selection } from './selection.ts'
 import './Share.css'
@@ -23,7 +22,6 @@ interface ShareScreenProps {
   records: readonly JournalRecord[]
   scale: string
   request: ShareRequest | null
-  backup: BackupActions
   saveFile: (name: string, text: string, type: string) => Promise<void>
   notify: (message: string) => void
 }
@@ -32,7 +30,7 @@ type Format = 'html' | 'txt'
 const stamp = () => new Date().toISOString().slice(0, 10)
 
 /** Makes a read-only copy of chosen records to send to someone; the originals stay private. */
-export function ShareScreen({ records, scale, request, backup, saveFile, notify }: ShareScreenProps) {
+export function ShareScreen({ records, scale, request, saveFile, notify }: ShareScreenProps) {
   const i18n = useI18n()
   const { t, lang } = i18n
   const f = dateFormat(lang)
@@ -161,7 +159,6 @@ export function ShareScreen({ records, scale, request, backup, saveFile, notify 
       </div>
       <p class="share__hint">{t('shareHint')}</p>
 
-      <BackupCard records={records} actions={backup} />
 
       <Sheet open={picking} title={t('pickLbl')} closeLabel={t('close')} onClose={() => setPicking(false)}>
         <p class="share__count">{list.length ? t('pickedOf', { n: list.length - selection.excluded.size, m: list.length }) : ''}</p>

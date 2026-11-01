@@ -33,7 +33,7 @@
   "account": "Account",
   "signOut": "Sign out",
   "signIn": "Sign in",
-  "importBtn": "Import from file",
+  "importBtn": "Restore from a backup",
   "importFail": "Couldn't read the file.",
   "keyNew": "New password",
   "keyOld": "Current password",
@@ -80,10 +80,8 @@
   "retry": "Try again",
   "importDone": "Entries imported: {n}",
   "migrated": "Entries moved from this browser: {n}",
-  "bkLbl": "Backup",
-  "bkHint": "All entries and mood notes in one file, to keep for yourself. The file isn't encrypted, so keep it somewhere safe.",
-  "bkSave": "Export all entries",
-  "bkCopy": "Copy as text",
+  "bkSave": "Save a backup",
+  "bkCopy": "Copy the backup",
   "bkNoFile": "Saving files isn't available here. Use “Copy as text”.",
   "bkDone": "Entries exported: {n}",
   "bkCopied": "Entries copied: {n}",
@@ -434,5 +432,10 @@
   "supportInterpreters": "Interpreters for other languages are available.",
   "supportNoFree": "We haven’t found a free listening line for this country. If you are in danger now, the emergency number is below.",
   "pathLook": "Show entries in the look they were written in",
-  "pathLookHint": "Colours, light or dark mode and font, as when the entry was saved. Applies to new entries."
+  "pathLookHint": "Colours, light or dark mode and font, as when the entry was saved. Applies to new entries.",
+  "dataLbl": "Data",
+  "bkSaveHint": "A file with all entries and settings",
+  "bkCopyHint": "The same, without a file: to the clipboard",
+  "importHint": "Adds entries from the file without deleting anything",
+  "bkWarn": "The file isn’t encrypted, so keep it somewhere safe."
 }

@@ -33,7 +33,7 @@
   "account": "Compte",
   "signOut": "Se déconnecter",
   "signIn": "Se connecter",
-  "importBtn": "Importer un fichier",
+  "importBtn": "Restaurer une sauvegarde",
   "importFail": "Impossible de lire le fichier.",
   "keyNew": "Nouveau mot de passe",
   "keyOld": "Mot de passe actuel",
@@ -80,10 +80,8 @@
   "retry": "Réessayer",
   "importDone": "Notes importées : {n}",
   "migrated": "Notes transférées depuis ce navigateur : {n}",
-  "bkLbl": "Sauvegarde",
-  "bkHint": "Toutes tes notes et humeurs dans un seul fichier, à garder pour toi. Le fichier n'est pas chiffré : garde-le en lieu sûr.",
-  "bkSave": "Exporter toutes les notes",
-  "bkCopy": "Copier en texte",
+  "bkSave": "Enregistrer une sauvegarde",
+  "bkCopy": "Copier la sauvegarde",
   "bkNoFile": "L'enregistrement de fichiers n'est pas disponible ici. Utilise « Copier en texte ».",
   "bkDone": "Notes exportées : {n}",
   "bkCopied": "Notes copiées : {n}",
@@ -434,5 +432,10 @@
   "supportInterpreters": "Des interprètes pour d’autres langues sont disponibles.",
   "supportNoFree": "Nous n’avons pas trouvé de ligne d’écoute gratuite pour ce pays. En cas de danger, le numéro d’urgence est ci-dessous.",
   "pathLook": "Afficher les notes dans l’apparence où elles ont été écrites",
-  "pathLookHint": "Couleurs, mode clair ou sombre et police, comme au moment de l’enregistrement. Concerne les nouvelles notes."
+  "pathLookHint": "Couleurs, mode clair ou sombre et police, comme au moment de l’enregistrement. Concerne les nouvelles notes.",
+  "dataLbl": "Données",
+  "bkSaveHint": "Un fichier avec toutes les notes et les réglages",
+  "bkCopyHint": "La même chose, sans fichier : dans le presse-papiers",
+  "importHint": "Ajoute les notes du fichier sans rien supprimer",
+  "bkWarn": "Le fichier n’est pas chiffré : garde-le en lieu sûr."
 }

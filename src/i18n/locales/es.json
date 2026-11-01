@@ -33,7 +33,7 @@
   "account": "Cuenta",
   "signOut": "Cerrar sesión",
   "signIn": "Iniciar sesión",
-  "importBtn": "Importar desde archivo",
+  "importBtn": "Restaurar una copia de seguridad",
   "importFail": "No se pudo leer el archivo.",
   "keyNew": "Contraseña nueva",
   "keyOld": "Contraseña actual",
@@ -80,10 +80,8 @@
   "retry": "Reintentar",
   "importDone": "Notas importadas: {n}",
   "migrated": "Notas pasadas desde este navegador: {n}",
-  "bkLbl": "Copia de seguridad",
-  "bkHint": "Todas tus notas y estados en un solo archivo, para guardarlos. El archivo no está cifrado, así que guárdalo en un lugar seguro.",
-  "bkSave": "Exportar todas las notas",
-  "bkCopy": "Copiar como texto",
+  "bkSave": "Guardar una copia de seguridad",
+  "bkCopy": "Copiar la copia de seguridad",
   "bkNoFile": "Aquí no se pueden guardar archivos. Usa «Copiar como texto».",
   "bkDone": "Notas exportadas: {n}",
   "bkCopied": "Notas copiadas: {n}",
@@ -434,5 +432,10 @@
   "supportInterpreters": "Hay intérpretes para otros idiomas.",
   "supportNoFree": "No hemos encontrado una línea de escucha gratuita para este país. Si estás en peligro, el número de emergencias está abajo.",
   "pathLook": "Mostrar las entradas con el aspecto en que se escribieron",
-  "pathLookHint": "Colores, modo claro u oscuro y letra, como al guardarlas. Se aplica a las entradas nuevas."
+  "pathLookHint": "Colores, modo claro u oscuro y letra, como al guardarlas. Se aplica a las entradas nuevas.",
+  "dataLbl": "Datos",
+  "bkSaveHint": "Un archivo con todas las entradas y ajustes",
+  "bkCopyHint": "Lo mismo, sin archivo: al portapapeles",
+  "importHint": "Añade las entradas del archivo sin borrar nada",
+  "bkWarn": "El archivo no está cifrado, así que guárdalo en un lugar seguro."
 }
