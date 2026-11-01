@@ -8,6 +8,8 @@ import { dateFormat, dayKey, parseDayKey } from '../../core/journal/dates.ts'
 import type { JournalRecord } from '../../core/store/types.ts'
 import { Calendar } from './Calendar.tsx'
 import { EntryCard, type RecordActions } from './EntryCard.tsx'
+import { RecentAdditions } from './RecentAdditions.tsx'
+import { recentlyAdded } from '../../core/journal/recent.ts'
 import './Path.css'
 
 interface PathScreenProps {
@@ -70,6 +72,7 @@ export function PathScreen({ records, scale, showLook, scaleWords, currentLook, 
     <section class="path" aria-label={t('tPath')}>
       {notice}
       <Calendar records={records} month={month} selectedDay={day} scaleWords={scaleWords} onMonth={setMonth} onSelectDay={selectDay} />
+      {!day && <RecentAdditions items={recentlyAdded(records, Date.now())} onOpen={(ts) => selectDay(dayKey(ts))} />}
       <div class="path__feed" id="path-feed">
         {records.length === 0 && (
           <div class="card path__empty">

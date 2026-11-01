@@ -148,3 +148,15 @@ button.week__day { cursor: pointer; }
 .look-picker__actions { display: flex; align-items: center; justify-content: flex-end; gap: 18px; }
 .look-picker__done { min-height: 40px; padding: 0 18px; font-size: 0.9rem; }
 .path__more { display: flex; justify-content: center; padding: 8px 0; }
+
+/* «Нещодавно доповнено» */
+.recent { display: flex; flex-direction: column; gap: 8px; }
+.recent__label { margin: 0; font-size: 0.74rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--faint); }
+.recent__list { display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.recent__item {
+  display: flex; flex-direction: column; gap: 2px; width: 100%; padding: 10px 14px; text-align: left;
+  border: none; border-left: 2px solid var(--gold-soft); border-radius: 4px 14px 14px 4px;
+  background: color-mix(in srgb, var(--surface) 75%, transparent); color: var(--fg);
+}
+.recent__meta { font-size: 0.76rem; color: var(--faint); }
+.recent__text { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 0.92rem; line-height: 1.5; }

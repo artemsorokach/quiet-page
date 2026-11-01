@@ -379,5 +379,27 @@ await un.page.reload()
 await tab(un.page, 'Шлях')
 await un.page.locator('article.entry[data-look][data-look-font="lora"]').waitFor()
 
+// «Згорнути» folds the question away and «Показати питання» brings it back.
+await un.page.getByRole('navigation').getByRole('button', { name: 'Сторінка', exact: true }).click()
+await un.page.getByRole('button', { name: 'Згорнути' }).click()
+await un.page.getByRole('button', { name: 'Показати питання' }).click()
+await un.page.locator('#write-question').waitFor()
+
+// Coming back to an older entry: it stays in place, and «Нещодавно доповнено» points to it.
+const threeDaysAgo = Date.now() - 3 * 864e5
+const back = await run.open({ local: { 'ts-entries': JSON.stringify([{ id: 'old1', ts: threeDaysAgo, mood: 1, scale: 'syly', feelings: [], qa: [{ prompt: null, text: 'Важкий день.' }], text: 'Важкий день.', lang: 'uk' }]) } })
+await back.page.locator('#write-free').waitFor()
+await tab(back.page, 'Шлях')
+assert.equal(await back.page.locator('.recent').count(), 0)
+const oldCard = back.page.locator('article.entry').first()
+await oldCard.getByRole('button', { name: 'Дії із записом' }).click()
+await oldCard.getByRole('button', { name: 'Дописати' }).click()
+await oldCard.locator('textarea').fill('Минуло три дні, стало легше.')
+await oldCard.getByRole('button', { name: 'Додати' }).click()
+await back.page.locator('.recent').getByText('Минуло три дні, стало легше.').waitFor()
+await shot(back.page, 'path-recent')
+await back.page.locator('.recent__item').click()
+await back.page.getByRole('button', { name: 'Показати все' }).waitFor()
+
 assert.deepEqual(await run.close(), [], 'no page errors')
 console.log('screens e2e: all flows passed')

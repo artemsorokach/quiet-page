@@ -84,3 +84,12 @@
 .write__chip--next svg { width: 15px; height: 15px; }
 .write__fields { display: flex; flex-direction: column; gap: 18px; }
 .write__draft { margin: -6px 0 -8px; font-size: 0.8rem; line-height: 1.5; color: var(--faint); }
+
+/* «Згорнути» / «Показати питання»: quiet text with a small arrow, no frame */
+.write__fold {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 6px 8px;
+  border: none; background: none; font-size: 0.88rem; color: var(--faint);
+}
+.write__fold:hover { color: var(--muted); }
+.write__fold svg { width: 15px; height: 15px; }
+.write__fold--open svg { transform: rotate(180deg); }

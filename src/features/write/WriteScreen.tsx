@@ -4,7 +4,7 @@ import { useI18n } from '../../core/i18n/I18nProvider.tsx'
 import { Button } from '../../ui/Button.tsx'
 import { GrowingTextarea } from '../../ui/GrowingTextarea.tsx'
 import { FeelingsPicker } from '../../ui/FeelingsPicker.tsx'
-import { NextIcon, SupportIcon } from '../../ui/icons.tsx'
+import { FoldIcon, NextIcon, SupportIcon } from '../../ui/icons.tsx'
 import { MoodScale, type Mood } from '../../ui/MoodScale.tsx'
 import { FEELING_KEYS } from '../../core/journal/feelings.ts'
 import type { WriteForm } from './composeRecord.ts'
@@ -109,7 +109,7 @@ export function WriteScreen(props: WriteScreenProps) {
           <p class="write__question-text" id="write-question">{props.question.text}</p>
           <div class="write__question-actions recede">
             <button type="button" class="write__chip write__chip--next" onClick={props.onNextQuestion}><NextIcon />{t('nextQ')}</button>
-            <button type="button" class="write__chip" onClick={props.onToggleQuestion}>{t('hideQ')}</button>
+            <button type="button" class="write__fold" onClick={props.onToggleQuestion}><FoldIcon />{t('foldQ')}</button>
           </div>
           <GrowingTextarea
             class="write__field write__field--answer"
@@ -122,7 +122,7 @@ export function WriteScreen(props: WriteScreenProps) {
         </div>
       ) : (
         <div class="recede">
-          <Button variant="quiet" onClick={props.onToggleQuestion}>{t('showQ')}</Button>
+          <button type="button" class="write__fold write__fold--open" onClick={props.onToggleQuestion}><FoldIcon />{t('showQ')}</button>
         </div>
       )}
 

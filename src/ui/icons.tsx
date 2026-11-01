@@ -72,3 +72,12 @@ export function NextIcon() {
     </svg>
   )
 }
+
+/** «Згорнути» (points up; turned down to unfold) */
+export function FoldIcon() {
+  return (
+    <svg {...base}>
+      <path d="M6 15l6-6 6 6" />
+    </svg>
+  )
+}

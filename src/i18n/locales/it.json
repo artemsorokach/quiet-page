@@ -509,5 +509,8 @@
   "lookTitle": "Aspetto di questa nota",
   "lookUndo": "Come prima",
   "lookSaved": "Aspetto salvato.",
-  "showMore": "Mostra altro"
+  "showMore": "Mostra altro",
+  "foldQ": "Riduci",
+  "recentAdded": "Aggiunte recenti",
+  "recentFrom": "Nota del {day}"
 }

@@ -509,5 +509,8 @@
   "lookTitle": "Aussehen dieses Eintrags",
   "lookUndo": "Wie vorher",
   "lookSaved": "Aussehen gespeichert.",
-  "showMore": "Mehr anzeigen"
+  "showMore": "Mehr anzeigen",
+  "foldQ": "Einklappen",
+  "recentAdded": "Kürzlich ergänzt",
+  "recentFrom": "Eintrag vom {day}"
 }
