@@ -46,10 +46,25 @@ export function CheckCard({ record, scale, showLook, actions }: CardProps) {
     <div class="card entry entry--check" {...lookAttributes(shownLook(record, showLook))}>
       <div class="entry__check-head">
         <span>{t('checkLbl')} · {f.day(record.ts)}, {f.time(record.ts)}</span>
+        <ImportantMark record={record} actions={actions} />
         <ConfirmButton label={t('remove')} confirmLabel={t('removeConfirm')} class="link-btn entry__remove" onConfirm={() => actions.remove(record)} />
       </div>
       <RecordState record={record} scale={scale} />
     </div>
+  )
+}
+
+/** «Важливе»: a bookmark on entries and on mood notes alike. */
+function ImportantMark({ record, actions }: { record: JournalRecord; actions: RecordActions }) {
+  const { t } = useI18n()
+  const on = isImportant(record)
+  return (
+    <button
+      type="button" class="entry__mark" aria-pressed={on} aria-label={t('important')}
+      onClick={() => void actions.save({ ...record, important: !on } as JournalRecord, on ? 'unmarked' : 'marked')}
+    >
+      <BookmarkIcon />
+    </button>
   )
 }
 
@@ -86,12 +101,7 @@ export function EntryCard({ record, scale, showLook, currentLook, highlight = ''
     <article class="card entry" {...lookAttributes(trying ?? shownLook(record, showLook))}>
       <div class="entry__head">
         <span>{f.date(record.ts)}, {f.time(record.ts)}</span>
-        <button
-          type="button" class="entry__mark" aria-pressed={isImportant(record)} aria-label={t('important')}
-          onClick={() => void actions.save({ ...record, important: !isImportant(record) } as JournalRecord, isImportant(record) ? 'unmarked' : 'marked')}
-        >
-          <BookmarkIcon />
-        </button>
+        <ImportantMark record={record} actions={actions} />
         {hasHistory && (
           <button type="button" class="entry__edited" aria-expanded={historyOpen} onClick={() => setHistoryOpen(!historyOpen)}>
             {t('edited')}

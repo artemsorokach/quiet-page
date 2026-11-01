@@ -334,7 +334,11 @@ await dr.page.getByRole('button', { name: 'Як влаштований дода�
 await dr.page.getByText('Що тут є').waitFor()
 assert.equal(await dr.page.evaluate(() => window.scrollY), 0, 'the welcome page opens at its top')
 await shot(dr.page, 'welcome-v2')
-await dr.page.getByRole('button', { name: 'Повернутися' }).click()
+await dr.page.evaluate(() => window.scrollTo(0, document.body.scrollHeight))
+await dr.page.getByRole('button', { name: 'Подивитися приклад' }).click()
+await dr.page.getByText('Це приклад. Записи тут не зберігаються.').waitFor()
+assert.equal(await dr.page.evaluate(() => window.scrollY), 0, 'the example opens at the top')
+await dr.page.getByRole('button', { name: 'Вийти з прикладу' }).click()
 await dr.page.locator('#write-free').waitFor()
 await dr.page.evaluate(() => window.scrollTo(0, document.body.scrollHeight))
 await dr.page.waitForFunction(() => document.querySelector('.app-foot')?.classList.contains('is-shown'))
@@ -409,6 +413,7 @@ await back.page.getByRole('button', { name: 'Показати все' }).waitFor
   const seeded = [
     { id: 'y1', ts: yearAgoTs, mood: 4, scale: 'syly', feelings: ['hope'], qa: [{ prompt: null, text: 'Перший тиждень у новому місті.' }], text: 'x', lang: 'uk' },
     { id: 'f1', ts: Date.now() - 2 * 3600e3, mood: 5, scale: 'syly', feelings: ['joy', 'calm'], qa: [{ prompt: null, text: 'Ранкова кава біля озера.' }], text: 'x', lang: 'uk' },
+    { id: 'c1', type: 'check', ts: Date.now() - 4 * 3600e3, mood: 3, scale: 'syly', feelings: ['calm'] },
     { id: 'd1', ts: Date.now() - 3 * 3600e3, mood: 1, scale: 'syly', feelings: ['tired'], qa: [{ prompt: null, text: 'Дуже втомився після офісу.' }], text: 'x', lang: 'uk' },
   ]
   const tl = await run.open({ local: { 'ts-entries': JSON.stringify(seeded) } })
@@ -430,8 +435,11 @@ await back.page.getByRole('button', { name: 'Показати все' }).waitFor
   const first = tl.page.locator('article.entry').first()
   await first.getByRole('button', { name: 'Важливе' }).click()
   await toast(tl.page, 'Додано до важливого.')
+  await tl.page.locator('.entry--check').first().getByRole('button', { name: 'Важливе' }).click()
+  await tl.page.waitForFunction(() => JSON.parse(localStorage.getItem('ts-entries')).filter((r) => r.important).length === 2)
   await tl.page.locator('.path-tools').getByRole('button', { name: 'Важливе' }).click()
   assert.equal(await tl.page.locator('article.entry').count(), 1)
+  assert.equal(await tl.page.locator('.entry--check').count(), 1, 'mood notes can be important too')
   await tl.page.locator('.path-tools').getByRole('button', { name: 'Важливе' }).click()
 
   await tl.page.getByRole('button', { name: 'Огляд', exact: true }).click()

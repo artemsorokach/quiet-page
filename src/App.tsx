@@ -84,9 +84,9 @@ function Shell({ prefs }: { prefs: Preferences }) {
   const inApp = !welcome && (phase.kind === 'local' || phase.kind === 'cloud')
 
   // Before the first paint, so the welcome page never flashes at the old scroll position.
+  // Opening or leaving the welcome page always starts at the top (also «Подивитися приклад»).
   useLayoutEffect(() => {
-    if (!welcome) return
-    setAboutOpen(false)
+    if (welcome) setAboutOpen(false)
     window.scrollTo(0, 0)
   }, [welcome])
 
