@@ -4,7 +4,7 @@ import { useI18n } from '../../core/i18n/I18nProvider.tsx'
 import { Button } from '../../ui/Button.tsx'
 import { AccountLayout, Field } from './AccountLayout.tsx'
 
-export type SecurityMode = 'password' | 'code'
+export type SecurityMode = 'password' | 'code' | 'delete'
 
 interface SecurityScreenProps {
   mode: SecurityMode

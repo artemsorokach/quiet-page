@@ -442,5 +442,63 @@
   "weekTitle": "Diese Woche",
   "monthShow": "Monat",
   "monthHide": "Einklappen",
-  "whatHere": "Was es hier gibt"
+  "whatHere": "Was es hier gibt",
+  "delAccount": "Konto und alle Einträge löschen",
+  "delTitle": "Konto löschen",
+  "delLead": "Alle Einträge, Schlüssel und das Konto selbst werden endgültig gelöscht. Sie lassen sich nicht wiederherstellen.",
+  "delBackupNote": "Wenn du die Einträge behalten möchtest, speichere zuerst eine Sicherung: Einstellungen → Daten.",
+  "delLoginPw": "Passwort für die Anmeldung",
+  "delLoginHint": "Zur Sicherheit muss die Anmeldung noch einmal bestätigt werden. Oft ist es dasselbe Passwort wie für die Einträge.",
+  "delGoogleHint": "Zur Sicherheit öffnet sich ein Google-Fenster, um die Anmeldung noch einmal zu bestätigen.",
+  "delGoogleCancelled": "Die Google-Anmeldung wurde nicht bestätigt, daher wurde nichts gelöscht.",
+  "delDone": "Das Konto und alle Einträge wurden gelöscht.",
+  "delPartial": "Einträge und Schlüssel wurden gelöscht. Die Anmeldung selbst liess sich nicht entfernen, ist aber jetzt leer.",
+  "delLocal": "Alle Einträge auf diesem Gerät löschen",
+  "delLocalConfirm": "Sicher? Noch einmal tippen",
+  "delLocalDone": "Die Einträge auf diesem Gerät wurden gelöscht.",
+  "legal": "Datenschutz und rechtliche Hinweise",
+  "legalUpdated": "Aktualisiert: November 2026",
+  "legalSections": [
+    [
+      "Verantwortlich",
+      "Quiet Page ist ein nichtkommerzielles persönliches Projekt von Artem Soroka (Schweiz)."
+    ],
+    [
+      "Ohne Konto",
+      "Einträge, Entwurf und Einstellungen bleiben nur in diesem Browser und werden nirgendwohin gesendet."
+    ],
+    [
+      "Mit Konto",
+      "Gespeichert werden deine E-Mail-Adresse (bei Anmeldung mit Google auch Name und Foto des Google-Profils) und deine Einträge. Die Einträge werden auf deinem Gerät verschlüsselt, bevor sie gesendet werden – weder der Autor der App noch Google kann sie lesen."
+    ],
+    [
+      "Was es hier nicht gibt",
+      "Keine Werbung, keine Analyse, keine Tracker und keine Cookies von Dritten. Niemand wertet den Inhalt der Einträge aus oder gibt ihn weiter."
+    ],
+    [
+      "Wer die Daten bearbeitet",
+      "Anmeldung und Speicherung der verschlüsselten Einträge erfolgen über Google Firebase (Google Cloud). Die Website liegt auf GitHub Pages; wie jeder Hoster sieht GitHub technische Anfragedaten, etwa die IP-Adresse. Daten können in Rechenzentren ausserhalb der Schweiz bearbeitet werden, auch in der EU und den USA, gemäss den Datenschutzbedingungen dieser Unternehmen."
+    ],
+    [
+      "Wie lange gespeichert wird",
+      "Bis du die Einträge oder das Konto löschst. Ein gelöschter Eintrag verschwindet sofort aus der Datenbank; in internen Sicherungen von Google kann er noch kurz bleiben, ebenfalls verschlüsselt."
+    ],
+    [
+      "Deine Rechte",
+      "Du kannst deine Daten jederzeit ansehen, als Datei sichern (Einstellungen → Daten), ändern oder löschen: Einstellungen → Konto → «Konto und alle Einträge löschen». Du kannst dich auch an den Eidgenössischen Datenschutz- und Öffentlichkeitsbeauftragten (EDÖB) wenden."
+    ],
+    [
+      "Keine Therapie",
+      "Dies ist ein Werkzeug zur Selbstreflexion, keine Therapie, Diagnose oder medizinische Hilfe. Wenn es sehr schwer ist, gibt es auf jedem Bildschirm den Link «Wenn es gerade sehr schwer ist»."
+    ],
+    [
+      "Alter",
+      "Die App ist für Menschen ab 16 Jahren gedacht."
+    ],
+    [
+      "Beta-Version",
+      "Die App ist kostenlos und verändert sich nach und nach. Sie wird «wie besehen» bereitgestellt, ohne Garantie für unterbrechungsfreien Betrieb; es lohnt sich also, ab und zu eine Sicherung zu speichern."
+    ]
+  ],
+  "delAccConfirm": "Endgültig löschen"
 }

@@ -5,9 +5,11 @@ import { MemoryEntryStore } from './core/store/memoryStore.ts'
 import { readFlag, resolvedMode } from './core/theme/theme.ts'
 import { AuthScreen } from './features/account/AuthScreen.tsx'
 import { KeyScreen } from './features/account/KeyScreen.tsx'
+import { DeleteAccountScreen } from './features/account/DeleteAccountScreen.tsx'
 import { RecoveryCodeScreen } from './features/account/RecoveryCodeScreen.tsx'
 import { SecurityScreen } from './features/account/SecurityScreen.tsx'
 import { useAccount } from './features/account/useAccount.ts'
+import { LegalSheet } from './features/legal/LegalSheet.tsx'
 import { PathScreen } from './features/path/PathScreen.tsx'
 import { SettingsSheet } from './features/settings/SettingsSheet.tsx'
 import { ShareScreen, type ShareRequest } from './features/share/ShareScreen.tsx'
@@ -57,6 +59,7 @@ function Shell({ prefs }: { prefs: Preferences }) {
   const journal = useJournal(store, i18n, scale)
   const [tab, setTab] = useState<Tab>('write')
   const [questionIndex, setQuestionIndex] = useState(() => new Date().getDate() % messages.prompts.length)
+  const [legalOpen, setLegalOpen] = useState(false)
   const [showQuestion, setShowQuestion] = useState(true)
   const [supportOpen, setSupportOpen] = useState(false)
   const [settingsOpen, setSettingsOpen] = useState(false)
@@ -73,6 +76,11 @@ function Shell({ prefs }: { prefs: Preferences }) {
   const inApp = !welcome && (phase.kind === 'local' || phase.kind === 'cloud')
 
   useEffect(() => {
+    const notice = takeNotice()
+    if (notice) journal.notify(notice)
+  }, [])
+
+  useEffect(() => {
     if (!draft.ready) return
     const q = draft.current().question
     if (q !== null) {
@@ -85,7 +93,7 @@ function Shell({ prefs }: { prefs: Preferences }) {
     if (draft.ready) draft.update({ question: showQuestion ? questionIndex % messages.prompts.length : null })
   }, [draft.ready, questionIndex, showQuestion])
 
-  useSwipeTabs(inApp && !settingsOpen && !supportOpen, (direction) => {
+  useSwipeTabs(inApp && !settingsOpen && !supportOpen && !legalOpen, (direction) => {
     const order: Tab[] = ['write', 'path', 'share']
     const next = order[order.indexOf(tab) + (direction === 'next' ? 1 : -1)]
     if (next) selectTab(next)
@@ -162,6 +170,19 @@ function Shell({ prefs }: { prefs: Preferences }) {
     return (
       <div class="app">
         <RecoveryCodeScreen code={phase.code} email={account.email} onDone={account.finishCode} />
+      </div>
+    )
+  }
+  if (phase.kind === 'security' && phase.mode === 'delete') {
+    return (
+      <div class="app">
+        <DeleteAccountScreen
+          signInMethod={account.security.signInMethod()}
+          onDelete={account.security.deleteAccount}
+          authErrorKey={account.authErrorKey}
+          onDeleted={(result) => restartWithNotice(t(result === 'done' ? 'delDone' : 'delPartial'))}
+          onCancel={account.security.close}
+        />
       </div>
     )
   }
@@ -265,10 +286,12 @@ function Shell({ prefs }: { prefs: Preferences }) {
             <p>{t('freeNote')}</p>
             <p>{t('feedbackShort')}</p>
             <button type="button" class="link-btn" onClick={() => setWelcome(true)}>{t('howItWorks')}</button>
+            <button type="button" class="link-btn" onClick={() => setLegalOpen(true)}>{t('legal')}</button>
           </div>
         )}
       </footer>
       <SupportSheet open={supportOpen} onClose={() => setSupportOpen(false)} />
+      <LegalSheet open={legalOpen} onClose={() => setLegalOpen(false)} />
       <SettingsSheet
         open={settingsOpen}
         theme={theme}
@@ -294,6 +317,10 @@ function Shell({ prefs }: { prefs: Preferences }) {
                   setSettingsOpen(false)
                   account.keyActions.signOut()
                 },
+                onDeleteAccount: () => {
+                  setSettingsOpen(false)
+                  account.security.open('delete')
+                },
               }
             : null
         }
@@ -305,9 +332,42 @@ function Shell({ prefs }: { prefs: Preferences }) {
           setSettingsOpen(false)
           account.showSignIn()
         }}
+        onWipeLocal={
+          phase.kind === 'local' && !demo && journal.records.length > 0
+            ? () => {
+                account.wipeLocal()
+                restartWithNotice(t('delLocalDone'))
+              }
+            : undefined
+        }
         onClose={() => setSettingsOpen(false)}
       />
       <Toast message={journal.toast} />
     </div>
   )
+}
+
+const NOTICE_KEY = 'qp-notice'
+
+/**
+ * After deleting data the app starts afresh (so no screen keeps old entries in memory)
+ * and shows one quiet line about what happened.
+ */
+function restartWithNotice(message: string): void {
+  try {
+    sessionStorage.setItem(NOTICE_KEY, message)
+  } catch {
+    // without session storage the page simply reloads without the line
+  }
+  window.location.reload()
+}
+
+function takeNotice(): string | null {
+  try {
+    const notice = sessionStorage.getItem(NOTICE_KEY)
+    sessionStorage.removeItem(NOTICE_KEY)
+    return notice
+  } catch {
+    return null
+  }
 }

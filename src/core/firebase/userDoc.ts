@@ -1,5 +1,6 @@
 import {
   collection,
+  deleteDoc,
   deleteField,
   doc,
   getDoc,
@@ -50,7 +51,7 @@ export class FirestoreUserDoc implements UserDocPort {
     }
   }
 
-  async deleteEverything(): Promise<void> {
+  private async deleteEntries(): Promise<void> {
     const snap = await getDocs(entriesRef(this.db, this.uid))
     let batch = writeBatch(this.db)
     let count = 0
@@ -63,6 +64,15 @@ export class FirestoreUserDoc implements UserDocPort {
       }
     }
     await batch.commit()
+  }
+
+  async deleteEverything(): Promise<void> {
+    await this.deleteEntries()
     await setDoc(userRef(this.db, this.uid), { keyring: deleteField(), salt: deleteField(), check: deleteField() }, { merge: true })
+  }
+
+  async deleteAccount(): Promise<void> {
+    await this.deleteEntries()
+    await deleteDoc(userRef(this.db, this.uid))
   }
 }

@@ -14,6 +14,11 @@
   color: var(--muted);
   cursor: default;
 }
+.btn--danger {
+  background: color-mix(in srgb, var(--danger) 14%, var(--surface));
+  border-color: color-mix(in srgb, var(--danger) 45%, var(--surface));
+  color: var(--fg);
+}
 .btn--ghost { background: var(--surface); border-color: var(--line); color: var(--fg); }
 .btn--quiet {
   background: none;

@@ -442,5 +442,63 @@
   "weekTitle": "Cette semaine",
   "monthShow": "Mois",
   "monthHide": "Réduire",
-  "whatHere": "Ce qu’on trouve ici"
+  "whatHere": "Ce qu’on trouve ici",
+  "delAccount": "Supprimer le compte et toutes les notes",
+  "delTitle": "Supprimer le compte",
+  "delLead": "Toutes les notes, les clés et le compte lui-même seront supprimés définitivement. Impossible de les récupérer.",
+  "delBackupNote": "Pour garder tes notes, enregistre d’abord une sauvegarde : Réglages → Données.",
+  "delLoginPw": "Mot de passe de connexion au compte",
+  "delLoginHint": "Par sécurité, il faut confirmer la connexion encore une fois. C’est parfois le même mot de passe que pour les notes.",
+  "delGoogleHint": "Par sécurité, une fenêtre Google s’ouvrira pour confirmer la connexion encore une fois.",
+  "delGoogleCancelled": "La connexion Google n’a pas été confirmée, rien n’a donc été supprimé.",
+  "delDone": "Le compte et toutes les notes ont été supprimés.",
+  "delPartial": "Les notes et les clés ont été supprimées. La connexion elle-même n’a pas pu l’être, mais elle est désormais vide.",
+  "delLocal": "Supprimer toutes les notes sur cet appareil",
+  "delLocalConfirm": "Vraiment ? Appuie encore une fois",
+  "delLocalDone": "Les notes sur cet appareil ont été supprimées.",
+  "legal": "Confidentialité et informations légales",
+  "legalUpdated": "Mis à jour : novembre 2026",
+  "legalSections": [
+    [
+      "Qui est responsable",
+      "Quiet Page est un projet personnel non commercial d’Artem Soroka (Suisse)."
+    ],
+    [
+      "Sans compte",
+      "Les notes, le brouillon et les réglages restent uniquement dans ce navigateur et ne sont envoyés nulle part."
+    ],
+    [
+      "Avec un compte",
+      "Ton adresse e-mail (avec la connexion Google, aussi le nom et la photo du profil Google) et tes notes sont enregistrés. Les notes sont chiffrées sur ton appareil avant l’envoi : ni l’auteur de l’application ni Google ne peuvent les lire."
+    ],
+    [
+      "Ce qu’il n’y a pas ici",
+      "Pas de publicité, d’analytique, de traceurs ni de cookies tiers. Personne n’analyse le contenu des notes ni ne le transmet."
+    ],
+    [
+      "Qui traite les données",
+      "La connexion et le stockage des notes chiffrées sont assurés par Google Firebase (Google Cloud). Le site est hébergé sur GitHub Pages ; comme tout hébergeur, il voit les données techniques des requêtes, par exemple l’adresse IP. Les données peuvent être traitées dans des centres de données hors de Suisse, notamment dans l’UE et aux États-Unis, selon les conditions de protection des données de ces entreprises."
+    ],
+    [
+      "Durée de conservation",
+      "Jusqu’à ce que tu supprimes les notes ou le compte. Une note supprimée disparaît aussitôt de la base ; elle peut rester peu de temps dans les sauvegardes internes de Google, toujours chiffrée."
+    ],
+    [
+      "Tes droits",
+      "Tu peux à tout moment consulter tes données, les enregistrer dans un fichier (Réglages → Données), les modifier ou les supprimer : Réglages → Compte → « Supprimer le compte et toutes les notes ». Tu peux aussi t’adresser au Préposé fédéral à la protection des données et à la transparence (PFPDT)."
+    ],
+    [
+      "Pas une thérapie",
+      "C’est un outil d’introspection, pas une thérapie, un diagnostic ni des soins médicaux. Si c’est très difficile, chaque écran a le lien « Si c’est très difficile en ce moment »."
+    ],
+    [
+      "Âge",
+      "L’application s’adresse aux personnes de 16 ans et plus."
+    ],
+    [
+      "Version bêta",
+      "L’application est gratuite et évolue peu à peu. Elle est fournie « telle quelle », sans garantie de fonctionnement ininterrompu ; il vaut donc la peine d’enregistrer une sauvegarde de temps en temps."
+    ]
+  ],
+  "delAccConfirm": "Supprimer définitivement"
 }

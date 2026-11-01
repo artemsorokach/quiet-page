@@ -1,0 +1,5 @@
+.legal { display: flex; flex-direction: column; gap: 16px; }
+.legal__part + .legal__part { padding-top: 14px; border-top: 1px solid color-mix(in srgb, var(--line) 45%, var(--surface-2)); }
+.legal__heading { margin: 0 0 4px; font-size: 0.95rem; font-weight: 700; color: var(--fg); }
+.legal__text { margin: 0; font-size: 0.92rem; line-height: 1.65; color: var(--muted); text-wrap: pretty; }
+.legal__updated { margin: 2px 0 0; font-size: 0.8rem; color: var(--faint); }

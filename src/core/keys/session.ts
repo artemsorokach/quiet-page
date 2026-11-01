@@ -137,6 +137,19 @@ export class KeySession {
     this.legacy = null
   }
 
+  /** Throws WrongSecretError unless `password` opens the keyring; changes nothing. */
+  async verifyPassword(password: string): Promise<void> {
+    await unlockWithPassword(await this.requireKeyring(), password)
+  }
+
+  /** «Видалити акаунт»: every entry, the user document and this device's copy of the key. */
+  async deleteAccount(): Promise<void> {
+    await this.options.doc.deleteAccount()
+    await this.options.device.forget(this.options.uid)
+    this.keyring = null
+    this.legacy = null
+  }
+
   forgetDevice(): Promise<void> {
     return this.options.device.forget(this.options.uid)
   }

@@ -47,3 +47,4 @@
 }
 .account__code span { display: inline-block; white-space: nowrap; }
 .account__mail { display: inline-flex; align-items: center; text-decoration: none; }
+.account__hint { margin: 0; font-size: 0.86rem; line-height: 1.55; color: var(--faint); }

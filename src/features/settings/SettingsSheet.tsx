@@ -5,6 +5,7 @@ import { SCALE_IDS, type ScaleId, type Scales } from '../../core/journal/records
 import { ATMOSPHERES, FONT_FAMILY, WRITING_FONTS, loadWritingFont, type Atmosphere, type Look } from '../../core/theme/look.ts'
 import { SKINS, resolvedMode, type Theme, type ThemeMode } from '../../core/theme/theme.ts'
 import { Button } from '../../ui/Button.tsx'
+import { ConfirmButton } from '../../ui/ConfirmButton.tsx'
 import { Segmented } from '../../ui/Choice.tsx'
 import { Sheet } from '../../ui/Sheet.tsx'
 import { DataSection, type BackupActions } from './DataSection.tsx'
@@ -21,6 +22,7 @@ export interface AccountSettings {
   onChangePassword: () => void
   onNewCode: () => void
   onSignOut: () => void
+  onDeleteAccount: () => void
 }
 
 interface SettingsSheetProps {
@@ -37,6 +39,8 @@ interface SettingsSheetProps {
   onScale: (scale: ScaleId) => void
   onLang: (lang: Lang) => void
   onSignIn: () => void
+  /** signed out, outside the example and with entries: removes what this browser keeps */
+  onWipeLocal?: () => void
   onClose: () => void
 }
 
@@ -162,11 +166,19 @@ export function SettingsSheet(props: SettingsSheetProps) {
               <input type="checkbox" checked={account.askEveryTime} onChange={(e) => account.onAskEveryTime(e.currentTarget.checked)} />
               <span>{t('askEvery')}</span>
             </label>
+            <button type="button" class="link-btn link-btn--danger settings__delete" onClick={account.onDeleteAccount}>
+              {t('delAccount')}
+            </button>
           </>
         ) : (
-          <p class="settings__local">
-            {t('localNotice')} <button type="button" class="link-btn" onClick={props.onSignIn}>{t('signIn')}</button>
-          </p>
+          <>
+            <p class="settings__local">
+              {t('localNotice')} <button type="button" class="link-btn" onClick={props.onSignIn}>{t('signIn')}</button>
+            </p>
+            {props.onWipeLocal && (
+              <ConfirmButton class="link-btn link-btn--danger settings__delete" label={t('delLocal')} confirmLabel={t('delLocalConfirm')} onConfirm={props.onWipeLocal} />
+            )}
+          </>
         )}
       </div>
 

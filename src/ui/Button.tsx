@@ -1,7 +1,7 @@
 import type { ButtonHTMLAttributes, ComponentChildren } from 'preact'
 import './Button.css'
 
-type Variant = 'primary' | 'ghost' | 'quiet'
+type Variant = 'primary' | 'ghost' | 'quiet' | 'danger'
 
 type ButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'class'> & {
   variant?: Variant

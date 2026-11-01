@@ -442,5 +442,63 @@
   "weekTitle": "Questa settimana",
   "monthShow": "Mese",
   "monthHide": "Riduci",
-  "whatHere": "Cosa c’è qui"
+  "whatHere": "Cosa c’è qui",
+  "delAccount": "Elimina account e tutte le note",
+  "delTitle": "Elimina account",
+  "delLead": "Tutte le note, le chiavi e l’account stesso verranno eliminati per sempre. Non sarà possibile recuperarli.",
+  "delBackupNote": "Se vuoi tenere le note, salva prima una copia di sicurezza: Impostazioni → Dati.",
+  "delLoginPw": "Password di accesso all’account",
+  "delLoginHint": "Per sicurezza serve confermare l’accesso ancora una volta. A volte è la stessa password delle note.",
+  "delGoogleHint": "Per sicurezza si aprirà una finestra di Google per confermare di nuovo l’accesso.",
+  "delGoogleCancelled": "L’accesso con Google non è stato confermato, quindi non è stato eliminato nulla.",
+  "delDone": "L’account e tutte le note sono stati eliminati.",
+  "delPartial": "Note e chiavi sono state eliminate. L’accesso in sé non è stato rimosso, ma ora è vuoto.",
+  "delLocal": "Elimina tutte le note su questo dispositivo",
+  "delLocalConfirm": "Sicuro? Tocca di nuovo",
+  "delLocalDone": "Le note su questo dispositivo sono state eliminate.",
+  "legal": "Privacy e note legali",
+  "legalUpdated": "Aggiornato: novembre 2026",
+  "legalSections": [
+    [
+      "Chi è responsabile",
+      "Quiet Page è un progetto personale non commerciale di Artem Soroka (Svizzera)."
+    ],
+    [
+      "Senza account",
+      "Note, bozza e impostazioni restano solo in questo browser e non vengono inviate da nessuna parte."
+    ],
+    [
+      "Con un account",
+      "Vengono salvati il tuo indirizzo e-mail (con l’accesso Google anche nome e foto del profilo Google) e le tue note. Le note vengono cifrate sul tuo dispositivo prima dell’invio, quindi né l’autore dell’app né Google possono leggerle."
+    ],
+    [
+      "Cosa qui non c’è",
+      "Niente pubblicità, analisi, tracker o cookie di terze parti. Nessuno analizza il contenuto delle note né lo trasmette ad altri."
+    ],
+    [
+      "Chi tratta i dati",
+      "L’accesso e la conservazione delle note cifrate sono forniti da Google Firebase (Google Cloud). Il sito è ospitato su GitHub Pages; come ogni hosting, vede i dati tecnici delle richieste, per esempio l’indirizzo IP. I dati possono essere trattati in data center fuori dalla Svizzera, anche nell’UE e negli Stati Uniti, secondo le condizioni di protezione dei dati di queste aziende."
+    ],
+    [
+      "Per quanto tempo",
+      "Finché non elimini le note o l’account. Una nota eliminata sparisce subito dal database; può restare per poco nei backup interni di Google, sempre cifrata."
+    ],
+    [
+      "I tuoi diritti",
+      "Puoi in ogni momento vedere i tuoi dati, salvarli in un file (Impostazioni → Dati), modificarli o eliminarli: Impostazioni → Account → «Elimina account e tutte le note». Puoi anche rivolgerti all’Incaricato federale della protezione dei dati e della trasparenza (IFPDT)."
+    ],
+    [
+      "Non è terapia",
+      "È uno strumento di autoriflessione, non una terapia, una diagnosi o un aiuto medico. Se è molto difficile, ogni schermata ha il link «Se adesso è molto difficile»."
+    ],
+    [
+      "Età",
+      "L’app è pensata per persone dai 16 anni in su."
+    ],
+    [
+      "Versione beta",
+      "L’app è gratuita e cambia poco a poco. È fornita «così com’è», senza garanzia di funzionamento continuo, quindi conviene salvare ogni tanto una copia di sicurezza."
+    ]
+  ],
+  "delAccConfirm": "Elimina per sempre"
 }

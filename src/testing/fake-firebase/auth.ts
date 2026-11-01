@@ -3,14 +3,20 @@ import { onStateChange, readState, tick, writeState, type FakeUser } from './sta
 export interface User {
   uid: string
   email: string | null
+  providerData: { providerId: string }[]
 }
 
 export interface Auth {
   languageCode: string | null
+  readonly currentUser: User | null
 }
 
 const fail = (code: string) => Object.assign(new Error(code), { code })
-const asUser = (user: FakeUser): User => ({ uid: user.uid, email: user.email })
+const asUser = (user: FakeUser): User => ({
+  uid: user.uid,
+  email: user.email,
+  providerData: [{ providerId: user.password ? 'password' : 'google.com' }],
+})
 
 function currentUser(): User | null {
   const state = readState()
@@ -20,7 +26,12 @@ function currentUser(): User | null {
 
 export class GoogleAuthProvider {}
 
-export const getAuth = (_app: unknown): Auth => ({ languageCode: null })
+export const getAuth = (_app: unknown): Auth => ({
+  languageCode: null,
+  get currentUser() {
+    return currentUser()
+  },
+})
 
 export function onAuthStateChanged(_auth: Auth, callback: (user: User | null) => void): () => void {
   let last: string | null | undefined
@@ -75,4 +86,22 @@ export const sendPasswordResetEmail = async (_auth: Auth, _email: string) => tic
 export async function signOut(_auth: Auth): Promise<void> {
   await tick()
   writeState({ ...readState(), current: null })
+}
+
+export const EmailAuthProvider = {
+  credential: (email: string, password: string) => ({ email, password }),
+}
+
+export async function reauthenticateWithCredential(_user: User, credential: { email: string; password: string }): Promise<void> {
+  await tick()
+  const ok = readState().users.some((u) => u.email === credential.email && u.password === credential.password)
+  if (!ok) throw fail('auth/invalid-credential')
+}
+
+export const reauthenticateWithPopup = async (_user: User, _provider: GoogleAuthProvider) => tick()
+
+export async function deleteUser(user: User): Promise<void> {
+  await tick()
+  const state = readState()
+  writeState({ ...state, users: state.users.filter((u) => u.uid !== user.uid), current: null })
 }

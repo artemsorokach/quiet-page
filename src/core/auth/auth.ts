@@ -1,8 +1,12 @@
 import {
+  EmailAuthProvider,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
+  deleteUser,
   getRedirectResult,
   onAuthStateChanged,
+  reauthenticateWithCredential,
+  reauthenticateWithPopup,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
@@ -56,3 +60,28 @@ export function watchUser(auth: Auth, onChange: (user: User | null) => void): ()
 }
 
 export const signOutEverywhere = (auth: Auth) => signOut(auth)
+
+export type SignInMethod = 'google' | 'password'
+
+/** How the current person signs in: decides what deleting the account asks for. */
+export function signInMethod(auth: Auth): SignInMethod {
+  const providers = auth.currentUser?.providerData.map((p) => p.providerId) ?? []
+  return providers.includes('password') ? 'password' : 'google'
+}
+
+/**
+ * Firebase deletes a sign-in only right after signing in, so the person confirms it first:
+ * with the sign-in password, or in Google's own window.
+ */
+export async function confirmSignIn(auth: Auth, loginPassword: string): Promise<void> {
+  const user = auth.currentUser
+  if (!user) throw Object.assign(new Error('no-user'), { code: 'auth/no-current-user' })
+  if (signInMethod(auth) === 'password') {
+    await reauthenticateWithCredential(user, EmailAuthProvider.credential(user.email ?? '', loginPassword))
+  } else await reauthenticateWithPopup(user, new GoogleAuthProvider())
+}
+
+export async function deleteSignIn(auth: Auth): Promise<void> {
+  const user = auth.currentUser
+  if (user) await deleteUser(user)
+}

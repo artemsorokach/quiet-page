@@ -8,7 +8,7 @@
  */
 import { readFile } from 'node:fs/promises'
 import assert from 'node:assert/strict'
-import { fakeState, heading, launch } from './harness.mjs'
+import { fakeState, heading, launch, toast } from './harness.mjs'
 
 const fixtures = JSON.parse(await readFile(new URL('../src/core/crypto/__fixtures__/legacy-fixtures.json', import.meta.url)))
 const run = await launch(process.argv[2])
@@ -167,6 +167,54 @@ await f.page.getByRole('button', { name: 'Якщо зараз дуже важк�
 await f.page.locator('dialog[open]').waitFor()
 await shot(f.page, 'support')
 await f.context.close()
+
+// 11. Delete the account: wrong passwords change nothing; the right ones remove everything.
+const gone = await open(null)
+await writeAndSave(gone.page, 'Запис, який буде видалено')
+await gone.page.locator('.write__local').getByRole('button', { name: 'Увійти' }).click()
+await gone.page.locator('#auth-email').fill('leaving@example.com')
+await gone.page.locator('#auth-pass').fill('login-pass')
+await gone.page.getByRole('button', { name: 'Створити акаунт' }).click()
+await gone.page.locator('#key-pass').fill('entries-pass-9')
+await gone.page.locator('#key-pass2').fill('entries-pass-9')
+await gone.page.getByRole('button', { name: 'Зберегти пароль' }).click()
+await gone.page.getByRole('button', { name: 'Код збережено' }).click()
+await gone.page.locator('#write-free').waitFor()
+const leavingUid = (await fakeState(gone.page)).current
+await gone.page.waitForFunction((u) => Object.keys(JSON.parse(localStorage.getItem('fake-fb')).docs).some((k) => k.startsWith(`users/${u}/entries/`)), leavingUid)
+await gone.page.getByRole('button', { name: 'Налаштування' }).click()
+await gone.page.locator('dialog[open]').getByRole('button', { name: 'Видалити акаунт і всі записи' }).click()
+await heading(gone.page, 'Видалити акаунт')
+await gone.page.locator('#del-entries').fill('entries-pass-9')
+await gone.page.locator('#del-login').fill('wrong-login')
+await gone.page.getByRole('button', { name: 'Видалити назавжди' }).click()
+await gone.page.getByText('Неправильна пошта або пароль.').waitFor()
+await gone.page.locator('#del-entries').fill('wrong-entries')
+await gone.page.locator('#del-login').fill('login-pass')
+await gone.page.getByRole('button', { name: 'Видалити назавжди' }).click()
+await gone.page.getByText('Пароль не підходить.').waitFor()
+await gone.page.locator('#del-entries').fill('entries-pass-9')
+assert.ok(entriesOf(await fakeState(gone.page), leavingUid).length > 0, 'nothing removed yet')
+await shot(gone.page, 'delete-account')
+await gone.page.locator('#del-login').fill('login-pass')
+await gone.page.getByRole('button', { name: 'Видалити назавжди' }).click()
+await toast(gone.page, 'Акаунт і всі записи видалено.')
+const after = await fakeState(gone.page)
+assert.equal(entriesOf(after, leavingUid).length, 0, 'entries deleted')
+assert.equal(after.docs[`users/${leavingUid}`], undefined, 'user document deleted')
+assert.ok(!after.users.some((u) => u.uid === leavingUid), 'sign-in deleted')
+assert.equal(after.current, null)
+assert.equal(await gone.page.evaluate(() => localStorage.getItem('ts-entries')), null, 'nothing left in this browser')
+await gone.page.locator('#write-free').waitFor()
+
+// 12. Signed out: delete what this browser keeps (two taps).
+await writeAndSave(gone.page, 'Локальний запис')
+await gone.page.getByRole('button', { name: 'Налаштування' }).click()
+await gone.page.locator('dialog[open]').getByRole('button', { name: 'Видалити всі записи на цьому пристрої' }).click()
+await gone.page.locator('dialog[open]').getByRole('button', { name: 'Точно? Натисни ще раз' }).click()
+await toast(gone.page, 'Записи на цьому пристрої видалено.')
+assert.equal(await gone.page.evaluate(() => localStorage.getItem('ts-entries')), null)
+await gone.context.close()
 
 assert.deepEqual(await run.close(), [], 'no page errors')
 console.log('account e2e: all flows passed')

@@ -26,6 +26,8 @@ export interface UserDocPort {
   rewriteEntries(transform: (entry: SealedEntry) => Promise<SealedEntry | null>): Promise<void>
   /** Deletes all entries and the keyring ("start with a clean page"). */
   deleteEverything(): Promise<void>
+  /** Deletes all entries and the user document itself (account deletion). */
+  deleteAccount(): Promise<void>
 }
 
 /** What this device remembers so the password is asked only once (IndexedDB in the browser). */

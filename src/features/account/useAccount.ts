@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks'
 import { indexedDbDevice } from '../../core/keys/indexedDbDevice.ts'
 import { KeySession, type Unlocked } from '../../core/keys/session.ts'
+import { wipePersonalData } from '../../core/journal/wipe.ts'
 import { LOCAL_KEY, LocalEntryStore } from '../../core/store/localStore.ts'
 import type { EntryStore } from '../../core/store/types.ts'
 import type { AuthActions } from './AuthScreen.tsx'
@@ -40,7 +41,13 @@ export interface Account {
     close: () => void
     changePassword: (current: string, next: string) => Promise<void>
     newCode: (current: string) => Promise<void>
+    /** 'google' or 'password': what confirming the sign-in needs before deleting the account */
+    signInMethod: () => 'google' | 'password'
+    /** Deletes entries, keys and the sign-in; 'partial' when only the sign-in could not be removed. */
+    deleteAccount: (entriesPassword: string, loginPassword: string) => Promise<'done' | 'partial'>
   }
+  /** Signed out: removes the entries, draft and own words kept in this browser. */
+  wipeLocal: () => void
 }
 
 const askEveryTimeKey = (uid: string) => `ts-askpw-${uid}`
@@ -233,10 +240,31 @@ export function useAccount(lang: string): Account {
       const code = await need().renewRecoveryCode(unlockedNow(), current)
       setPhase({ kind: 'code', code })
     },
+    signInMethod: () => rt().signInMethod(rt().firebaseClient().auth),
+    deleteAccount: async (entriesPassword, loginPassword) => {
+      const keySession = need()
+      const { auth } = rt().firebaseClient()
+      // Nothing is removed until both the sign-in and the entries password are confirmed.
+      // The sign-in goes first: Google's window must open right on the tap, before the slow key check.
+      await rt().confirmSignIn(auth, loginPassword)
+      await keySession.verifyPassword(entriesPassword)
+      cloud.current?.close()
+      cloud.current = null
+      await keySession.deleteAccount()
+      wipePersonalData(localStorage, uid.current)
+      try {
+        await rt().deleteSignIn(auth)
+        return 'done'
+      } catch {
+        await rt().signOutEverywhere(auth)
+        return 'partial'
+      }
+    },
   }
 
   return {
     security,
+    wipeLocal: () => wipePersonalData(localStorage, null),
     phase,
     store,
     email,

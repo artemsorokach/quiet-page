@@ -442,5 +442,63 @@
   "weekTitle": "This week",
   "monthShow": "Month",
   "monthHide": "Hide",
-  "whatHere": "What’s here"
+  "whatHere": "What’s here",
+  "delAccount": "Delete account and all entries",
+  "delTitle": "Delete account",
+  "delLead": "All entries, keys and the account itself will be deleted for good. They cannot be brought back.",
+  "delBackupNote": "If you want to keep your entries, save a backup first: Settings → Data.",
+  "delLoginPw": "Account sign-in password",
+  "delLoginHint": "For safety, please confirm your sign-in once more. It may be the same password as for your entries.",
+  "delGoogleHint": "For safety, a Google window will open to confirm your sign-in once more.",
+  "delGoogleCancelled": "The Google sign-in was not confirmed, so nothing was deleted.",
+  "delDone": "The account and all entries have been deleted.",
+  "delPartial": "Entries and keys have been deleted. The sign-in itself could not be removed, but it is empty now.",
+  "delLocal": "Delete all entries on this device",
+  "delLocalConfirm": "Sure? Tap again",
+  "delLocalDone": "Entries on this device have been deleted.",
+  "legal": "Privacy and legal information",
+  "legalUpdated": "Updated: November 2026",
+  "legalSections": [
+    [
+      "Who is responsible",
+      "Quiet Page is a non-commercial personal project by Artem Soroka (Switzerland)."
+    ],
+    [
+      "Without an account",
+      "Entries, the draft and settings stay only in this browser and are not sent anywhere."
+    ],
+    [
+      "With an account",
+      "Your e-mail address (with Google sign-in, also your Google profile name and photo) and your entries are stored. Entries are encrypted on your device before they are sent, so neither the app’s author nor Google can read them."
+    ],
+    [
+      "What is not here",
+      "No ads, analytics, trackers or third-party cookies. Nobody analyses the content of your entries or passes it on."
+    ],
+    [
+      "Who processes the data",
+      "Sign-in and storage of the encrypted entries are provided by Google Firebase (Google Cloud). The site is hosted on GitHub Pages; like any host, it sees technical request data such as the IP address. Data may be processed in data centres outside Switzerland, including the EU and the USA, under these companies’ data protection terms."
+    ],
+    [
+      "How long it is kept",
+      "Until you delete the entries or the account. A deleted entry disappears from the database at once; it may remain for a short time in Google’s internal backups, still encrypted."
+    ],
+    [
+      "Your rights",
+      "You can view your data at any time, save it to a file (Settings → Data), change it or delete it: Settings → Account → “Delete account and all entries”. You can also contact the Swiss Federal Data Protection and Information Commissioner (FDPIC)."
+    ],
+    [
+      "Not therapy",
+      "This is a tool for self-reflection, not therapy, diagnosis or medical care. If things are very hard, every screen has the link “If things are very hard right now”."
+    ],
+    [
+      "Age",
+      "The app is meant for people aged 16 and over."
+    ],
+    [
+      "Beta version",
+      "The app is free and changes gradually. It is provided “as is”, without a guarantee of uninterrupted service, so it is worth saving a backup from time to time."
+    ]
+  ],
+  "delAccConfirm": "Delete for good"
 }

@@ -30,6 +30,10 @@ class MemoryDoc implements UserDocPort {
     const { salt: _salt, check: _check, ...rest } = this.doc ?? {}
     this.doc = rest
   }
+  async deleteAccount() {
+    this.entries.clear()
+    this.doc = null
+  }
   async rewriteEntries(transform: (entry: SealedEntry) => Promise<SealedEntry | null>) {
     for (const [id, entry] of this.entries) {
       const next = await transform(entry)
@@ -170,4 +174,26 @@ test('start over deletes everything and asks for a new password', async () => {
   await s.startOver()
   assert.equal(docPort.entries.size, 0)
   assert.equal(await s.inspect(), 'new')
+})
+
+test('deleting the account needs the password, then removes entries, the user document and the device key', async () => {
+  // Arrange
+  const { docPort, device, session } = setup()
+  await session().create('secret12')
+  docPort.entries.set('x', { ts: 1, v: 2, iv: 'a', ct: 'b' })
+  const s = session()
+  await s.restore()
+
+  // Act + Assert: a wrong password changes nothing
+  await assert.rejects(s.verifyPassword('wrong-one'), WrongSecretError)
+  assert.equal(docPort.entries.size, 1)
+
+  // Act
+  await s.verifyPassword('secret12')
+  await s.deleteAccount()
+
+  // Assert
+  assert.equal(docPort.entries.size, 0)
+  assert.equal(docPort.doc, null)
+  assert.equal(device.records.has('u1'), false)
 })
