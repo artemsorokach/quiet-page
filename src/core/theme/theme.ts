@@ -2,7 +2,7 @@ import { isBoolean, oneOf, readSetting, writeSetting } from '../settings/storage
 
 /** Palettes from the legacy site; colours here only draw the previews in Settings. */
 export const SKINS = [
-  { id: 'hlybyna', dark: { bg: '#1a2b35', p: '#82cfcb', lo: '#6a86a8', w: '#e8c08a' }, light: { bg: '#d6e1e3', p: '#2a7680', lo: '#7f93b0', w: '#a5702b' } },
+  { id: 'hlybyna', dark: { bg: '#0c1a24', p: '#74c7c4', lo: '#4a6890', w: '#e6bb7e' }, light: { bg: '#d6e1e3', p: '#2a7680', lo: '#7f93b0', w: '#a5702b' } },
   { id: 'khvylia', dark: { bg: '#0d1f1f', p: '#7fd3bd', lo: '#45707e', w: '#e9b98a' }, light: { bg: '#dfebe8', p: '#258370', lo: '#8aa2ae', w: '#a9733a' } },
   { id: 'lis', dark: { bg: '#1d2721', p: '#a3cfac', lo: '#73897b', w: '#e0b977' }, light: { bg: '#e4eae0', p: '#4b7e5e', lo: '#a69c8a', w: '#a6722e' } },
   { id: 'nich', dark: { bg: '#1c2335', p: '#9bbcef', lo: '#6f74a8', w: '#ecc38c' }, light: { bg: '#e3e7f1', p: '#3f63a8', lo: '#9a94b8', w: '#a8722f' } },
