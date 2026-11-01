@@ -32,6 +32,7 @@ assert.equal(JSON.parse(await a.page.evaluate(() => localStorage.getItem('ts-ent
 // 2. Sign up, create the entries password, see the recovery code.
 await a.page.locator('.write__local').getByRole('button', { name: 'Увійти' }).click()
 await heading(a.page, 'Увійти')
+assert.equal(await a.page.evaluate(() => window.scrollY), 0, 'the sign-in screen opens at its top')
 await shot(a.page, 'sign-in')
 await a.page.locator('#auth-email').fill('person@example.com')
 await a.page.locator('#auth-pass').fill('account-pass')

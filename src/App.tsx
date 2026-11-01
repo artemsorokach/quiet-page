@@ -90,6 +90,13 @@ function Shell({ prefs }: { prefs: Preferences }) {
     window.scrollTo(0, 0)
   }, [welcome])
 
+  // Every account step (sign-in, entries password, recovery code, security) opens at its top,
+  // wherever on the page the person tapped «Увійти».
+  const step = `${phase.kind}:${'mode' in phase ? phase.mode : ''}`
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0)
+  }, [step])
+
   // «Про додаток» opens and the page glides down so its text is in view.
   useEffect(() => {
     if (!aboutOpen) return
