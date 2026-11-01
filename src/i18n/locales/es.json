@@ -560,5 +560,7 @@
   "authPassHint": "No es la de tu correo: la inventas tú al crear la cuenta.",
   "authSecondPw": "Después de entrar necesitarás también una contraseña para tus notas: las cifra en tu dispositivo.",
   "pwShow": "Mostrar contraseña",
-  "pwHide": "Ocultar contraseña"
+  "pwHide": "Ocultar contraseña",
+  "keySignedGoogle": "Has entrado con Google. Ahora elige una contraseña para tus notas: no tiene que ver con Google.",
+  "keySignedEmail": "Has entrado. Ahora elige una contraseña para tus notas: es distinta de la de acceso."
 }

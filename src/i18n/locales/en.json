@@ -560,5 +560,7 @@
   "authPassHint": "Not your email password: you make it up when you create the account.",
   "authSecondPw": "After signing in you’ll also need a password for your entries: it encrypts them on your device.",
   "pwShow": "Show password",
-  "pwHide": "Hide password"
+  "pwHide": "Hide password",
+  "keySignedGoogle": "Signed in with Google. Now choose a password for your entries: it has nothing to do with Google.",
+  "keySignedEmail": "Signed in. Now choose a password for your entries: it’s separate from your sign-in password."
 }

@@ -48,6 +48,8 @@ export interface Account {
   }
   /** Signed out: removes the entries, draft and own words kept in this browser. */
   wipeLocal: () => void
+  /** how the signed-in person signs in; undefined before the account code has loaded */
+  signInMethod?: 'google' | 'password'
 }
 
 const askEveryTimeKey = (uid: string) => `ts-askpw-${uid}`
@@ -265,6 +267,7 @@ export function useAccount(lang: string): Account {
   return {
     security,
     wipeLocal: () => wipePersonalData(localStorage, null),
+    signInMethod: runtime.current && uidState ? runtime.current.signInMethod(runtime.current.firebaseClient().auth) : undefined,
     phase,
     store,
     email,

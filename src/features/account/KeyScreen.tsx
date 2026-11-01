@@ -24,6 +24,8 @@ interface KeyScreenProps {
   canRecover: boolean
   actions: KeyActions
   onModeChange: (mode: KeyMode) => void
+  /** how the person just signed in: explains why this screen appears */
+  signInMethod?: 'google' | 'password'
 }
 
 const MIN_PASSWORD = 6
@@ -39,7 +41,7 @@ const COPY = {
 } as const
 
 /** The entries password: create it, open with it, recover with the code, or start over. */
-export function KeyScreen({ mode, email, canRecover, actions, onModeChange }: KeyScreenProps) {
+export function KeyScreen({ mode, email, canRecover, actions, onModeChange, signInMethod }: KeyScreenProps) {
   const { t } = useI18n()
   const [password, setPassword] = useState('')
   const [repeat, setRepeat] = useState('')
@@ -106,6 +108,7 @@ export function KeyScreen({ mode, email, canRecover, actions, onModeChange }: Ke
 
   return (
     <AccountLayout
+      kicker={mode === 'new' && signInMethod ? t(signInMethod === 'google' ? 'keySignedGoogle' : 'keySignedEmail') : undefined}
       title={t(title)}
       lead={t(lead)}
       note={note ? t(note) : undefined}

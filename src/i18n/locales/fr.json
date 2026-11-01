@@ -560,5 +560,7 @@
   "authPassHint": "Pas celui de ta messagerie : tu l’inventes en créant le compte.",
   "authSecondPw": "Après la connexion, il faudra aussi un mot de passe pour tes notes : il les chiffre sur ton appareil.",
   "pwShow": "Afficher le mot de passe",
-  "pwHide": "Masquer le mot de passe"
+  "pwHide": "Masquer le mot de passe",
+  "keySignedGoogle": "Connexion avec Google réussie. Choisis maintenant un mot de passe pour tes notes : il n’a rien à voir avec Google.",
+  "keySignedEmail": "Connexion réussie. Choisis maintenant un mot de passe pour tes notes : il est distinct de celui de connexion."
 }

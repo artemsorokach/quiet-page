@@ -60,3 +60,4 @@
 .account__eye svg { width: 20px; height: 20px; }
 .account__form .account__hint { margin: -4px 2px 2px; }
 .account__after { margin: 0; padding-left: 14px; border-left: 2px solid color-mix(in srgb, var(--gold) 60%, var(--bg)); font-size: 0.88rem; line-height: 1.6; color: var(--muted); }
+.account__kicker { margin: 0 0 -6px; font-size: 0.92rem; line-height: 1.55; color: var(--muted); }

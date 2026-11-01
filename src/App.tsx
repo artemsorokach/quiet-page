@@ -214,7 +214,7 @@ function Shell({ prefs }: { prefs: Preferences }) {
   if (phase.kind === 'key') {
     return (
       <div class="app">
-        <KeyScreen mode={phase.mode} email={account.email} canRecover={account.canRecover} actions={account.keyActions} onModeChange={account.setKeyMode} />
+        <KeyScreen mode={phase.mode} email={account.email} canRecover={account.canRecover} actions={account.keyActions} onModeChange={account.setKeyMode} signInMethod={account.signInMethod} />
       </div>
     )
   }

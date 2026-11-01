@@ -560,5 +560,7 @@
   "authPassHint": "Não é a do e-mail: és tu que a inventas ao criar a conta.",
   "authSecondPw": "Depois de entrares, vais precisar também de uma palavra-passe para as notas: cifra-as no teu dispositivo.",
   "pwShow": "Mostrar palavra-passe",
-  "pwHide": "Esconder palavra-passe"
+  "pwHide": "Esconder palavra-passe",
+  "keySignedGoogle": "Entraste com a Google. Agora escolhe uma palavra-passe para as notas: não tem nada a ver com a Google.",
+  "keySignedEmail": "Entraste. Agora escolhe uma palavra-passe para as notas: é diferente da de acesso."
 }

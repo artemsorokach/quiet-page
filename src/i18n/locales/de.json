@@ -560,5 +560,7 @@
   "authPassHint": "Nicht das E-Mail-Passwort: Du legst es beim Erstellen des Kontos selbst fest.",
   "authSecondPw": "Nach der Anmeldung brauchst du noch ein Passwort für deine Einträge: Damit werden sie auf deinem Gerät verschlüsselt.",
   "pwShow": "Passwort anzeigen",
-  "pwHide": "Passwort verbergen"
+  "pwHide": "Passwort verbergen",
+  "keySignedGoogle": "Mit Google angemeldet. Lege jetzt ein Passwort für deine Einträge fest: Es hat nichts mit Google zu tun.",
+  "keySignedEmail": "Angemeldet. Lege jetzt ein Passwort für deine Einträge fest: Es ist getrennt vom Anmeldepasswort."
 }

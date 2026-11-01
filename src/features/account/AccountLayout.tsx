@@ -5,6 +5,8 @@ import { EyeIcon, EyeOffIcon, MarkIcon } from '../../ui/icons.tsx'
 import './AccountLayout.css'
 
 interface AccountLayoutProps {
+  /** a quiet line above the title, e.g. «Вхід через Google виконано» */
+  kicker?: string
   title: string
   lead?: string
   note?: string
@@ -13,12 +15,13 @@ interface AccountLayoutProps {
 }
 
 /** Quiet single-column screen for sign-in, password and recovery steps. */
-export function AccountLayout({ title, lead, note, children, footer }: AccountLayoutProps) {
+export function AccountLayout({ kicker, title, lead, note, children, footer }: AccountLayoutProps) {
   return (
     <section class="account" aria-labelledby="account-title">
       <span class="account__mark">
         <MarkIcon />
       </span>
+      {kicker && <p class="account__kicker">{kicker}</p>}
       <h2 class="account__title" id="account-title">{title}</h2>
       {lead && <p class="account__lead">{lead}</p>}
       {note && <p class="account__note">{note}</p>}
