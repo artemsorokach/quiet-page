@@ -75,3 +75,6 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .recede { transition: opacity 1.2s ease; }
 body.writing .recede { opacity: 0.06; }
 body.writing .recede-soft { opacity: 0.38; transition: opacity 1.2s ease; }
+/* The field labels stay readable but stop pulling the eye while writing */
+.write__question-text, .write__free-label { transition: opacity 1.2s ease; }
+body.writing .write__question-text, body.writing .write__free-label { opacity: 0.55; }
