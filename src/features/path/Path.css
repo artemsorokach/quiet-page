@@ -147,3 +147,4 @@ button.week__day { cursor: pointer; }
 .look-picker__font[aria-pressed='true'] { border-color: var(--gold-soft); }
 .look-picker__actions { display: flex; align-items: center; justify-content: flex-end; gap: 18px; }
 .look-picker__done { min-height: 40px; padding: 0 18px; font-size: 0.9rem; }
+.path__more { display: flex; justify-content: center; padding: 8px 0; }

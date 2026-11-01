@@ -508,5 +508,6 @@
   "mLook": "Apparence",
   "lookTitle": "Apparence de cette note",
   "lookUndo": "Comme avant",
-  "lookSaved": "Apparence enregistrée."
+  "lookSaved": "Apparence enregistrée.",
+  "showMore": "Afficher plus"
 }

@@ -1,6 +1,6 @@
 import type { ComponentChildren } from 'preact'
 import { Fragment } from 'preact'
-import { useEffect, useState } from 'preact/hooks'
+import { useEffect, useRef, useState } from 'preact/hooks'
 import { loadWritingFont } from '../../core/theme/look.ts'
 import { recordLook, type RecordLook } from '../../core/theme/recordLook.ts'
 import { useI18n } from '../../core/i18n/I18nProvider.tsx'
@@ -24,6 +24,10 @@ interface PathScreenProps {
   onSendDay: (day: string) => void
 }
 
+/** Entries drawn at once; more follow as one scrolls, so a long Path opens without a pause. */
+const FIRST_BATCH = 15
+const NEXT_BATCH = 30
+
 const thisMonth = () => {
   const d = new Date()
   return new Date(d.getFullYear(), d.getMonth(), 1)
@@ -36,6 +40,20 @@ export function PathScreen({ records, scale, showLook, scaleWords, currentLook, 
   const [month, setMonth] = useState(thisMonth)
   const [day, setDay] = useState<string | null>(null)
   const list = day ? records.filter((r) => dayKey(r.ts) === day) : records
+  const [limit, setLimit] = useState(FIRST_BATCH)
+  const more = useRef<HTMLDivElement>(null)
+  const hasMore = list.length > limit
+
+  useEffect(() => setLimit(FIRST_BATCH), [day])
+  useEffect(() => {
+    const sentinel = more.current
+    if (!sentinel || typeof IntersectionObserver === 'undefined') return
+    const watch = new IntersectionObserver((items) => {
+      if (items.some((item) => item.isIntersecting)) setLimit((n) => n + NEXT_BATCH)
+    }, { rootMargin: '600px 0px' })
+    watch.observe(sentinel)
+    return () => watch.disconnect()
+  }, [hasMore, limit])
 
   useEffect(() => {
     const shown = records.map((r) => recordLook(r)).filter((look) => look && (showLook || look.chosen))
@@ -69,7 +87,7 @@ export function PathScreen({ records, scale, showLook, scaleWords, currentLook, 
           </div>
         )}
         {day && list.length === 0 && <div class="card path__empty"><p>{t('dayEmpty')}</p></div>}
-        {list.map((record) => {
+        {list.slice(0, limit).map((record) => {
           const monthTitle = f.month(record.ts)
           const header = !day && monthTitle !== lastMonth ? monthTitle : null
           lastMonth = monthTitle
@@ -80,6 +98,11 @@ export function PathScreen({ records, scale, showLook, scaleWords, currentLook, 
             </Fragment>
           )
         })}
+        {hasMore && (
+          <div ref={more} class="path__more">
+            <button type="button" class="chip" onClick={() => setLimit((n) => n + NEXT_BATCH)}>{t('showMore')}</button>
+          </div>
+        )}
       </div>
     </section>
   )
