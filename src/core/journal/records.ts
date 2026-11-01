@@ -14,8 +14,10 @@ export interface HistoryStep {
   additions: readonly Addition[]
 }
 
-export const SCALE_IDS = ['vaha', 'voda', 'teplo', 'zvuk', 'tilo', 'syly'] as const
+/** Settings list order; «Сили» (Виснажено … Наповнено) comes first and is the default (Artem, 1.11). */
+export const SCALE_IDS = ['syly', 'vaha', 'voda', 'teplo', 'zvuk', 'tilo'] as const
 export type ScaleId = (typeof SCALE_IDS)[number]
+export const DEFAULT_SCALE: ScaleId = 'syly'
 export const isScaleId = (value: unknown): value is ScaleId => (SCALE_IDS as readonly unknown[]).includes(value)
 
 /** Locale shape of a scale: [name, [five words]] */

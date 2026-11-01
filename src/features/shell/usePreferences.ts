@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'preact/hooks'
 import { detectLang, isLang, type Lang } from '../../core/i18n/format.ts'
 import type { Messages } from '../../core/i18n/I18nProvider.tsx'
-import { SCALE_IDS, type ScaleId } from '../../core/journal/records.ts'
+import { DEFAULT_SCALE, SCALE_IDS, type ScaleId } from '../../core/journal/records.ts'
 import { oneOf, readSetting, writeSetting } from '../../core/settings/storage.ts'
 import { applyLook, readLook, saveLook, type Look } from '../../core/theme/look.ts'
 import { applyTheme, readTheme, saveTheme, type Theme } from '../../core/theme/theme.ts'
@@ -22,7 +22,7 @@ export function usePreferences() {
   const [messages, setMessages] = useState<Messages | null>(lang === 'uk' ? (uk as Messages) : null)
   const [theme, setThemeState] = useState<Theme>(readTheme)
   const [look, setLookState] = useState<Look>(readLook)
-  const [scale, setScaleState] = useState<ScaleId>(() => readSetting<ScaleId>('ts-scale', 'vaha', oneOf(SCALE_IDS)))
+  const [scale, setScaleState] = useState<ScaleId>(() => readSetting<ScaleId>('ts-scale', DEFAULT_SCALE, oneOf(SCALE_IDS)))
 
   useEffect(() => {
     let current = true
