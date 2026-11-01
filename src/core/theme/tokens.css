@@ -1,6 +1,6 @@
 /* Design tokens: 6 palettes (Глибина, Хвиля, Ліс, Нічне море, Лаванда, Світанок) × dark/light.
    Ported from the legacy site (2026-10-30); on 30.10 (Artem's choice) Глибина, Хвиля, dark Ліс and dark
-   Нічне море were lightened and Лаванда and Світанок added.
+   Нічне море were lightened and Лаванда and Світанок added. Хвиля is back to the original Claude version (1.11).
    Without data-skin the theme follows the system. */
 :root {
   --font-ui: "Nunito Variable", "Segoe UI", system-ui, sans-serif;
@@ -30,11 +30,11 @@
 }
 
 :root[data-skin="khvylia-dark"], [data-look="khvylia-dark"]{
-  --bg:#182c2b;  --glow-a:rgba(90,170,150,.16);  --glow-b:rgba(70,140,130,.12);  --surface:#203836;  --surface-2:#27423f;  --line:#385a56;  --fg:#e5f1ee;  --muted:#a3c2bb;  --faint:#74948d;  --primary:#86d6c1;  --lo:#5f8794;  --hi:#a6e8cf;  --warm:#eabf93;  --gold:#d4b880;  --danger:#e8a596;  --gold-soft:rgba(210,183,122,.55);  --hl:rgba(250,212,90,.30);  --warm-ink:#241a0c;  color-scheme:dark;
+  --bg:#0d1f1f;  --glow-a:rgba(42,146,132,.18);  --glow-b:rgba(70,118,74,.14);  --surface:#143131;  --surface-2:#193b3a;  --line:#295552;  --fg:#e0efec;  --muted:#95bab3;  --faint:#5e8983;  --primary:#7fd3bd;  --lo:#45707e;  --hi:#c6eba8;  --warm:#e9b98a;  --warm-ink:#1c1309;  --danger:#e39a8c;  --gold:#cdb06e;  --gold-soft:rgba(205,176,110,.55);  --hl:rgba(250,212,90,.34);  color-scheme:dark;
 }
 
 :root[data-skin="khvylia-light"], [data-look="khvylia-light"]{
-  --bg:#d4e2de;  --glow-a:rgba(110,175,160,.18);  --glow-b:rgba(150,190,170,.15);  --surface:#e3ece9;  --surface-2:#ebf2ef;  --line:#b0c7c1;  --fg:#1b3531;  --muted:#46655f;  --faint:#6c8a84;  --primary:#237d6b;  --lo:#8299a6;  --hi:#2a8a6d;  --warm:#a26d37;  --gold:#93763c;  --danger:#a8544a;  --gold-soft:rgba(148,118,58,.5);  --hl:rgba(245,196,64,.36);  --warm-ink:#fffaf2;  color-scheme:light;
+  --bg:#dfebe8;  --glow-a:rgba(88,170,150,.19);  --glow-b:rgba(150,192,140,.16);  --surface:#eef6f3;  --surface-2:#f8fbfa;  --line:#bdd5cf;  --fg:#17322e;  --muted:#496b65;  --faint:#7f9d97;  --primary:#258370;  --lo:#8aa2ae;  --hi:#3a9c6a;  --warm:#a9733a;  --warm-ink:#fffaf2;  --danger:#a5524a;  --gold:#9a7a34;  --gold-soft:rgba(154,122,52,.5);  --hl:rgba(245,196,64,.38);  color-scheme:light;
 }
 
 :root[data-skin="lis-dark"], [data-look="lis-dark"]{

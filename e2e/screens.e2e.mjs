@@ -19,6 +19,12 @@ const sample = [
   { id: 'd4', ts: now - 40 * D, mood: 5, scale: 'teplo', feelings: ['joy'], qa: [{ prompt: null, text: 'Сьогодні вперше за тиждень вдалося спокійно поснідати.' }], text: '', lang: 'uk' },
 ]
 const local = { 'ts-entries': JSON.stringify(sample) }
+/** A day with records; at the start of a month the sample may only be in the previous one. */
+async function dayWithRecords(page) {
+  const days = page.locator('.calendar__day[aria-pressed]')
+  if ((await days.count()) === 0) await page.getByRole('button', { name: 'Попередній місяць' }).click()
+  return days.first()
+}
 const tab = (page, name) => page.getByRole('navigation').getByRole('button', { name, exact: true }).click()
 
 // Path
@@ -30,7 +36,7 @@ assert.equal(await a.page.locator('.path__month').count(), 2, 'entries grouped b
 await shot(a.page, 'path')
 
 // a day from the calendar
-await a.page.locator('.calendar__day[aria-pressed]').first().click()
+await (await dayWithRecords(a.page)).click()
 await a.page.getByRole('button', { name: 'Показати все' }).waitFor()
 assert.ok((await a.page.locator('.entry').count()) < 4)
 await a.page.getByRole('button', { name: 'Показати все' }).click()
@@ -94,7 +100,7 @@ assert.match(html, /Відмітка/)
 
 // "send this day" from the Path preselects that day
 await tab(a.page, 'Шлях')
-await a.page.locator('.calendar__day[aria-pressed]').first().click()
+await (await dayWithRecords(a.page)).click()
 await a.page.getByRole('button', { name: 'Надіслати цей день' }).click()
 await a.page.locator('input[name="range"][value="days"]:checked').waitFor()
 
