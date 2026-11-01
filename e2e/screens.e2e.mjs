@@ -382,7 +382,7 @@ await un.page.locator('article.entry[data-look][data-look-font="lora"]').waitFor
 // «Згорнути» folds the question away and «Показати питання» brings it back.
 await un.page.getByRole('navigation').getByRole('button', { name: 'Сторінка', exact: true }).click()
 await un.page.getByRole('button', { name: 'Згорнути' }).click()
-await un.page.getByRole('button', { name: 'Показати питання' }).click()
+await un.page.getByRole('button', { name: 'Питання на сьогодні · Показати питання' }).click()
 await un.page.locator('#write-question').waitFor()
 
 // Coming back to an older entry: it stays in place, and «Нещодавно доповнено» points to it.
@@ -400,6 +400,49 @@ await back.page.locator('.recent').getByText('Минуло три дні, ста
 await shot(back.page, 'path-recent')
 await back.page.locator('.recent__item').click()
 await back.page.getByRole('button', { name: 'Показати все' }).waitFor()
+
+// Path tools: a year ago, search, important, month review.
+{
+  const DAY = 864e5
+  const now = new Date()
+  const yearAgoTs = new Date(now.getFullYear() - 1, now.getMonth(), now.getDate(), 20).getTime()
+  const seeded = [
+    { id: 'y1', ts: yearAgoTs, mood: 4, scale: 'syly', feelings: ['hope'], qa: [{ prompt: null, text: 'Перший тиждень у новому місті.' }], text: 'x', lang: 'uk' },
+    { id: 'f1', ts: Date.now() - 2 * 3600e3, mood: 5, scale: 'syly', feelings: ['joy', 'calm'], qa: [{ prompt: null, text: 'Ранкова кава біля озера.' }], text: 'x', lang: 'uk' },
+    { id: 'd1', ts: Date.now() - 3 * 3600e3, mood: 1, scale: 'syly', feelings: ['tired'], qa: [{ prompt: null, text: 'Дуже втомився після офісу.' }], text: 'x', lang: 'uk' },
+  ]
+  const tl = await run.open({ local: { 'ts-entries': JSON.stringify(seeded) } })
+  await tl.page.locator('#write-free').waitFor()
+  await tab(tl.page, 'Шлях')
+  await tl.page.locator('.insight').getByText('Перший тиждень у новому місті.').waitFor()
+  await shot(tl.page, 'path-year-ago')
+
+  await tl.page.getByRole('button', { name: 'Пошук', exact: true }).click()
+  await tl.page.getByPlaceholder('Слово або кілька слів').fill('КАВА')
+  await tl.page.getByText('Знайдено: 1').waitFor()
+  assert.equal(await tl.page.locator('article.entry mark').first().innerText(), 'кава')
+  await tl.page.getByPlaceholder('Слово або кілька слів').fill('')
+  await tl.page.locator('.search__feeling', { hasText: 'втома' }).click()
+  await tl.page.getByText('Знайдено: 1').waitFor()
+  await shot(tl.page, 'path-search')
+  await tl.page.getByRole('button', { name: 'Пошук', exact: true }).click()
+
+  const first = tl.page.locator('article.entry').first()
+  await first.getByRole('button', { name: 'Важливе' }).click()
+  await toast(tl.page, 'Додано до важливого.')
+  await tl.page.locator('.path-tools').getByRole('button', { name: 'Важливе' }).click()
+  assert.equal(await tl.page.locator('article.entry').count(), 1)
+  await tl.page.locator('.path-tools').getByRole('button', { name: 'Важливе' }).click()
+
+  await tl.page.getByRole('button', { name: 'Огляд', exact: true }).click()
+  await tl.page.getByText('Огляд місяця').waitFor()
+  assert.equal(await tl.page.locator('.mood-rows li').count(), 1, 'one day, counted once by its average state')
+  await tl.page.getByText('Що з цього місяця хочеться взяти з собою?').waitFor()
+  await tl.page.getByRole('button', { name: 'Коли сил менше' }).click()
+  await tl.page.locator('.insight__snip', { hasText: 'Дуже втомився' }).waitFor()
+  await shot(tl.page, 'path-review')
+  assert.equal(await tl.page.locator('#path-feed').isHidden(), true, 'the feed waits while reviewing')
+}
 
 assert.deepEqual(await run.close(), [], 'no page errors')
 console.log('screens e2e: all flows passed')

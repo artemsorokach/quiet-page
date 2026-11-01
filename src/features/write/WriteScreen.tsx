@@ -122,7 +122,7 @@ export function WriteScreen(props: WriteScreenProps) {
         </div>
       ) : (
         <div class="recede">
-          <button type="button" class="write__fold write__fold--open" onClick={props.onToggleQuestion}><FoldIcon />{t('showQ')}</button>
+          <button type="button" class="write__unfold" aria-label={`${t('qToday')} · ${t('showQ')}`} onClick={props.onToggleQuestion}>{t('qToday')}<FoldIcon /></button>
         </div>
       )}
 

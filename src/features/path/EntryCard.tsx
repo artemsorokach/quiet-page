@@ -8,11 +8,14 @@ import { ConfirmButton } from '../../ui/ConfirmButton.tsx'
 import { AdditionEditor, EntryEditor } from './EntryEditor.tsx'
 import { History } from './History.tsx'
 import { LookPicker } from './LookPicker.tsx'
+import { Highlighted } from './Highlighted.tsx'
+import { isImportant } from '../../core/journal/insights.ts'
+import { BookmarkIcon } from '../../ui/icons.tsx'
 import { RecordState } from './RecordState.tsx'
 
 export interface RecordActions {
   /** Saves a changed record; resolves false (after telling the person) when it failed. */
-  save: (record: JournalRecord, done: 'added' | 'edited' | 'restyled') => Promise<boolean>
+  save: (record: JournalRecord, done: 'added' | 'edited' | 'restyled' | 'marked' | 'unmarked') => Promise<boolean>
   remove: (record: JournalRecord) => void
   send: (record: JournalRecord) => void
   notify: (message: string) => void
@@ -24,6 +27,8 @@ interface CardProps {
   showLook?: boolean
   /** the look being written in now: where «Оформлення» starts for entries saved without one */
   currentLook?: RecordLook
+  /** search words to mark softly in the text */
+  highlight?: string
   actions: RecordActions
 }
 
@@ -51,7 +56,7 @@ export function CheckCard({ record, scale, showLook, actions }: CardProps) {
 type Mode = 'view' | 'edit' | 'add' | 'look'
 
 /** One entry in the Path: text clamped to a few lines, with a quiet menu of actions. */
-export function EntryCard({ record, scale, showLook, currentLook, actions }: CardProps) {
+export function EntryCard({ record, scale, showLook, currentLook, highlight = '', actions }: CardProps) {
   const { t, lang } = useI18n()
   const f = dateFormat(lang)
   const [mode, setModeState] = useState<Mode>('view')
@@ -81,6 +86,12 @@ export function EntryCard({ record, scale, showLook, currentLook, actions }: Car
     <article class="card entry" {...lookAttributes(trying ?? shownLook(record, showLook))}>
       <div class="entry__head">
         <span>{f.date(record.ts)}, {f.time(record.ts)}</span>
+        <button
+          type="button" class="entry__mark" aria-pressed={isImportant(record)} aria-label={t('important')}
+          onClick={() => void actions.save({ ...record, important: !isImportant(record) } as JournalRecord, isImportant(record) ? 'unmarked' : 'marked')}
+        >
+          <BookmarkIcon />
+        </button>
         {hasHistory && (
           <button type="button" class="entry__edited" aria-expanded={historyOpen} onClick={() => setHistoryOpen(!historyOpen)}>
             {t('edited')}
@@ -100,13 +111,13 @@ export function EntryCard({ record, scale, showLook, currentLook, actions }: Car
           {qaOf(record).filter((item) => item.text).map((item, i) => (
             <div key={i}>
               {item.prompt && <p class="entry__question">{item.prompt}</p>}
-              <p class="entry__text">{item.text}</p>
+              <p class="entry__text"><Highlighted text={item.text} query={highlight} /></p>
             </div>
           ))}
           {additionsOf(record).map((a) => (
             <div key={a.at}>
               <p class="entry__addition-meta">{t('addition')} · {f.day(a.at)}, {f.time(a.at)}</p>
-              <p class="entry__text">{a.text}</p>
+              <p class="entry__text"><Highlighted text={a.text} query={highlight} /></p>
             </div>
           ))}
         </div>

@@ -81,3 +81,22 @@ export function FoldIcon() {
     </svg>
   )
 }
+
+/** «Важливе»: a bookmark; filled when set (see .entry__mark) */
+export function BookmarkIcon() {
+  return (
+    <svg {...base}>
+      <path d="M7 4h10v16l-5-3.5L7 20z" />
+    </svg>
+  )
+}
+
+/** «Пошук» */
+export function SearchIcon() {
+  return (
+    <svg {...base}>
+      <circle cx="11" cy="11" r="6.5" />
+      <path d="M16 16l4 4" />
+    </svg>
+  )
+}

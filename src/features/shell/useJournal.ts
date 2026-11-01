@@ -27,6 +27,8 @@ function currentSettings(): Record<string, unknown> {
 }
 
 /** Records of the current store, plus the actions screens take on them and a quiet toast. */
+const TOASTS = { added: 'added', edited: 'editedToast', restyled: 'lookSaved', marked: 'markedImportant', unmarked: 'unmarkedImportant' } as const
+
 export function useJournal(store: EntryStore, i18n: Translator, scale: string) {
   const { t } = i18n
   const [records, setRecords] = useState<readonly JournalRecord[]>([])
@@ -55,7 +57,7 @@ export function useJournal(store: EntryStore, i18n: Translator, scale: string) {
     save: async (record, done) => {
       try {
         await store.put(record)
-        notify(t(done === 'added' ? 'added' : done === 'restyled' ? 'lookSaved' : 'editedToast'))
+        notify(t(TOASTS[done]))
         return true
       } catch {
         notify(t(done === 'added' ? 'addFail' : 'editFail'))

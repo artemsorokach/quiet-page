@@ -93,3 +93,11 @@
 .write__fold:hover { color: var(--muted); }
 .write__fold svg { width: 15px; height: 15px; }
 .write__fold--open svg { transform: rotate(180deg); }
+/* The folded question (variant Е1): no frame, a soft plate, italic like the questions, a faint gold arrow */
+.write__unfold {
+  align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; min-height: 42px; padding: 9px 18px;
+  border: none; border-radius: 999px; background: color-mix(in srgb, var(--surface) 85%, transparent);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); font-size: 1rem; font-style: italic; font-weight: 500;
+  color: color-mix(in srgb, var(--fg) 70%, var(--bg));
+}
+.write__unfold svg { width: 14px; height: 14px; transform: rotate(180deg); color: color-mix(in srgb, var(--gold) 60%, var(--surface)); }
